@@ -15,8 +15,17 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 class Akebi extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {};
+  }
   render() {
-
+    return (
+      <div>
+        <h1>Akebi</h1>
+        <p>第二世代配架図エディタ</p>
+      </div>
+    )
   }
 }
 
@@ -28,5 +37,10 @@ class Akebi extends React.Component {
  */
 
 window.akebi = function(id, options){
-  document.getElementById(id).innerText = 'akebi';
+  ReactDOM.render(
+    React.createElement(Akebi, options),
+    document.getElementById(id)
+  )
+  //ReactDOM.render(<h1>Akebi</h1>, document.getElementById(id))
+  //document.getElementById(id).innerText = 'akebi';
 }

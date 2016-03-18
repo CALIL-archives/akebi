@@ -19494,15 +19494,33 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Akebi = function (_React$Component) {
   _inherits(Akebi, _React$Component);
 
-  function Akebi() {
+  function Akebi(props) {
     _classCallCheck(this, Akebi);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Akebi).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Akebi).call(this, props));
+
+    _this.state = {};
+    return _this;
   }
 
   _createClass(Akebi, [{
     key: 'render',
-    value: function render() {}
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Akebi'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          '第二世代配架図エディタ'
+        )
+      );
+    }
   }]);
 
   return Akebi;
@@ -19515,7 +19533,9 @@ var Akebi = function (_React$Component) {
  */
 
 window.akebi = function (id, options) {
-  document.getElementById(id).innerText = 'akebi';
+  _reactDom2.default.render(_react2.default.createElement(Akebi, options), document.getElementById(id));
+  //ReactDOM.render(<h1>Akebi</h1>, document.getElementById(id))
+  //document.getElementById(id).innerText = 'akebi';
 };
 
 },{"react":170,"react-dom":28}]},{},[171]);
