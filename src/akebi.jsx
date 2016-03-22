@@ -1,7 +1,6 @@
 /*
 
  akebi 第二世代配架図エディタ
- トップページ
 
  Copyright (c) 2016 CALIL Inc.
  This software is released under the MIT License.
@@ -20,11 +19,15 @@ class Akebi extends React.Component {
     super(props);
     this.state = {};
   }
+  open(){
+    akebi.open()
+  }
   render() {
     return (
       <div>
         <h1>Akebi</h1>
         <p>second generation haika editor</p>
+        <button onClick={this.open}>open</button>
       </div>
     )
   }
@@ -49,6 +52,7 @@ getGlobal().akebi = function(divId, options){
  */
 akebi.open = function(){
   // open svg
+  alert('open svg')
 }
 
 /**
