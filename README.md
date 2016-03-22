@@ -1,2 +1,4 @@
 # akebi
-第二世代配架図エディタ
+second generation haika editor
+
+![akebi second generation haika editor](dist/akebi.svg)
