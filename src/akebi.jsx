@@ -32,14 +32,29 @@ class Akebi extends React.Component {
 
 
 /**
- * akebiのスタート関数
- * @param id - divのid
- * @param options - オプション
+ * initialize funciton for akebi
+ * @param divId
+ * @param options
  */
 
-getGlobal().akebi = function(id, options){
+getGlobal().akebi = function(divId, options){
   ReactDOM.render(
     React.createElement(Akebi, options),
-    document.getElementById(id)
+    document.getElementById(divId)
   )
+}
+
+/**
+ * open svg file
+ */
+akebi.open = function(){
+  // open svg
+}
+
+/**
+ * save svg file
+ */
+akebi.save = function(){
+  // save svg
+  // download svg on browser
 }
