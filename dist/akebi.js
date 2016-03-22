@@ -19530,6 +19530,11 @@ var Akebi = function (_React$Component) {
       akebi.open();
     }
   }, {
+    key: 'save',
+    value: function save() {
+      akebi.save();
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -19549,6 +19554,11 @@ var Akebi = function (_React$Component) {
           'button',
           { onClick: this.open },
           'open'
+        ),
+        _react2.default.createElement(
+          'button',
+          { onClick: this.save },
+          'save'
         )
       );
     }
@@ -19581,6 +19591,7 @@ akebi.open = function () {
 akebi.save = function () {
   // save svg
   // download svg on browser
+  alert('save svg');
 };
 
 },{"get-global":27,"react":171,"react-dom":29}]},{},[172]);
