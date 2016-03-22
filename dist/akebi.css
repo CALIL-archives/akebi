@@ -5,14 +5,28 @@ body {
   font-size: 16px;
   color: #ffffff;
   background-color: #941DCD; }
-  body label.file {
+  body label.open {
     cursor: pointer;
     display: inline-block;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-right: 1rem;
+    padding: 1rem;
+    border: 1px solid #ffffff; }
+    body label.open input {
+      display: none; }
+  body button.save {
+    cursor: pointer;
+    display: inline-block;
+    color: #ffffff;
+    font-size: 1rem;
+    background-color: transparent;
     text-align: center;
     margin: 2rem 0;
     padding: 1rem;
     border: 1px solid #ffffff; }
-    body label.file input {
+    body button.save input {
       display: none; }
   body .dropzone {
     border: 3px dashed #ffffff;

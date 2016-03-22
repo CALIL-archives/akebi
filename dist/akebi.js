@@ -19519,10 +19519,17 @@ getGlobal().akebi = function (divId, options) {
   _reactDom2.default.render(_react2.default.createElement(_index2.default, options), document.getElementById(divId));
 };
 
+/**
+ * svg data
+ * @type {null}
+ */
+akebi.svg = null;
+
 function handleFileSelect(event) {
   // from file input || from drag and drop
   var files = event.target.files || event.dataTransfer.files; // FileList object
-
+  if (!files) return;
+  akebi.svg = null;
   // files is a FileList of File objects. List some properties.
   var output = [];
   for (var i = 0, f; f = files[i]; i++) {
@@ -19531,6 +19538,7 @@ function handleFileSelect(event) {
     var reader = new FileReader();
     reader.onload = function (event) {
       document.querySelector('output').innerHTML = event.target.result;
+      akebi.svg = event.target.result;
     };
     reader.onerror = function (event) {
       console.log(event.target.error.code);
@@ -19543,10 +19551,18 @@ function handleFileSelect(event) {
  * open svg file
  */
 akebi.open = function (event) {
-  // open svg
-  //alert('open svg')
-  //document.querySelector('output').innerHTML = event
   handleFileSelect(event);
+};
+
+function downloadAsFile(content) {
+  var blob = new Blob([content]);
+  var url = window.URL || window.webkitURL;
+  var blobURL = url.createObjectURL(blob);
+
+  var a = document.createElement('a');
+  a.download = 'akebi.svg';
+  a.href = blobURL;
+  a.click();
 };
 
 /**
@@ -19555,7 +19571,9 @@ akebi.open = function (event) {
 akebi.save = function () {
   // save svg
   // download svg on browser
-  alert('save svg');
+  if (akebi.svg) {
+    downloadAsFile(akebi.svg);
+  }
 };
 
 },{"./view/index.jsx":173,"get-global":27,"react":171,"react-dom":29}],173:[function(require,module,exports){
@@ -19635,21 +19653,21 @@ var Index = function (_React$Component) {
         ),
         _react2.default.createElement(
           'label',
-          { 'for': 'file', className: 'file' },
-          '＋ファイルを選択',
-          _react2.default.createElement('input', { type: 'file', id: 'file', multiple: true, onChange: this.open, accept: 'image/svg+xml' })
+          { 'for': 'open', className: 'open' },
+          '＋Open File',
+          _react2.default.createElement('input', { type: 'file', id: 'open', onChange: this.open, accept: 'image/svg+xml' })
+        ),
+        _react2.default.createElement(
+          'button',
+          { className: 'save', onClick: this.save },
+          'Save File'
         ),
         _react2.default.createElement(
           'div',
           { className: 'dropzone', onDragOver: this.handleDragOver, onDrop: this.handleFileSelect },
           'Drop files here'
         ),
-        _react2.default.createElement('output', null),
-        _react2.default.createElement(
-          'button',
-          { onClick: this.save },
-          'save'
-        )
+        _react2.default.createElement('output', null)
       );
     }
   }]);
