@@ -11,6 +11,7 @@
 
 'use strict'
 
+var getGlobal = require("get-global");
 import React from 'react'
 import ReactDOM from 'react-dom'
 
@@ -23,7 +24,7 @@ class Akebi extends React.Component {
     return (
       <div>
         <h1>Akebi</h1>
-        <p>第二世代配架図エディタ</p>
+        <p>second generation haika editor</p>
       </div>
     )
   }
@@ -36,11 +37,9 @@ class Akebi extends React.Component {
  * @param options - オプション
  */
 
-window.akebi = function(id, options){
+getGlobal().akebi = function(id, options){
   ReactDOM.render(
     React.createElement(Akebi, options),
     document.getElementById(id)
   )
-  //ReactDOM.render(<h1>Akebi</h1>, document.getElementById(id))
-  //document.getElementById(id).innerText = 'akebi';
 }
