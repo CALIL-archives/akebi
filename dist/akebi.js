@@ -19528,15 +19528,15 @@ function handleFileSelect(event) {
   for (var i = 0, f; f = files[i]; i++) {
     // check file type
     if (f.type != 'image/svg+xml') continue;
-    output.push('<li><strong>', encodeURI(f.name), '</strong> (', f.type || 'n/a', ') - ', f.size, ' bytes, last modified: ', f.lastModifiedDate.toLocaleDateString(), '</li>');
-
     var reader = new FileReader();
     reader.onload = function (event) {
       document.querySelector('output').innerHTML = event.target.result;
     };
+    reader.onerror = function (event) {
+      console.log(event.target.error.code);
+    };
     reader.readAsText(f);
   }
-  document.querySelector('output').innerHTML = '<ul>' + output.join('') + '</ul>';
 }
 
 /**
