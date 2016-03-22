@@ -19492,8 +19492,6 @@ module.exports = require('./lib/React');
 
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -19501,6 +19499,55 @@ var _react2 = _interopRequireDefault(_react);
 var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _index = require('./view/index.jsx');
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var getGlobal = require("get-global");
+
+
+/**
+ * initialize funciton for akebi
+ * @param divId
+ * @param options
+ */
+
+getGlobal().akebi = function (divId, options) {
+  _reactDom2.default.render(_react2.default.createElement(_index2.default, options), document.getElementById(divId));
+};
+
+/**
+ * open svg file
+ */
+akebi.open = function () {
+  // open svg
+  alert('open svg');
+};
+
+/**
+ * save svg file
+ */
+akebi.save = function () {
+  // save svg
+  // download svg on browser
+  alert('save svg');
+};
+
+},{"./view/index.jsx":173,"get-global":27,"react":171,"react-dom":29}],173:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19510,21 +19557,19 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var getGlobal = require("get-global");
+var Index = function (_React$Component) {
+  _inherits(Index, _React$Component);
 
-var Akebi = function (_React$Component) {
-  _inherits(Akebi, _React$Component);
+  function Index(props) {
+    _classCallCheck(this, Index);
 
-  function Akebi(props) {
-    _classCallCheck(this, Akebi);
-
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Akebi).call(this, props));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Index).call(this, props));
 
     _this.state = {};
     return _this;
   }
 
-  _createClass(Akebi, [{
+  _createClass(Index, [{
     key: 'open',
     value: function open() {
       akebi.open();
@@ -19564,34 +19609,9 @@ var Akebi = function (_React$Component) {
     }
   }]);
 
-  return Akebi;
+  return Index;
 }(_react2.default.Component);
 
-/**
- * initialize funciton for akebi
- * @param divId
- * @param options
- */
+exports.default = Index;
 
-getGlobal().akebi = function (divId, options) {
-  _reactDom2.default.render(_react2.default.createElement(Akebi, options), document.getElementById(divId));
-};
-
-/**
- * open svg file
- */
-akebi.open = function () {
-  // open svg
-  alert('open svg');
-};
-
-/**
- * save svg file
- */
-akebi.save = function () {
-  // save svg
-  // download svg on browser
-  alert('save svg');
-};
-
-},{"get-global":27,"react":171,"react-dom":29}]},{},[172]);
+},{"react":171}]},{},[172]);
