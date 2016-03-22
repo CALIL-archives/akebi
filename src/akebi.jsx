@@ -44,19 +44,10 @@ function handleFileSelect(event){
                 f.lastModifiedDate.toLocaleDateString(), '</li>');
 
     var reader = new FileReader();
-    // Closure to capture the file information.
-    reader.onload = (function(theFile) {
-      return function(e) {
-        // Render thumbnail.
-        var span = document.createElement('span');
-        span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                          '" title="', encodeURI(theFile.name), '"/>'].join('');
-        document.querySelector('output').insertBefore(span, null);
-      };
-    })(f);
-
-    // Read in the image file as a data URL.
-    reader.readAsDataURL(f);
+    reader.onload = function(event) {
+        document.querySelector('output').innerHTML = event.target.result;
+    };
+    reader.readAsText(f);
   }
   document.querySelector('output').innerHTML = '<ul>' + output.join('') + '</ul>';
 }

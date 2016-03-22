@@ -5,11 +5,14 @@ body {
   font-size: 16px;
   color: #ffffff;
   background-color: #941DCD; }
-  body .file {
+  body label.file {
     cursor: pointer;
-    display: block;
-    margin: 2rem 0; }
-    body .file input {
+    display: inline-block;
+    text-align: center;
+    margin: 2rem 0;
+    padding: 1rem;
+    border: 1px solid #ffffff; }
+    body label.file input {
       display: none; }
   body .dropzone {
     border: 3px dashed #ffffff;
