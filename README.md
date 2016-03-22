@@ -1,4 +1,4 @@
 # akebi
 second generation haika editor
 
-![akebi second generation haika editor](dist/akebi.svg)
+![akebi second generation haika editor](dist/akebi.png)
