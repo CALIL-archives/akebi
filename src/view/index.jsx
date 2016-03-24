@@ -32,11 +32,11 @@ export default class Index extends React.Component {
         <p>second generation haika editor</p>
         <label for="open" className="open">
           ＋Open File
-          <input type="file" id="open" onChange={this.open}  accept='image/svg+xml' />
+          <input type="file" id="open" onChange={this.open}  accept='application/json' />
         </label>
         <button className="save" onClick={this.save}>Save File</button>
         <div className="dropzone" onDragOver={this.handleDragOver} onDrop={this.handleFileSelect}>Drop files here</div>
-        <output></output>
+        <output style={{background: 'white', display: 'block', padding: '30px'}}></output>
       </div>
     )
   }
