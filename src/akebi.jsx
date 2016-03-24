@@ -33,7 +33,7 @@ getGlobal().akebi = function(divId, options){
  *
  * @type {null}
  */
-akebi.content = null;
+akebi.geojson = null;
 
 function handleFileSelect(event){
   // from file input || from drag and drop
@@ -43,7 +43,8 @@ function handleFileSelect(event){
   var output = [];
   for (var i = 0, f; f = files[i]; i++) {
     // check file type
-    if(f.type!='application/json') continue;
+    // geojson f.type==''
+    //if(f.type!='application/json') continue;
     var reader = new FileReader();
     reader.onload = function(event) {
       document.querySelector('output').innerHTML = event.target.result;
@@ -63,16 +64,20 @@ akebi.open = function(event){
   handleFileSelect(event)
 };
 
-akebi.update = function(content){
-  akebi.content = content;
-}
+/**
+ * update geojson data
+ * @param geojson
+ */
+akebi.update = function(geojson){
+  akebi.geojson = geojson;
+};
 
 /**
  * download ad file
- * @param content
+ * @param geojson
  */
-function downloadAsFile(content) {
-    var blob = new Blob([content]);
+function downloadAsFile(geojson) {
+    var blob = new Blob([geojson]);
     var url = window.URL || window.webkitURL;
     var blobURL = url.createObjectURL(blob);
 
@@ -86,7 +91,7 @@ function downloadAsFile(content) {
  * save geojson file
  */
 akebi.save = function(){
-  if(akebi.content){
-    downloadAsFile(akebi.content)
+  if(akebi.geojson){
+    downloadAsFile(akebi.geojson)
   }
 };
