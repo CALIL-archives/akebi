@@ -19555,14 +19555,16 @@ function GeoJson2SVG(geojson) {
 
 function CreateSVG() {
   var xmlns = 'http://www.w3.org/2000/svg';
-  var boxWidth = 300;
-  var boxHeight = 300;
-  var svgElem = document.createElementNS(xmlns, 'svg');
-  svgElem.setAttributeNS(null, 'viewBox', '0 0 ' + boxWidth + ' ' + boxHeight);
-  svgElem.setAttributeNS(null, 'width', boxWidth);
-  svgElem.setAttributeNS(null, 'height', boxHeight);
-  svgElem.style.display = 'block';
-  return svgElem;
+  var svg = document.createElementNS(xmlns, 'svg');
+  setViewBox(svg, 300, 300);
+  return svg;
+}
+
+function setViewBox(svg, width, height) {
+  svg.setAttributeNS(null, 'viewBox', '0 0 ' + width + ' ' + height);
+  svg.setAttributeNS(null, 'width', width);
+  svg.setAttributeNS(null, 'height', height);
+  return svg;
 }
 
 /**
