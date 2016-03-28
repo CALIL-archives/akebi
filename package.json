@@ -45,7 +45,6 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
-    "geojson2svg": "^1.0.3",
     "get-global": "0.0.1",
     "react": "^15.0.0-rc.2",
     "react-dom": "^15.0.0-rc.2"
