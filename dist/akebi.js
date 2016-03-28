@@ -19536,7 +19536,7 @@ function handleFileSelect(event) {
     reader.onload = function (event) {
       if (!event.target.result) return;
       var json = JSON.parse(event.target.result);
-      GeoJson2SVG(json.data);
+      haikaGeoJson2SVG(json);
     };
     reader.onerror = function (event) {
       console.log(event.target.error.code);
@@ -19545,27 +19545,14 @@ function handleFileSelect(event) {
   }
 }
 
-function GeoJson2SVG(geojson) {
-
-  var svg = CreateSVG();
-
+function haikaGeoJson2SVG(json) {
+  var svg = createSVG();
+  if (!json || !json.data) return console.error('no json');
+  var geojson = json.data;
+  //document.querySelector('output').innerText = JSON.stringify(geojson);
   document.querySelector('output').appendChild(svg);
   akebi.update(event.target.result);
 };
-
-function CreateSVG() {
-  var xmlns = 'http://www.w3.org/2000/svg';
-  var svg = document.createElementNS(xmlns, 'svg');
-  setViewBox(svg, 300, 300);
-  return svg;
-}
-
-function setViewBox(svg, width, height) {
-  svg.setAttributeNS(null, 'viewBox', '0 0 ' + width + ' ' + height);
-  svg.setAttributeNS(null, 'width', width);
-  svg.setAttributeNS(null, 'height', height);
-  return svg;
-}
 
 /**
  * open geojson file
@@ -19618,6 +19605,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _svg = require('./svg.jsx');
+
+var _svg2 = _interopRequireDefault(_svg);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19697,7 +19688,11 @@ var Index = function (_React$Component) {
           { className: 'dropzone', onDragOver: this.handleDragOver, onDrop: this.handleFileSelect },
           'Drop files here'
         ),
-        _react2.default.createElement('output', { style: { background: 'white', display: 'block', padding: '30px' } })
+        _react2.default.createElement(
+          'output',
+          { style: { color: 'black', background: 'white', display: 'block', padding: '30px' } },
+          _react2.default.createElement(_svg2.default, null)
+        )
       );
     }
   }]);
@@ -19706,5 +19701,67 @@ var Index = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Index;
+
+},{"./svg.jsx":174,"react":171}],174:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SVGCanvas = function (_React$Component) {
+  _inherits(SVGCanvas, _React$Component);
+
+  function SVGCanvas(props) {
+    _classCallCheck(this, SVGCanvas);
+
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SVGCanvas).call(this, props));
+
+    _this.state = {};
+    return _this;
+  }
+
+  _createClass(SVGCanvas, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.setPan(300, 300);
+    }
+  }, {
+    key: 'setPan',
+    value: function setPan(width, height) {
+      var svg = this.refs.svg;
+      svg.setAttributeNS(null, 'viewBox', '0 0 ' + width + ' ' + height);
+      svg.setAttributeNS(null, 'width', width);
+      svg.setAttributeNS(null, 'height', height);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'svg',
+        { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg' },
+        _react2.default.createElement('rect', { x: '10', y: '10', width: '120', height: '100', stroke: 'black', 'stroke-width': '1', fill: 'none' })
+      );
+    }
+  }]);
+
+  return SVGCanvas;
+}(_react2.default.Component);
+
+exports.default = SVGCanvas;
 
 },{"react":171}]},{},[172]);

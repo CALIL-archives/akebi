@@ -1,6 +1,7 @@
-'use strict'
+'use strict';
 
 import React from 'react'
+import SVGCanvas from './svg.jsx'
 
 export default class Index extends React.Component {
   constructor(props){
@@ -36,7 +37,8 @@ export default class Index extends React.Component {
         </label>
         <button className="save" onClick={this.save}>Save File</button>
         <div className="dropzone" onDragOver={this.handleDragOver} onDrop={this.handleFileSelect}>Drop files here</div>
-        <output style={{background: 'white', display: 'block', padding: '30px'}}>
+        <output style={{color: 'black', background: 'white', display: 'block', padding: '30px'}}>
+          <SVGCanvas></SVGCanvas>
         </output>
       </div>
     )
