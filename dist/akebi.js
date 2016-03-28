@@ -19536,7 +19536,8 @@ function handleFileSelect(event) {
     reader.onload = function (event) {
       if (!event.target.result) return;
       var json = JSON.parse(event.target.result);
-      haikaGeoJson2SVG(json);
+      if (!json || !json.data) return console.error('no json');
+      akebi.update(json);
     };
     reader.onerror = function (event) {
       console.log(event.target.error.code);
@@ -19544,15 +19545,6 @@ function handleFileSelect(event) {
     reader.readAsText(f);
   }
 }
-
-function haikaGeoJson2SVG(json) {
-  var svg = createSVG();
-  if (!json || !json.data) return console.error('no json');
-  var geojson = json.data;
-  //document.querySelector('output').innerText = JSON.stringify(geojson);
-  document.querySelector('output').appendChild(svg);
-  akebi.update(event.target.result);
-};
 
 /**
  * open geojson file
