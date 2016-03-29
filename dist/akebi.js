@@ -19782,7 +19782,7 @@ var SVGCanvas = function (_React$Component) {
         'svg',
         { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: '0 0 300 300' },
         _react2.default.createElement(Rect, null),
-        _react2.default.createElement(BookShelf, null)
+        _react2.default.createElement(Shelf, null)
       );
     }
   }]);
@@ -19811,24 +19811,62 @@ var Rect = function (_React$Component2) {
   return Rect;
 }(_react2.default.Component);
 
-var BookShelf = function (_React$Component3) {
-  _inherits(BookShelf, _React$Component3);
+var Shelf = function (_React$Component3) {
+  _inherits(Shelf, _React$Component3);
 
-  function BookShelf() {
-    _classCallCheck(this, BookShelf);
+  function Shelf(props) {
+    _classCallCheck(this, Shelf);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(BookShelf).apply(this, arguments));
+    var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(Shelf).call(this, props));
+
+    _this3.state = {
+      "type": "Feature",
+      "properties": {
+        "id": 4,
+        "type": "shelf",
+        "side": 2,
+        "count": 8,
+        "angle": 0,
+        "top_cm": -99,
+        "left_cm": 57,
+        "eachHeight": 26,
+        "eachWidth": 90,
+        "label": '棚番号ふ'
+      }
+    };
+    return _this3;
   }
 
-  _createClass(BookShelf, [{
+  _createClass(Shelf, [{
+    key: 'createShelf',
+    value: function createShelf() {
+      this.createReact();
+      this.createPartitionLine();
+      if (this.state.side) {
+        this.createSide();
+      }
+    }
+  }, {
+    key: 'createRect',
+    value: function createRect() {}
+  }, {
+    key: 'createPartitionLine',
+    value: function createPartitionLine() {}
+  }, {
+    key: 'createSide',
+    value: function createSide() {}
+  }, {
     key: 'render',
     value: function render() {
-      var geojson = { "type": "Feature", "properties": { "count": 8, "angle": 0, "top_cm": -99, "side": 2, "eachHeight": 26, "left_cm": 57, "eachWidth": 90, "label": '棚番号ふ', "type": "shelf", "id": 4 } };
-      return _react2.default.createElement('rect', { x: '150', y: '10', width: '120', height: '100', stroke: 'black', 'stroke-width': '1', fill: 'none' });
+      return _react2.default.createElement(
+        'g',
+        null,
+        _react2.default.createElement('rect', { x: '150', y: '10', width: '120', height: '100', stroke: 'black', 'stroke-width': '1', fill: 'none' })
+      );
     }
   }]);
 
-  return BookShelf;
+  return Shelf;
 }(_react2.default.Component);
 
 },{"react":171}]},{},[172]);
