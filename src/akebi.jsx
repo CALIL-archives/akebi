@@ -49,7 +49,7 @@ function handleFileSelect(event){
       if(!event.target.result) return;
       var json = JSON.parse(event.target.result);
       if(!json || !json.data) return console.error('no json');
-      akebi.update(json);
+      akebi.load(json);
     };
     reader.onerror = function(event){
       console.log(event.target.error.code);
@@ -62,7 +62,15 @@ function handleFileSelect(event){
  * open geojson file
  */
 akebi.open = function(event){
-  handleFileSelect(event)
+  handleFileSelect(event);
+};
+
+/**
+ * load geojson
+ * @param geojson
+ */
+akebi.load = function(geojson){
+  akebi.geojson = geojson;
 };
 
 /**
@@ -71,6 +79,7 @@ akebi.open = function(event){
  */
 akebi.update = function(geojson){
   akebi.geojson = geojson;
+  // fire update event
 };
 
 /**

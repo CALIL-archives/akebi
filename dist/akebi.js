@@ -19537,7 +19537,7 @@ function handleFileSelect(event) {
       if (!event.target.result) return;
       var json = JSON.parse(event.target.result);
       if (!json || !json.data) return console.error('no json');
-      akebi.update(json);
+      akebi.load(json);
     };
     reader.onerror = function (event) {
       console.log(event.target.error.code);
@@ -19554,11 +19554,20 @@ akebi.open = function (event) {
 };
 
 /**
+ * load geojson
+ * @param geojson
+ */
+akebi.load = function (geojson) {
+  akebi.geojson = geojson;
+};
+
+/**
  * update geojson data
  * @param geojson
  */
 akebi.update = function (geojson) {
   akebi.geojson = geojson;
+  // fire updated event
 };
 
 /**
