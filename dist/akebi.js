@@ -19758,28 +19758,17 @@ var SVGCanvas = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SVGCanvas).call(this, props));
 
     _this.state = {};
+    _this.width = 800;
+    _this.height = 300;
     return _this;
   }
 
   _createClass(SVGCanvas, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.setPan(300, 300);
-    }
-  }, {
-    key: 'setPan',
-    value: function setPan(width, height) {
-      var svg = this.refs.svg;
-      //svg.setAttributeNS(null, 'viewBox', '0 0 ' + width + ' ' + height);
-      svg.setAttributeNS(null, 'width', width);
-      svg.setAttributeNS(null, 'height', height);
-    }
-  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'svg',
-        { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: '0 0 300 300' },
+        { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: '0 0 {this.width} {this.height}', width: this.width, height: this.height },
         _react2.default.createElement(Shelf, null)
       );
     }
@@ -19830,6 +19819,10 @@ var Shelf = function (_React$Component3) {
       "label": '棚番号ふ'
     };
     _this3.svgs = [];
+    _this3.x = 10;
+    _this3.y = 10;
+    _this3.width = _this3.state.eachWidth * _this3.state.count;
+    _this3.height = _this3.state.eachHeight * _this3.state.side;
     return _this3;
   }
 
@@ -19844,17 +19837,25 @@ var Shelf = function (_React$Component3) {
   }, {
     key: 'createRect',
     value: function createRect() {
-      this.svgs.push(_react2.default.createElement('rect', { x: '150', y: '10', width: '120', height: '100', stroke: 'black', strokeWidth: '1', fill: 'none' }));
+      this.svgs.push(_react2.default.createElement('rect', { x: this.x, y: this.y, width: this.width, height: this.height, stroke: 'currentColor', strokeWidth: '1', fill: 'none' }));
     }
   }, {
     key: 'createPartitionLine',
     value: function createPartitionLine() {
-      this.svgs.push(_react2.default.createElement('line', { x1: '150', y1: '60', x2: '270', y2: '60', stroke: 'black', strokeWidth: '1' }));
+      var x1 = this.x;
+      var y1 = this.y + this.height / 2;
+      var x2 = this.x + this.width;
+      var y2 = this.y + this.height / 2;
+      this.svgs.push(_react2.default.createElement('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: 'currentColor', strokeWidth: '1' }));
     }
   }, {
     key: 'createSide',
     value: function createSide() {
-      this.svgs.push(_react2.default.createElement('line', { x1: '150', y1: '110', x2: '270', y2: '110', stroke: 'black', strokeWidth: '5' }));
+      var x1 = this.x - 1;
+      var y1 = this.y + this.height;
+      var x2 = this.x + this.width + 1;
+      var y2 = this.y + this.height;
+      this.svgs.push(_react2.default.createElement('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: 'currentColor', strokeWidth: '5' }));
     }
   }, {
     key: 'render',
@@ -19862,7 +19863,7 @@ var Shelf = function (_React$Component3) {
       this.createShelf();
       return _react2.default.createElement(
         'g',
-        null,
+        { color: '#D72541' },
         this.svgs
       );
     }
