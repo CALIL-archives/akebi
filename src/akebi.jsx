@@ -50,7 +50,6 @@ getGlobal().akebi = function(divId, akebiOptions){
     React.createElement(Index, options),
     document.getElementById(divId)
   );
-  debug(options);
 };
 
 /**
