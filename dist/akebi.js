@@ -19517,9 +19517,10 @@ var getGlobal = require('get-global');
 getGlobal().debug = function (data) {
   if (typeof data == 'string') {
     document.querySelector('#debug').innerText = data;
-  }
-  if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) == 'object') {
+  } else if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) == 'object') {
     document.querySelector('#debug').innerText = JSON.stringify(data);
+  } else {
+    document.querySelector('#debug').innerText = data.toString();
   }
 };
 
@@ -19764,11 +19765,16 @@ var SVGCanvas = function (_React$Component) {
   }
 
   _createClass(SVGCanvas, [{
+    key: 'getViewBox',
+    value: function getViewBox() {
+      return '0 0 ' + this.width + ' ' + this.height;
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'svg',
-        { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: '0 0 {this.width} {this.height}', width: this.width, height: this.height },
+        { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height },
         _react2.default.createElement(Shelf, null)
       );
     }
@@ -19842,10 +19848,34 @@ var Shelf = function (_React$Component3) {
   }, {
     key: 'createPartitionLine',
     value: function createPartitionLine() {
+      this.createPartitionSideLine();
+      this.createPartitionVerticalLine();
+    }
+  }, {
+    key: 'createPartitionSideLine',
+    value: function createPartitionSideLine() {
+      if (this.state.side <= 1) return;
       var x1 = this.x;
       var y1 = this.y + this.height / 2;
       var x2 = this.x + this.width;
       var y2 = this.y + this.height / 2;
+      this.svgs.push(_react2.default.createElement('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: 'currentColor', strokeWidth: '1' }));
+    }
+  }, {
+    key: 'createPartitionVerticalLine',
+    value: function createPartitionVerticalLine() {
+      if (this.state.count <= 1) return;
+      for (var i = 1, l = this.state.count; i <= l; i++) {
+        this.createVerticalLine(i);
+      }
+    }
+  }, {
+    key: 'createVerticalLine',
+    value: function createVerticalLine(i) {
+      var x1 = this.x + this.state.eachWidth * i;
+      var y1 = this.y;
+      var x2 = this.x + this.state.eachWidth * i;
+      var y2 = this.y + this.height;
       this.svgs.push(_react2.default.createElement('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: 'currentColor', strokeWidth: '1' }));
     }
   }, {

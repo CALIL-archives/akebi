@@ -19,9 +19,10 @@ var getGlobal = require('get-global');
 getGlobal().debug = function(data){
   if(typeof data=='string'){
     document.querySelector('#debug').innerText = data;
-  }
-  if(typeof data=='object'){
+  }else if(typeof data=='object'){
     document.querySelector('#debug').innerText = JSON.stringify(data);
+  }else{
+    document.querySelector('#debug').innerText = data.toString();
   }
 };
 
