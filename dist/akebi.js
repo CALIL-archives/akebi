@@ -19527,11 +19527,21 @@ var getGlobal = require('get-global');
 /**
  * initialize funciton for akebi
  * @param divId
- * @param options
+ * @param akebiOptions
  */
 
-getGlobal().akebi = function (divId, options) {
+getGlobal().akebi = function (divId, akebiOptions) {
+  var akebiOptions = {
+    open: false
+  };
+  var options = {
+    save: true
+  };
+  // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+  // merge appOptions to options
+  Object.assign(options, akebiOptions);
   _reactDom2.default.render(_react2.default.createElement(_index2.default, options), document.getElementById(divId));
+  debug(options);
 };
 
 /**

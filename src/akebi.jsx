@@ -33,15 +33,25 @@ import Index from './view/index.jsx'
 /**
  * initialize funciton for akebi
  * @param divId
- * @param options
+ * @param akebiOptions
  */
 
-getGlobal().akebi = function(divId, options){
+getGlobal().akebi = function(divId, akebiOptions){
+  var akebiOptions = {
+    open: false
+  }
+  var options = {
+    save: true
+  };
+  // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+  // merge appOptions to options
+  Object.assign(options, akebiOptions);
   ReactDOM.render(
     React.createElement(Index, options),
     document.getElementById(divId)
-  )
-}
+  );
+  debug(options);
+};
 
 /**
  *
