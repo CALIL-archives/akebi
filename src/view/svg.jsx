@@ -19,8 +19,16 @@ export default class SVGCanvas extends React.Component {
   render() {
     return (
       <svg xmlns="http://www.w3.org/2000/svg" ref="svg">
-        <rect x="10" y="10" width="120" height="100" stroke="black" stroke-width="1" fill="none"/>
+        <Rect></Rect>
       </svg>
+    )
+  }
+}
+
+class Rect extends React.Component {
+  render() {
+    return (
+        <rect x="10" y="10" width="120" height="100" stroke="black" stroke-width="1" fill="none"/>
     )
   }
 }

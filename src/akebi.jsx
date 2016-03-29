@@ -74,7 +74,7 @@ akebi.load = function(geojson){
 };
 
 /**
- * update geojson data
+ * update geojson
  * @param geojson
  */
 akebi.update = function(geojson){
@@ -83,7 +83,7 @@ akebi.update = function(geojson){
 };
 
 /**
- * download ad file
+ * download as file
  * @param geojson
  */
 function downloadAsFile(geojson) {

@@ -19562,16 +19562,16 @@ akebi.load = function (geojson) {
 };
 
 /**
- * update geojson data
+ * update geojson
  * @param geojson
  */
 akebi.update = function (geojson) {
   akebi.geojson = geojson;
-  // fire updated event
+  // fire update event
 };
 
 /**
- * download ad file
+ * download as file
  * @param geojson
  */
 function downloadAsFile(geojson) {
@@ -19755,7 +19755,7 @@ var SVGCanvas = function (_React$Component) {
       return _react2.default.createElement(
         'svg',
         { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg' },
-        _react2.default.createElement('rect', { x: '10', y: '10', width: '120', height: '100', stroke: 'black', 'stroke-width': '1', fill: 'none' })
+        _react2.default.createElement(Rect, null)
       );
     }
   }]);
@@ -19764,5 +19764,24 @@ var SVGCanvas = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = SVGCanvas;
+
+var Rect = function (_React$Component2) {
+  _inherits(Rect, _React$Component2);
+
+  function Rect() {
+    _classCallCheck(this, Rect);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Rect).apply(this, arguments));
+  }
+
+  _createClass(Rect, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement('rect', { x: '10', y: '10', width: '120', height: '100', stroke: 'black', 'stroke-width': '1', fill: 'none' });
+    }
+  }]);
+
+  return Rect;
+}(_react2.default.Component);
 
 },{"react":171}]},{},[172]);
