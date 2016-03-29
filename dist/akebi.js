@@ -19492,6 +19492,13 @@ module.exports = require('./lib/React');
 
 'use strict';
 
+/**
+ * debug
+ * @param data
+ */
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -19505,6 +19512,15 @@ var _index = require('./view/index.jsx');
 var _index2 = _interopRequireDefault(_index);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function debug(data) {
+  if (typeof data == 'string') {
+    document.querySelector('output').innerText = data;
+  }
+  if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) == 'object') {
+    document.querySelector('output').innerText = JSON.stringify(data);
+  }
+}
 
 var getGlobal = require('get-global');
 
@@ -19537,6 +19553,7 @@ function handleFileSelect(event) {
       if (!event.target.result) return;
       var json = JSON.parse(event.target.result);
       if (!json || !json.data) return console.error('no json');
+      debug(json);
       akebi.load(json);
     };
     reader.onerror = function (event) {
@@ -19745,7 +19762,7 @@ var SVGCanvas = function (_React$Component) {
     key: 'setPan',
     value: function setPan(width, height) {
       var svg = this.refs.svg;
-      svg.setAttributeNS(null, 'viewBox', '0 0 ' + width + ' ' + height);
+      //svg.setAttributeNS(null, 'viewBox', '0 0 ' + width + ' ' + height);
       svg.setAttributeNS(null, 'width', width);
       svg.setAttributeNS(null, 'height', height);
     }
@@ -19754,7 +19771,7 @@ var SVGCanvas = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'svg',
-        { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg' },
+        { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: '0 0 300 300' },
         _react2.default.createElement(Rect, null)
       );
     }

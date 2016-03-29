@@ -12,13 +12,13 @@ export default class SVGCanvas extends React.Component {
   }
   setPan(width, height) {
     let svg = this.refs.svg;
-    svg.setAttributeNS(null, 'viewBox', '0 0 ' + width + ' ' + height);
+    //svg.setAttributeNS(null, 'viewBox', '0 0 ' + width + ' ' + height);
     svg.setAttributeNS(null, 'width', width);
     svg.setAttributeNS(null, 'height', height);
   }
   render() {
     return (
-      <svg xmlns="http://www.w3.org/2000/svg" ref="svg">
+      <svg xmlns="http://www.w3.org/2000/svg" ref="svg" viewBox="0 0 300 300">
         <Rect></Rect>
       </svg>
     )

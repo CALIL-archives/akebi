@@ -10,6 +10,19 @@
 
 'use strict';
 
+/**
+ * debug
+ * @param data
+ */
+function debug(data){
+  if(typeof data=='string'){
+    document.querySelector('output').innerText = data;
+  }
+  if(typeof data=='object'){
+    document.querySelector('output').innerText = JSON.stringify(data);
+  }
+}
+
 var getGlobal = require('get-global');
 
 import React from 'react'
@@ -49,6 +62,7 @@ function handleFileSelect(event){
       if(!event.target.result) return;
       var json = JSON.parse(event.target.result);
       if(!json || !json.data) return console.error('no json');
+      debug(json);
       akebi.load(json);
     };
     reader.onerror = function(event){
