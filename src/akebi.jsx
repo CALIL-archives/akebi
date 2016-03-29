@@ -10,20 +10,21 @@
 
 'use strict';
 
+var getGlobal = require('get-global');
+
 /**
  * debug
  * @param data
  */
-function debug(data){
+getGlobal().debug = function(data){
   if(typeof data=='string'){
     document.querySelector('output').innerText = data;
   }
   if(typeof data=='object'){
     document.querySelector('output').innerText = JSON.stringify(data);
   }
-}
+};
 
-var getGlobal = require('get-global');
 
 import React from 'react'
 import ReactDOM from 'react-dom'
