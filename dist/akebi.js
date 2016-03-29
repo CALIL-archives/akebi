@@ -19492,11 +19492,6 @@ module.exports = require('./lib/React');
 
 'use strict';
 
-/**
- * debug
- * @param data
- */
-
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 var _react = require('react');
@@ -19513,16 +19508,20 @@ var _index2 = _interopRequireDefault(_index);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function debug(data) {
+var getGlobal = require('get-global');
+
+/**
+ * debug
+ * @param data
+ */
+getGlobal().debug = function (data) {
   if (typeof data == 'string') {
-    document.querySelector('output').innerText = data;
+    document.querySelector('#debug').innerText = data;
   }
   if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) == 'object') {
-    document.querySelector('output').innerText = JSON.stringify(data);
+    document.querySelector('#debug').innerText = JSON.stringify(data);
   }
-}
-
-var getGlobal = require('get-global');
+};
 
 /**
  * initialize funciton for akebi
@@ -19781,7 +19780,6 @@ var SVGCanvas = function (_React$Component) {
       return _react2.default.createElement(
         'svg',
         { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: '0 0 300 300' },
-        _react2.default.createElement(Rect, null),
         _react2.default.createElement(Shelf, null)
       );
     }
@@ -19820,48 +19818,52 @@ var Shelf = function (_React$Component3) {
     var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(Shelf).call(this, props));
 
     _this3.state = {
-      "type": "Feature",
-      "properties": {
-        "id": 4,
-        "type": "shelf",
-        "side": 2,
-        "count": 8,
-        "angle": 0,
-        "top_cm": -99,
-        "left_cm": 57,
-        "eachHeight": 26,
-        "eachWidth": 90,
-        "label": '棚番号ふ'
-      }
+      "id": 4,
+      "type": "shelf",
+      "side": 2,
+      "count": 8,
+      "angle": 0,
+      "top_cm": -99,
+      "left_cm": 57,
+      "eachHeight": 26,
+      "eachWidth": 90,
+      "label": '棚番号ふ'
     };
+    _this3.svgs = [];
     return _this3;
   }
 
   _createClass(Shelf, [{
     key: 'createShelf',
     value: function createShelf() {
-      this.createReact();
+      this.createRect();
       this.createPartitionLine();
-      if (this.state.side) {
-        this.createSide();
-      }
+      this.createSide();
+      if (this.state.side == 1) {}
     }
   }, {
     key: 'createRect',
-    value: function createRect() {}
+    value: function createRect() {
+      this.svgs.push(_react2.default.createElement('rect', { x: '150', y: '10', width: '120', height: '100', stroke: 'black', strokeWidth: '1', fill: 'none' }));
+    }
   }, {
     key: 'createPartitionLine',
-    value: function createPartitionLine() {}
+    value: function createPartitionLine() {
+      this.svgs.push(_react2.default.createElement('line', { x1: '150', y1: '60', x2: '270', y2: '60', stroke: 'black', strokeWidth: '1' }));
+    }
   }, {
     key: 'createSide',
-    value: function createSide() {}
+    value: function createSide() {
+      this.svgs.push(_react2.default.createElement('line', { x1: '150', y1: '110', x2: '270', y2: '110', stroke: 'black', strokeWidth: '5' }));
+    }
   }, {
     key: 'render',
     value: function render() {
+      this.createShelf();
       return _react2.default.createElement(
         'g',
         null,
-        _react2.default.createElement('rect', { x: '150', y: '10', width: '120', height: '100', stroke: 'black', 'stroke-width': '1', fill: 'none' })
+        this.svgs
       );
     }
   }]);

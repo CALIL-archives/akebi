@@ -18,10 +18,10 @@ var getGlobal = require('get-global');
  */
 getGlobal().debug = function(data){
   if(typeof data=='string'){
-    document.querySelector('output').innerText = data;
+    document.querySelector('#debug').innerText = data;
   }
   if(typeof data=='object'){
-    document.querySelector('output').innerText = JSON.stringify(data);
+    document.querySelector('#debug').innerText = JSON.stringify(data);
   }
 };
 
