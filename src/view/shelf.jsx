@@ -3,6 +3,10 @@
 import React from 'react'
 
 class AkebiSVGComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.svgs = [];
+  }
   onClick() {
     debug('click')
   }
@@ -31,7 +35,6 @@ export default class Shelf extends AkebiSVGComponent {
       "eachWidth": 90,
       "label": "\u68da\u756a\u53f7\u3075"
     };
-    this.svgs = [];
     this.x = 10;
     this.y = 10;
     this.width = this.state.eachWidth * this.state.count;

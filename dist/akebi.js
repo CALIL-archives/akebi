@@ -19832,10 +19832,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var AkebiSVGComponent = function (_React$Component) {
   _inherits(AkebiSVGComponent, _React$Component);
 
-  function AkebiSVGComponent() {
+  function AkebiSVGComponent(props) {
     _classCallCheck(this, AkebiSVGComponent);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(AkebiSVGComponent).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AkebiSVGComponent).call(this, props));
+
+    _this.svgs = [];
+    return _this;
   }
 
   _createClass(AkebiSVGComponent, [{
@@ -19878,7 +19881,6 @@ var Shelf = function (_AkebiSVGComponent) {
       "eachWidth": 90,
       "label": '棚番号ふ'
     };
-    _this2.svgs = [];
     _this2.x = 10;
     _this2.y = 10;
     _this2.width = _this2.state.eachWidth * _this2.state.count;
