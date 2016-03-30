@@ -2,7 +2,21 @@
 
 import React from 'react'
 
-export default class Shelf extends React.Component {
+class AkebiSVGComponent extends React.Component {
+  onClick() {
+    debug('click')
+  }
+  render() {
+    this.renderSVG();
+    return (
+      <g color="#D72541" onClick={this.onClick}>
+        {this.svgs}
+      </g>
+    )
+  }
+}
+
+export default class Shelf extends AkebiSVGComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,6 +36,7 @@ export default class Shelf extends React.Component {
     this.y = 10;
     this.width = this.state.eachWidth * this.state.count;
     this.height = this.state.eachHeight * this.state.side;
+    this.renderSVG = this.createShelf;
   }
   createShelf() {
     this.createRect();
@@ -31,7 +46,7 @@ export default class Shelf extends React.Component {
     }
   }
   createRect() {
-    this.svgs.push(<rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="1" fill="none"/>);
+    this.svgs.push(<rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="1" fill="transparent"/>);
   }
   createPartitionLine() {
     this.createPartitionSideLine();
@@ -64,13 +79,5 @@ export default class Shelf extends React.Component {
     var x2 = this.x + this.width + 1;
     var y2 = this.y + this.height;
     this.svgs.push(<line x1={x1} y1={y1} x2={x2} y2={y2} stroke="currentColor" strokeWidth="5"/>);
-  }
-  render() {
-    this.createShelf()
-    return (
-      <g color="#D72541">
-        {this.svgs}
-      </g>
-    )
   }
 }

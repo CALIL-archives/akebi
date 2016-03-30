@@ -37,9 +37,9 @@ export default class Index extends React.Component {
         </label>
         <button className="save" onClick={this.save}>Save File</button>
         <div className="dropzone" onDragOver={this.handleDragOver} onDrop={this.handleFileSelect}>Drop files here</div>
-        <output style={{color: 'black', background: 'white', display: 'block', padding: '30px'}}>
+        <div style={{background: 'white', padding: '30px'}}>
           <ArtBoard></ArtBoard>
-        </output>
+        </div>
       </div>
     )
   }

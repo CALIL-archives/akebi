@@ -19795,8 +19795,8 @@ var Index = function (_React$Component) {
           'Drop files here'
         ),
         _react2.default.createElement(
-          'output',
-          { style: { color: 'black', background: 'white', display: 'block', padding: '30px' } },
+          'div',
+          { style: { background: 'white', padding: '30px' } },
           _react2.default.createElement(_artboard2.default, null)
         )
       );
@@ -19829,15 +19829,44 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Shelf = function (_React$Component) {
-  _inherits(Shelf, _React$Component);
+var AkebiSVGComponent = function (_React$Component) {
+  _inherits(AkebiSVGComponent, _React$Component);
+
+  function AkebiSVGComponent() {
+    _classCallCheck(this, AkebiSVGComponent);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AkebiSVGComponent).apply(this, arguments));
+  }
+
+  _createClass(AkebiSVGComponent, [{
+    key: 'onClick',
+    value: function onClick() {
+      debug('click');
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      this.renderSVG();
+      return _react2.default.createElement(
+        'g',
+        { color: '#D72541', onClick: this.onClick },
+        this.svgs
+      );
+    }
+  }]);
+
+  return AkebiSVGComponent;
+}(_react2.default.Component);
+
+var Shelf = function (_AkebiSVGComponent) {
+  _inherits(Shelf, _AkebiSVGComponent);
 
   function Shelf(props) {
     _classCallCheck(this, Shelf);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Shelf).call(this, props));
+    var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Shelf).call(this, props));
 
-    _this.state = {
+    _this2.state = {
       "id": 4,
       "type": "shelf",
       "side": 2,
@@ -19849,12 +19878,13 @@ var Shelf = function (_React$Component) {
       "eachWidth": 90,
       "label": '棚番号ふ'
     };
-    _this.svgs = [];
-    _this.x = 10;
-    _this.y = 10;
-    _this.width = _this.state.eachWidth * _this.state.count;
-    _this.height = _this.state.eachHeight * _this.state.side;
-    return _this;
+    _this2.svgs = [];
+    _this2.x = 10;
+    _this2.y = 10;
+    _this2.width = _this2.state.eachWidth * _this2.state.count;
+    _this2.height = _this2.state.eachHeight * _this2.state.side;
+    _this2.renderSVG = _this2.createShelf;
+    return _this2;
   }
 
   _createClass(Shelf, [{
@@ -19868,7 +19898,7 @@ var Shelf = function (_React$Component) {
   }, {
     key: 'createRect',
     value: function createRect() {
-      this.svgs.push(_react2.default.createElement('rect', { x: this.x, y: this.y, width: this.width, height: this.height, stroke: 'currentColor', strokeWidth: '1', fill: 'none' }));
+      this.svgs.push(_react2.default.createElement('rect', { x: this.x, y: this.y, width: this.width, height: this.height, stroke: 'currentColor', strokeWidth: '1', fill: 'transparent' }));
     }
   }, {
     key: 'createPartitionLine',
@@ -19912,20 +19942,10 @@ var Shelf = function (_React$Component) {
       var y2 = this.y + this.height;
       this.svgs.push(_react2.default.createElement('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: 'currentColor', strokeWidth: '5' }));
     }
-  }, {
-    key: 'render',
-    value: function render() {
-      this.createShelf();
-      return _react2.default.createElement(
-        'g',
-        { color: '#D72541' },
-        this.svgs
-      );
-    }
   }]);
 
   return Shelf;
-}(_react2.default.Component);
+}(AkebiSVGComponent);
 
 exports.default = Shelf;
 
