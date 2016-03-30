@@ -4,7 +4,7 @@ import React from 'react'
 import Shelf from './shelf.jsx'
 
 
-export default class SVGCanvas extends React.Component {
+export default class ArtBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
