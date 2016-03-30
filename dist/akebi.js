@@ -19729,7 +19729,7 @@ var Index = function (_React$Component) {
 
 exports.default = Index;
 
-},{"./svg.jsx":174,"react":171}],174:[function(require,module,exports){
+},{"./svg.jsx":175,"react":171}],174:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19750,69 +19750,15 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var SVGCanvas = function (_React$Component) {
-  _inherits(SVGCanvas, _React$Component);
-
-  function SVGCanvas(props) {
-    _classCallCheck(this, SVGCanvas);
-
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SVGCanvas).call(this, props));
-
-    _this.state = {};
-    _this.width = 800;
-    _this.height = 300;
-    return _this;
-  }
-
-  _createClass(SVGCanvas, [{
-    key: 'getViewBox',
-    value: function getViewBox() {
-      return '0 0 ' + this.width + ' ' + this.height;
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'svg',
-        { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height },
-        _react2.default.createElement(Shelf, null)
-      );
-    }
-  }]);
-
-  return SVGCanvas;
-}(_react2.default.Component);
-
-exports.default = SVGCanvas;
-
-var Rect = function (_React$Component2) {
-  _inherits(Rect, _React$Component2);
-
-  function Rect() {
-    _classCallCheck(this, Rect);
-
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Rect).apply(this, arguments));
-  }
-
-  _createClass(Rect, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement('rect', { x: '10', y: '10', width: '120', height: '100', stroke: 'black', 'stroke-width': '1', fill: 'none' });
-    }
-  }]);
-
-  return Rect;
-}(_react2.default.Component);
-
-var Shelf = function (_React$Component3) {
-  _inherits(Shelf, _React$Component3);
+var Shelf = function (_React$Component) {
+  _inherits(Shelf, _React$Component);
 
   function Shelf(props) {
     _classCallCheck(this, Shelf);
 
-    var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(Shelf).call(this, props));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Shelf).call(this, props));
 
-    _this3.state = {
+    _this.state = {
       "id": 4,
       "type": "shelf",
       "side": 2,
@@ -19824,12 +19770,12 @@ var Shelf = function (_React$Component3) {
       "eachWidth": 90,
       "label": '棚番号ふ'
     };
-    _this3.svgs = [];
-    _this3.x = 10;
-    _this3.y = 10;
-    _this3.width = _this3.state.eachWidth * _this3.state.count;
-    _this3.height = _this3.state.eachHeight * _this3.state.side;
-    return _this3;
+    _this.svgs = [];
+    _this.x = 10;
+    _this.y = 10;
+    _this.width = _this.state.eachWidth * _this.state.count;
+    _this.height = _this.state.eachHeight * _this.state.side;
+    return _this;
   }
 
   _createClass(Shelf, [{
@@ -19902,4 +19848,85 @@ var Shelf = function (_React$Component3) {
   return Shelf;
 }(_react2.default.Component);
 
-},{"react":171}]},{},[172]);
+exports.default = Shelf;
+
+},{"react":171}],175:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _shelf = require('./shelf.jsx');
+
+var _shelf2 = _interopRequireDefault(_shelf);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SVGCanvas = function (_React$Component) {
+  _inherits(SVGCanvas, _React$Component);
+
+  function SVGCanvas(props) {
+    _classCallCheck(this, SVGCanvas);
+
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SVGCanvas).call(this, props));
+
+    _this.state = {};
+    _this.width = 800;
+    _this.height = 300;
+    return _this;
+  }
+
+  _createClass(SVGCanvas, [{
+    key: 'getViewBox',
+    value: function getViewBox() {
+      return '0 0 ' + this.width + ' ' + this.height;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'svg',
+        { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height },
+        _react2.default.createElement(_shelf2.default, null)
+      );
+    }
+  }]);
+
+  return SVGCanvas;
+}(_react2.default.Component);
+
+exports.default = SVGCanvas;
+
+var Rect = function (_React$Component2) {
+  _inherits(Rect, _React$Component2);
+
+  function Rect() {
+    _classCallCheck(this, Rect);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Rect).apply(this, arguments));
+  }
+
+  _createClass(Rect, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement('rect', { x: '10', y: '10', width: '120', height: '100', stroke: 'black', 'stroke-width': '1', fill: 'none' });
+    }
+  }]);
+
+  return Rect;
+}(_react2.default.Component);
+
+},{"./shelf.jsx":174,"react":171}]},{},[172]);
