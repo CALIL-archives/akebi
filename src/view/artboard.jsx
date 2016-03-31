@@ -1,8 +1,9 @@
 'use strict';
 
 import React from 'react'
+import Point from './point.jsx'
+import Rect from './rect.jsx'
 import Shelf from './shelf.jsx'
-
 
 export default class ArtBoard extends React.Component {
   constructor(props) {
@@ -17,16 +18,10 @@ export default class ArtBoard extends React.Component {
   render() {
     return (
       <svg xmlns="http://www.w3.org/2000/svg" ref="svg" viewBox={this.getViewBox()} width={this.width} height={this.height}>
+        <Point></Point>
+        <Rect></Rect>
         <Shelf></Shelf>
       </svg>
-    )
-  }
-}
-
-class Rect extends React.Component {
-  render() {
-    return (
-        <rect x="10" y="10" width="120" height="100" stroke="black" stroke-width="1" fill="none"/>
     )
   }
 }
