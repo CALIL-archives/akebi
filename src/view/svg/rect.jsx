@@ -22,9 +22,8 @@ export default class Rect extends AkebiSVGComponent {
     this.y = 100;
     this.width = this.state.eachWidth * this.state.count;
     this.height = this.state.eachHeight * this.state.side;
-    this.renderSVG = this.create;
   }
-  create(){
+  renderSVG(){
     this.svgs.push(<rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="1" fill="transparent"/>);
   }
 }

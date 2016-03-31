@@ -22,9 +22,8 @@ export default class Shelf extends AkebiSVGComponent {
     this.y = 10;
     this.width = this.state.eachWidth * this.state.count;
     this.height = this.state.eachHeight * this.state.side;
-    this.renderSVG = this.createShelf;
   }
-  createShelf() {
+  renderSVG() {
     this.createRect();
     this.createPartitionLine();
     if(this.state.side==1){
