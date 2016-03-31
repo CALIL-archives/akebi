@@ -6,8 +6,8 @@ import AkebiSVGComponent from './common.jsx'
 export default class Point extends AkebiSVGComponent {
   constructor(props) {
     super(props);
-    this.x = 10;
-    this.y = 10;
+    this.x = this.props.x;
+    this.y = this.props.y;
     this.r = 5;
   }
   renderSVG(){
