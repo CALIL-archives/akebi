@@ -19787,7 +19787,7 @@ var ArtBoard = function (_React$Component) {
       return _react2.default.createElement(
         'svg',
         { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height },
-        _react2.default.createElement(_point2.default, null),
+        _react2.default.createElement(_point2.default, { x: '10', y: '10' }),
         _react2.default.createElement(_rect2.default, null),
         _react2.default.createElement(_shelf2.default, null)
       );
@@ -19887,16 +19887,15 @@ var Point = function (_AkebiSVGComponent) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Point).call(this, props));
 
-    _this.x = 10;
-    _this.y = 10;
+    _this.x = _this.props.x;
+    _this.y = _this.props.y;
     _this.r = 5;
-    _this.renderSVG = _this.create;
     return _this;
   }
 
   _createClass(Point, [{
-    key: 'create',
-    value: function create() {
+    key: 'renderSVG',
+    value: function renderSVG() {
       this.svgs.push(_react2.default.createElement('circle', { cx: this.x, cy: this.y, r: this.r, stroke: 'currentColor', 'stroke-width': '1', fill: 'currentColor' }));
     }
   }]);
@@ -19922,6 +19921,10 @@ var _react2 = _interopRequireDefault(_react);
 var _common = require('./common.jsx');
 
 var _common2 = _interopRequireDefault(_common);
+
+var _point = require('./point.jsx');
+
+var _point2 = _interopRequireDefault(_point);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19955,14 +19958,38 @@ var Rect = function (_AkebiSVGComponent) {
     _this.y = 100;
     _this.width = _this.state.eachWidth * _this.state.count;
     _this.height = _this.state.eachHeight * _this.state.side;
-    _this.renderSVG = _this.create;
+
     return _this;
   }
 
   _createClass(Rect, [{
-    key: 'create',
-    value: function create() {
-      this.svgs.push(_react2.default.createElement('rect', { x: this.x, y: this.y, width: this.width, height: this.height, stroke: 'currentColor', strokeWidth: '1', fill: 'transparent' }));
+    key: 'renderSVG',
+    value: function renderSVG() {
+      // top line
+      var strokeDasharray = 0;
+      if (this.state.side == 1) {
+        strokeDasharray = 5;
+      }
+      this.drawLine(this.x, this.y, this.x + this.width, this.y, strokeDasharray);
+      // right line
+      this.drawLine(this.x + this.width, this.y, this.x + this.width, this.y + this.height);
+      // bottom line
+      this.drawLine(this.x + this.width, this.y + this.height, this.x, this.y + this.height);
+      // left line
+      this.drawLine(this.x, this.y + this.height, this.x, this.y);
+
+      //this.svgs.push(<rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="1" fill="transparent"/>);
+    }
+  }, {
+    key: 'drawLine',
+    value: function drawLine(x1, y1, x2, y2) {
+      var strokeDasharray = arguments.length <= 4 || arguments[4] === undefined ? 0 : arguments[4];
+      var drawPoint = arguments.length <= 5 || arguments[5] === undefined ? true : arguments[5];
+
+      if (drawPoint) {
+        this.svgs.push(_react2.default.createElement(_point2.default, { x: x1, y: y1 }));
+      }
+      this.svgs.push(_react2.default.createElement('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: 'currentColor', strokeWidth: '1', strokeDasharray: strokeDasharray }));
     }
   }]);
 
@@ -19971,7 +19998,7 @@ var Rect = function (_AkebiSVGComponent) {
 
 exports.default = Rect;
 
-},{"./common.jsx":175,"react":171}],178:[function(require,module,exports){
+},{"./common.jsx":175,"./point.jsx":176,"react":171}],178:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -20020,13 +20047,12 @@ var Shelf = function (_AkebiSVGComponent) {
     _this.y = 10;
     _this.width = _this.state.eachWidth * _this.state.count;
     _this.height = _this.state.eachHeight * _this.state.side;
-    _this.renderSVG = _this.createShelf;
     return _this;
   }
 
   _createClass(Shelf, [{
-    key: 'createShelf',
-    value: function createShelf() {
+    key: 'renderSVG',
+    value: function renderSVG() {
       this.createRect();
       this.createPartitionLine();
       if (this.state.side == 1) {
