@@ -63,4 +63,4 @@ gulp.task 'browserSync', ->
 gulp.task 'default', ['browserSync'], ->
   gulp.watch [ './index.html' ], ['browserSync-reload']
   gulp.watch [ './src/*.{sass,scss}' ], ['sass']
-  gulp.watch [ './src/*.jsx', './src/view/*.jsx', './src/svg/view/*.jsx'], ['browserSync-reload']
+  gulp.watch [ './src/*.jsx', './src/view/*.jsx', './src/view/svg/*.jsx'], ['browserSync-reload']
