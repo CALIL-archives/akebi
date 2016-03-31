@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react'
-import ArtBoard from './artboard.jsx'
+import ArtBoard from './svg/artboard.jsx'
 
 export default class Index extends React.Component {
   constructor(props){
