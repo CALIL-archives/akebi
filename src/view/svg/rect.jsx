@@ -7,44 +7,33 @@ import Point from './point.jsx'
 export default class Rect extends AkebiSVGComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      "id": 4,
-      "type": "shelf",
-      "side": 1,
-      "count": 8,
-      "angle": 0,
-      "top_cm": -99,
-      "left_cm": 57,
-      "eachHeight": 26,
-      "eachWidth": 90,
-      "label": "\u68da\u756a\u53f7\u3075"
-    };
-    this.x = 10;
-    this.y = 100;
-    this.width = this.state.eachWidth * this.state.count;
-    this.height = this.state.eachHeight * this.state.side;
-
+    this.x = parseInt(this.props.x) || 0;
+    this.y = parseInt(this.props.y) || 0;
+    this.width = parseInt(this.props.width) || 100;
+    this.height = parseInt(this.props.height) || 100;
+    this.drawPoint = (this.props.drawPoint=='true') || false;
+    this.strokeWidth = parseInt(this.props.strokeWidth) || 1;
+    this.strokeLeft = parseInt(this.props.strokeLeft) || 0;
+    this.strokeTop = parseInt(this.props.strokeTop) || 0;
+    this.strokeRight = parseInt(this.props.strokeRight) || 0;
+    this.strokeBottom = parseInt(this.props.strokeBottom) || 0;
   }
   renderSVG(){
-    // top line
-    var strokeDasharray = 0;
-    if(this.state.side==1){
-      strokeDasharray = 5;
-    }
-    this.drawLine(this.x, this.y, this.x + this.width, this.y, strokeDasharray);
-    // right line
-    this.drawLine(this.x + this.width, this.y, this.x + this.width, this.y + this.height);
-    // bottom line
-    this.drawLine(this.x + this.width, this.y + this.height, this.x, this.y + this.height);
     // left line
-    this.drawLine(this.x, this.y + this.height, this.x, this.y);
+    this.drawLine(this.x, this.y + this.height, this.x, this.y, this.strokeLeft);
+    // top line
+    this.drawLine(this.x, this.y, this.x + this.width, this.y, this.strokeTop);
+    // right line
+    this.drawLine(this.x + this.width, this.y, this.x + this.width, this.y + this.height, this.strokeRight);
+    // bottom line
+    this.drawLine(this.x + this.width, this.y + this.height, this.x, this.y + this.height, this.strokeBottom);
 
     //this.svgs.push(<rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="1" fill="transparent"/>);
   }
-  drawLine(x1, y1, x2, y2, strokeDasharray=0, drawPoint=true){
-    if(drawPoint){
+  drawLine(x1, y1, x2, y2, strokeDasharray=0){
+    if(this.drawPoint){
       this.svgs.push(<Point x={x1} y={y1}></Point>);
     }
-    this.svgs.push(<line x1={x1} y1={y1} x2={x2} y2={y2} stroke="currentColor" strokeWidth="1" strokeDasharray={strokeDasharray}/>);
+    this.svgs.push(<line x1={x1} y1={y1} x2={x2} y2={y2} stroke="currentColor" strokeWidth={this.strokeWidth} strokeDasharray={strokeDasharray}/>);
   }
 }
