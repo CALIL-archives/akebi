@@ -12,7 +12,8 @@ export default class Rect extends AkebiSVGComponent {
     this.width = parseInt(this.props.width) || 100;
     this.height = parseInt(this.props.height) || 100;
 
-    this.drawPoint = (this.props.drawPoint=='true');
+    this.fill = this.props.fill || 'none';
+    this.drawPointFlag = (this.props.drawPointFlag=='true');
     this.strokeWidth = parseInt(this.props.strokeWidth) || 1;
 
     this.leftStrokeDashArray = parseInt(this.props.leftStrokeDashArray) || 0;
@@ -30,10 +31,12 @@ export default class Rect extends AkebiSVGComponent {
     // bottom line
     this.drawLine(this.x + this.width, this.y + this.height, this.x, this.y + this.height, this.bottomStrokeDashArray);
 
-    //this.svgs.push(<rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="1" fill="transparent"/>);
+    if(this.fill){
+      this.svgs.push(<rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="0" fill={this.fill} />);
+    }
   }
   drawLine(x1, y1, x2, y2, strokeDasharray=0){
-    if(this.drawPoint){
+    if(this.drawPointFlag){
       this.svgs.push(<Point x={x1} y={y1}></Point>);
     }
     this.svgs.push(<line x1={x1} y1={y1} x2={x2} y2={y2} stroke="currentColor" strokeWidth={this.strokeWidth} strokeDasharray={strokeDasharray}/>);

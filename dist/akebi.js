@@ -19516,11 +19516,11 @@ var getGlobal = require('get-global');
  */
 getGlobal().debug = function (data) {
   if (typeof data == 'string') {
-    document.querySelector('#debug').innerText = data;
+    document.querySelector('#debug').innerText += data;
   } else if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) == 'object') {
-    document.querySelector('#debug').innerText = JSON.stringify(data);
+    document.querySelector('#debug').innerText += JSON.stringify(data);
   } else {
-    document.querySelector('#debug').innerText = data.toString();
+    document.querySelector('#debug').innerText += data.toString();
   }
 };
 
@@ -19792,8 +19792,8 @@ var ArtBoard = function (_React$Component) {
         'svg',
         { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height },
         _react2.default.createElement(_point2.default, { x: '10', y: '10' }),
-        _react2.default.createElement(_rect2.default, { x: '10', y: '100', width: '720', height: '26', strokeTop: '5', drawPoint: 'true' }),
-        _react2.default.createElement(_shelf2.default, null),
+        _react2.default.createElement(_rect2.default, { x: '10', y: '100', width: '720', height: '26', strokeTop: '5', drawPointFlag: 'true' }),
+        _react2.default.createElement(_shelf2.default, { fill: 'pink' }),
         _react2.default.createElement(_multipolygon2.default, null)
       );
     }
@@ -19888,13 +19888,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var MultPolygon = function (_AkebiSVGComponent) {
-  _inherits(MultPolygon, _AkebiSVGComponent);
+var MultiPolygon = function (_AkebiSVGComponent) {
+  _inherits(MultiPolygon, _AkebiSVGComponent);
 
-  function MultPolygon(props) {
-    _classCallCheck(this, MultPolygon);
+  function MultiPolygon(props) {
+    _classCallCheck(this, MultiPolygon);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MultPolygon).call(this, props));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MultiPolygon).call(this, props));
 
     _this.x = parseInt(_this.props.x) || 0;
     _this.y = parseInt(_this.props.y) || 0;
@@ -19907,23 +19907,41 @@ var MultPolygon = function (_AkebiSVGComponent) {
     _this.drawPointFlag = true;
     _this.x = 10;
     _this.y = 200;
+    _this.fill = 'none';
+    _this.close = true;
+    _this.points = [{ type: 'M', x: 10, y: 200 }, { type: 'L', x: 100, y: 200 }, { type: 'L', x: 100, y: 150 }, { type: 'L', x: 200, y: 200 }, { type: 'A', endX: 300, endY: 200, horizontalRadius: 50, verticalRadius: 50 }, { type: 'L', x: 400, y: 200 }, { type: 'L', x: 500, y: 250 }, { type: 'Q', endX: 10, endY: 250, controlPointX: 250, controlPointY: 300 }];
     return _this;
   }
 
-  _createClass(MultPolygon, [{
+  _createClass(MultiPolygon, [{
     key: 'renderSVG',
     value: function renderSVG() {
-      this.drawPoint(this.x, this.y);
-      this.d.push('M ' + this.x + ' ' + this.y);
-      this.drawLine(100, 200);
-      this.drawLine(100, 150);
-      this.drawLine(200, 200);
-      this.drawArc(300, 200, 50, 50);
-      this.drawLine(400, 200);
-      this.drawLine(500, 250);
-      this.drawBezierCurve(10, 250, 250, 300);
-      this.d.push('Z');
-      this.svgs.push(_react2.default.createElement('path', { stroke: 'currentColor', strokeWidth: '1', fill: 'none', d: this.d.join(' ') }));
+      var _this2 = this;
+
+      this.points.forEach(function (point) {
+        if (point.type == 'M') {
+          _this2.drawStartPoint(point.x, point.y);
+        }
+        if (point.type == 'L') {
+          _this2.drawLine(point.x, point.y);
+        }
+        if (point.type == 'A') {
+          _this2.drawArc(point.endX, point.endY, point.horizontalRadius, point.verticalRadius);
+        }
+        if (point.type == 'Q') {
+          _this2.drawBezierCurve(point.endX, point.endY, point.controlPointX, point.controlPointY);
+        }
+      });
+      if (this.close) {
+        this.d.push('Z');
+      }
+      this.svgs.push(_react2.default.createElement('path', { stroke: 'currentColor', strokeWidth: '1', fill: this.fill, d: this.d.join(' ') }));
+    }
+  }, {
+    key: 'drawStartPoint',
+    value: function drawStartPoint(x, y) {
+      this.drawPoint(x, y);
+      this.d.push('M ' + x + ' ' + y);
     }
   }, {
     key: 'drawPoint',
@@ -19950,16 +19968,16 @@ var MultPolygon = function (_AkebiSVGComponent) {
     }
   }, {
     key: 'drawBezierCurve',
-    value: function drawBezierCurve(endX, endY, controlPoint1, controlPoint2) {
-      this.d.push('Q ' + controlPoint1 + ' ' + controlPoint2 + ' ' + endX + ' ' + endY);
+    value: function drawBezierCurve(endX, endY, controlPointX, controlPointY) {
+      this.d.push('Q ' + controlPointX + ' ' + controlPointY + ' ' + endX + ' ' + endY);
       this.drawPoint(endX, endY);
     }
   }]);
 
-  return MultPolygon;
+  return MultiPolygon;
 }(_common2.default);
 
-exports.default = MultPolygon;
+exports.default = MultiPolygon;
 ;
 
 },{"./common.jsx":175,"./point.jsx":177,"react":171}],177:[function(require,module,exports){
@@ -20055,7 +20073,8 @@ var Rect = function (_AkebiSVGComponent) {
     _this.width = parseInt(_this.props.width) || 100;
     _this.height = parseInt(_this.props.height) || 100;
 
-    _this.drawPoint = _this.props.drawPoint == 'true';
+    _this.fill = _this.props.fill || 'none';
+    _this.drawPointFlag = _this.props.drawPointFlag == 'true';
     _this.strokeWidth = parseInt(_this.props.strokeWidth) || 1;
 
     _this.leftStrokeDashArray = parseInt(_this.props.leftStrokeDashArray) || 0;
@@ -20077,14 +20096,16 @@ var Rect = function (_AkebiSVGComponent) {
       // bottom line
       this.drawLine(this.x + this.width, this.y + this.height, this.x, this.y + this.height, this.bottomStrokeDashArray);
 
-      //this.svgs.push(<rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="1" fill="transparent"/>);
+      if (this.fill) {
+        this.svgs.push(_react2.default.createElement('rect', { x: this.x, y: this.y, width: this.width, height: this.height, stroke: 'currentColor', strokeWidth: '0', fill: this.fill }));
+      }
     }
   }, {
     key: 'drawLine',
     value: function drawLine(x1, y1, x2, y2) {
       var strokeDasharray = arguments.length <= 4 || arguments[4] === undefined ? 0 : arguments[4];
 
-      if (this.drawPoint) {
+      if (this.drawPointFlag) {
         this.svgs.push(_react2.default.createElement(_point2.default, { x: x1, y: y1 }));
       }
       this.svgs.push(_react2.default.createElement('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: 'currentColor', strokeWidth: this.strokeWidth, strokeDasharray: strokeDasharray }));
@@ -20153,8 +20174,13 @@ var Shelf = function (_AkebiSVGComponent) {
   _createClass(Shelf, [{
     key: 'renderSVG',
     value: function renderSVG() {
+      var fillRects = [1, 4, 5];
       for (var i = 0, l = this.state.count; i < l; i++) {
-        this.svgs.push(_react2.default.createElement(_rect2.default, { x: this.x + this.state.eachWidth * i, y: this.y, width: this.state.eachWidth, height: this.state.eachHeight, topStrokeDashArray: '5' }));
+        var fill = 'none';
+        if (fillRects.indexOf(i) >= 0) {
+          var fill = this.props.fill || 'none';
+        }
+        this.svgs.push(_react2.default.createElement(_rect2.default, { x: this.x + this.state.eachWidth * i, y: this.y, width: this.state.eachWidth, height: this.state.eachHeight, topStrokeDashArray: '5', fill: fill }));
       }
       if (this.state.side == 2) {
         for (var i = 0, l = this.state.count; i < l; i++) {
