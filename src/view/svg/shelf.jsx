@@ -10,7 +10,7 @@ export default class Shelf extends AkebiSVGComponent {
     this.state = {
       "id": 4,
       "type": "shelf",
-      "side": 1,
+      "side": 2,
       "count": 8,
       "angle": 0,
       "top_cm": -99,
@@ -21,14 +21,15 @@ export default class Shelf extends AkebiSVGComponent {
     };
     this.x = 10;
     this.y = 10;
-    this.width = this.state.eachWidth * this.state.count;
-    this.height = this.state.eachHeight * this.state.side;
   }
   renderSVG() {
-    var topStrokeDashArray = 1;
-    if(this.state.side==1){
-      topStrokeDashArray = 5;
+    for(var i=0,l=this.state.count;i<l;i++){
+      this.svgs.push(<Rect x={this.x+this.state.eachWidth*i} y={this.y} width={this.state.eachWidth} height={this.state.eachHeight} topStrokeDashArray="5"></Rect>)
     }
-    this.svgs.push(<Rect x={this.x} y={this.y} width={this.width} height={this.height} topStrokeDashArray={topStrokeDashArray}></Rect>)
+    if(this.state.side==2){
+      for(var i=0,l=this.state.count;i<l;i++){
+        this.svgs.push(<Rect x={this.x+this.state.eachWidth*i} y={this.y+this.state.eachHeight} width={this.state.eachWidth} height={this.state.eachHeight}></Rect>)
+      }
+    }
   }
 }

@@ -20028,7 +20028,7 @@ var Shelf = function (_AkebiSVGComponent) {
     _this.state = {
       "id": 4,
       "type": "shelf",
-      "side": 1,
+      "side": 2,
       "count": 8,
       "angle": 0,
       "top_cm": -99,
@@ -20039,19 +20039,20 @@ var Shelf = function (_AkebiSVGComponent) {
     };
     _this.x = 10;
     _this.y = 10;
-    _this.width = _this.state.eachWidth * _this.state.count;
-    _this.height = _this.state.eachHeight * _this.state.side;
     return _this;
   }
 
   _createClass(Shelf, [{
     key: 'renderSVG',
     value: function renderSVG() {
-      var topStrokeDashArray = 1;
-      if (this.state.side == 1) {
-        topStrokeDashArray = 5;
+      for (var i = 0, l = this.state.count; i < l; i++) {
+        this.svgs.push(_react2.default.createElement(_rect2.default, { x: this.x + this.state.eachWidth * i, y: this.y, width: this.state.eachWidth, height: this.state.eachHeight, topStrokeDashArray: '5' }));
       }
-      this.svgs.push(_react2.default.createElement(_rect2.default, { x: this.x, y: this.y, width: this.width, height: this.height, topStrokeDashArray: topStrokeDashArray }));
+      if (this.state.side == 2) {
+        for (var i = 0, l = this.state.count; i < l; i++) {
+          this.svgs.push(_react2.default.createElement(_rect2.default, { x: this.x + this.state.eachWidth * i, y: this.y + this.state.eachHeight, width: this.state.eachWidth, height: this.state.eachHeight }));
+        }
+      }
     }
   }]);
 
