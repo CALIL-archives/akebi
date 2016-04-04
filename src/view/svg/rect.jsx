@@ -11,22 +11,24 @@ export default class Rect extends AkebiSVGComponent {
     this.y = parseInt(this.props.y) || 0;
     this.width = parseInt(this.props.width) || 100;
     this.height = parseInt(this.props.height) || 100;
-    this.drawPoint = (this.props.drawPoint=='true') || false;
+
+    this.drawPoint = (this.props.drawPoint=='true');
     this.strokeWidth = parseInt(this.props.strokeWidth) || 1;
-    this.strokeLeft = parseInt(this.props.strokeLeft) || 0;
-    this.strokeTop = parseInt(this.props.strokeTop) || 0;
-    this.strokeRight = parseInt(this.props.strokeRight) || 0;
-    this.strokeBottom = parseInt(this.props.strokeBottom) || 0;
+
+    this.leftStrokeDashArray = parseInt(this.props.leftStrokeDashArray) || 0;
+    this.topStrokeDashArray = parseInt(this.props.topStrokeDashArray) || 0;
+    this.rightStrokeDashArray = parseInt(this.props.rightStrokeDashArray) || 0;
+    this.bottomStrokeDashArray = parseInt(this.props.bottomStrokeDashArray) || 0;
   }
   renderSVG(){
     // left line
-    this.drawLine(this.x, this.y + this.height, this.x, this.y, this.strokeLeft);
+    this.drawLine(this.x, this.y + this.height, this.x, this.y, this.leftStrokeDashArray);
     // top line
-    this.drawLine(this.x, this.y, this.x + this.width, this.y, this.strokeTop);
+    this.drawLine(this.x, this.y, this.x + this.width, this.y, this.topStrokeDashArray);
     // right line
-    this.drawLine(this.x + this.width, this.y, this.x + this.width, this.y + this.height, this.strokeRight);
+    this.drawLine(this.x + this.width, this.y, this.x + this.width, this.y + this.height, this.rightStrokeDashArray);
     // bottom line
-    this.drawLine(this.x + this.width, this.y + this.height, this.x, this.y + this.height, this.strokeBottom);
+    this.drawLine(this.x + this.width, this.y + this.height, this.x, this.y + this.height, this.bottomStrokeDashArray);
 
     //this.svgs.push(<rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="1" fill="transparent"/>);
   }

@@ -19788,7 +19788,7 @@ var ArtBoard = function (_React$Component) {
         'svg',
         { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height },
         _react2.default.createElement(_point2.default, { x: '10', y: '10' }),
-        _react2.default.createElement(_rect2.default, null),
+        _react2.default.createElement(_rect2.default, { x: '10', y: '100', width: '720', height: '26', strokeTop: '5', drawPoint: 'true' }),
         _react2.default.createElement(_shelf2.default, null)
       );
     }
@@ -19887,9 +19887,9 @@ var Point = function (_AkebiSVGComponent) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Point).call(this, props));
 
-    _this.x = _this.props.x;
-    _this.y = _this.props.y;
-    _this.r = 5;
+    _this.x = _this.props.x || 1;
+    _this.y = _this.props.y || 1;
+    _this.r = _this.props.r || 5;
     return _this;
   }
 
@@ -19942,41 +19942,32 @@ var Rect = function (_AkebiSVGComponent) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Rect).call(this, props));
 
-    _this.state = {
-      "id": 4,
-      "type": "shelf",
-      "side": 1,
-      "count": 8,
-      "angle": 0,
-      "top_cm": -99,
-      "left_cm": 57,
-      "eachHeight": 26,
-      "eachWidth": 90,
-      "label": '棚番号ふ'
-    };
-    _this.x = 10;
-    _this.y = 100;
-    _this.width = _this.state.eachWidth * _this.state.count;
-    _this.height = _this.state.eachHeight * _this.state.side;
+    _this.x = parseInt(_this.props.x) || 0;
+    _this.y = parseInt(_this.props.y) || 0;
+    _this.width = parseInt(_this.props.width) || 100;
+    _this.height = parseInt(_this.props.height) || 100;
 
+    _this.drawPoint = _this.props.drawPoint == 'true';
+    _this.strokeWidth = parseInt(_this.props.strokeWidth) || 1;
+
+    _this.leftStrokeDashArray = parseInt(_this.props.leftStrokeDashArray) || 0;
+    _this.topStrokeDashArray = parseInt(_this.props.topStrokeDashArray) || 0;
+    _this.rightStrokeDashArray = parseInt(_this.props.rightStrokeDashArray) || 0;
+    _this.bottomStrokeDashArray = parseInt(_this.props.bottomStrokeDashArray) || 0;
     return _this;
   }
 
   _createClass(Rect, [{
     key: 'renderSVG',
     value: function renderSVG() {
-      // top line
-      var strokeDasharray = 0;
-      if (this.state.side == 1) {
-        strokeDasharray = 5;
-      }
-      this.drawLine(this.x, this.y, this.x + this.width, this.y, strokeDasharray);
-      // right line
-      this.drawLine(this.x + this.width, this.y, this.x + this.width, this.y + this.height);
-      // bottom line
-      this.drawLine(this.x + this.width, this.y + this.height, this.x, this.y + this.height);
       // left line
-      this.drawLine(this.x, this.y + this.height, this.x, this.y);
+      this.drawLine(this.x, this.y + this.height, this.x, this.y, this.leftStrokeDashArray);
+      // top line
+      this.drawLine(this.x, this.y, this.x + this.width, this.y, this.topStrokeDashArray);
+      // right line
+      this.drawLine(this.x + this.width, this.y, this.x + this.width, this.y + this.height, this.rightStrokeDashArray);
+      // bottom line
+      this.drawLine(this.x + this.width, this.y + this.height, this.x, this.y + this.height, this.bottomStrokeDashArray);
 
       //this.svgs.push(<rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="1" fill="transparent"/>);
     }
@@ -19984,12 +19975,11 @@ var Rect = function (_AkebiSVGComponent) {
     key: 'drawLine',
     value: function drawLine(x1, y1, x2, y2) {
       var strokeDasharray = arguments.length <= 4 || arguments[4] === undefined ? 0 : arguments[4];
-      var drawPoint = arguments.length <= 5 || arguments[5] === undefined ? true : arguments[5];
 
-      if (drawPoint) {
+      if (this.drawPoint) {
         this.svgs.push(_react2.default.createElement(_point2.default, { x: x1, y: y1 }));
       }
-      this.svgs.push(_react2.default.createElement('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: 'currentColor', strokeWidth: '1', strokeDasharray: strokeDasharray }));
+      this.svgs.push(_react2.default.createElement('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: 'currentColor', strokeWidth: this.strokeWidth, strokeDasharray: strokeDasharray }));
     }
   }]);
 
@@ -20014,6 +20004,10 @@ var _react2 = _interopRequireDefault(_react);
 var _common = require('./common.jsx');
 
 var _common2 = _interopRequireDefault(_common);
+
+var _rect = require('./rect.jsx');
+
+var _rect2 = _interopRequireDefault(_rect);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20053,64 +20047,11 @@ var Shelf = function (_AkebiSVGComponent) {
   _createClass(Shelf, [{
     key: 'renderSVG',
     value: function renderSVG() {
-      this.createRect();
-      this.createPartitionLine();
+      var topStrokeDashArray = 1;
       if (this.state.side == 1) {
-        this.createSideLine();
+        topStrokeDashArray = 5;
       }
-    }
-  }, {
-    key: 'createRect',
-    value: function createRect() {
-      this.createVerticalLine(0);
-      this.createVerticalLine(this.state.count);
-      var x1 = this.x;
-      var y1 = this.y + this.height;
-      var x2 = this.x + this.width;
-      var y2 = this.y + this.height;
-      this.svgs.push(_react2.default.createElement('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: 'currentColor', strokeWidth: '1' }));
-    }
-  }, {
-    key: 'createPartitionLine',
-    value: function createPartitionLine() {
-      this.createPartitionSideLine();
-      this.createPartitionVerticalLine();
-    }
-  }, {
-    key: 'createPartitionSideLine',
-    value: function createPartitionSideLine() {
-      if (this.state.side <= 1) return;
-      var x1 = this.x;
-      var y1 = this.y + this.height / 2;
-      var x2 = this.x + this.width;
-      var y2 = this.y + this.height / 2;
-      this.svgs.push(_react2.default.createElement('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: 'currentColor', strokeWidth: '1' }));
-    }
-  }, {
-    key: 'createPartitionVerticalLine',
-    value: function createPartitionVerticalLine() {
-      if (this.state.count <= 1) return;
-      for (var i = 1, l = this.state.count; i < l; i++) {
-        this.createVerticalLine(i);
-      }
-    }
-  }, {
-    key: 'createVerticalLine',
-    value: function createVerticalLine(i) {
-      var x1 = this.x + this.state.eachWidth * i;
-      var y1 = this.y;
-      var x2 = this.x + this.state.eachWidth * i;
-      var y2 = this.y + this.height;
-      this.svgs.push(_react2.default.createElement('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: 'currentColor', strokeWidth: '1' }));
-    }
-  }, {
-    key: 'createSideLine',
-    value: function createSideLine() {
-      var x1 = this.x - 1;
-      var y1 = this.y;
-      var x2 = this.x + this.width + 1;
-      var y2 = this.y;
-      this.svgs.push(_react2.default.createElement('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: 'currentColor', strokeWidth: '1', strokeDasharray: '4' }));
+      this.svgs.push(_react2.default.createElement(_rect2.default, { x: this.x, y: this.y, width: this.width, height: this.height, topStrokeDashArray: topStrokeDashArray }));
     }
   }]);
 
@@ -20119,4 +20060,4 @@ var Shelf = function (_AkebiSVGComponent) {
 
 exports.default = Shelf;
 
-},{"./common.jsx":175,"react":171}]},{},[172]);
+},{"./common.jsx":175,"./rect.jsx":177,"react":171}]},{},[172]);

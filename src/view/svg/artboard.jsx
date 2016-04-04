@@ -19,7 +19,7 @@ export default class ArtBoard extends React.Component {
     return (
       <svg xmlns="http://www.w3.org/2000/svg" ref="svg" viewBox={this.getViewBox()} width={this.width} height={this.height}>
         <Point x="10" y="10"></Point>
-        <Rect></Rect>
+        <Rect x="10" y="100" width="720" height="26" strokeTop="5" drawPoint="true"></Rect>
         <Shelf></Shelf>
       </svg>
     )
