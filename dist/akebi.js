@@ -19754,6 +19754,10 @@ var _shelf = require('./shelf.jsx');
 
 var _shelf2 = _interopRequireDefault(_shelf);
 
+var _multipolygon = require('./multipolygon.jsx');
+
+var _multipolygon2 = _interopRequireDefault(_multipolygon);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19789,7 +19793,8 @@ var ArtBoard = function (_React$Component) {
         { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height },
         _react2.default.createElement(_point2.default, { x: '10', y: '10' }),
         _react2.default.createElement(_rect2.default, { x: '10', y: '100', width: '720', height: '26', strokeTop: '5', drawPoint: 'true' }),
-        _react2.default.createElement(_shelf2.default, null)
+        _react2.default.createElement(_shelf2.default, null),
+        _react2.default.createElement(_multipolygon2.default, null)
       );
     }
   }]);
@@ -19799,7 +19804,7 @@ var ArtBoard = function (_React$Component) {
 
 exports.default = ArtBoard;
 
-},{"./point.jsx":176,"./rect.jsx":177,"./shelf.jsx":178,"react":171}],175:[function(require,module,exports){
+},{"./multipolygon.jsx":176,"./point.jsx":177,"./rect.jsx":178,"./shelf.jsx":179,"react":171}],175:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19871,6 +19876,109 @@ var _common = require('./common.jsx');
 
 var _common2 = _interopRequireDefault(_common);
 
+var _point = require('./point.jsx');
+
+var _point2 = _interopRequireDefault(_point);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var MultPolygon = function (_AkebiSVGComponent) {
+  _inherits(MultPolygon, _AkebiSVGComponent);
+
+  function MultPolygon(props) {
+    _classCallCheck(this, MultPolygon);
+
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MultPolygon).call(this, props));
+
+    _this.x = parseInt(_this.props.x) || 0;
+    _this.y = parseInt(_this.props.y) || 0;
+    _this.points = _this.props.points || null;
+    // if(!this.points) return console.error('no points on MultPolygon');
+    _this.drawPointFlag = _this.props.drawPointFlag == 'true';
+    _this.strokeWidth = parseInt(_this.props.strokeWidth) || 1;
+    _this.d = [];
+
+    _this.drawPointFlag = true;
+    _this.x = 10;
+    _this.y = 200;
+    return _this;
+  }
+
+  _createClass(MultPolygon, [{
+    key: 'renderSVG',
+    value: function renderSVG() {
+      this.drawPoint(this.x, this.y);
+      this.d.push('M ' + this.x + ' ' + this.y);
+      this.drawLine(100, 200);
+      this.drawLine(100, 150);
+      this.drawLine(200, 200);
+      this.drawArc(300, 200, 50, 50);
+      this.drawLine(400, 200);
+      this.drawLine(500, 250);
+      this.drawBezierCurve(10, 250, 250, 300);
+      this.d.push('Z');
+      this.svgs.push(_react2.default.createElement('path', { stroke: 'currentColor', strokeWidth: '1', fill: 'none', d: this.d.join(' ') }));
+    }
+  }, {
+    key: 'drawPoint',
+    value: function drawPoint(x, y) {
+      if (this.drawPointFlag) {
+        this.svgs.push(_react2.default.createElement(_point2.default, { x: x, y: y }));
+      }
+    }
+  }, {
+    key: 'drawLine',
+    value: function drawLine(x, y) {
+      this.d.push('L ' + x + ' ' + y);
+      this.drawPoint(x, y);
+    }
+  }, {
+    key: 'drawArc',
+    value: function drawArc(endX, endY, horizontalRadius, verticalRadius) {
+      var rotate = arguments.length <= 4 || arguments[4] === undefined ? 0 : arguments[4];
+      var largeFlag = arguments.length <= 5 || arguments[5] === undefined ? 0 : arguments[5];
+      var clockwise = arguments.length <= 6 || arguments[6] === undefined ? 1 : arguments[6];
+
+      this.d.push('A ' + horizontalRadius + ' ' + verticalRadius + ' ' + rotate + ' ' + largeFlag + ' ' + clockwise + ' ' + endX + ' ' + endY);
+      this.drawPoint(endX, endY);
+    }
+  }, {
+    key: 'drawBezierCurve',
+    value: function drawBezierCurve(endX, endY, controlPoint1, controlPoint2) {
+      this.d.push('Q ' + controlPoint1 + ' ' + controlPoint2 + ' ' + endX + ' ' + endY);
+      this.drawPoint(endX, endY);
+    }
+  }]);
+
+  return MultPolygon;
+}(_common2.default);
+
+exports.default = MultPolygon;
+;
+
+},{"./common.jsx":175,"./point.jsx":177,"react":171}],177:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _common = require('./common.jsx');
+
+var _common2 = _interopRequireDefault(_common);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19905,7 +20013,7 @@ var Point = function (_AkebiSVGComponent) {
 
 exports.default = Point;
 
-},{"./common.jsx":175,"react":171}],177:[function(require,module,exports){
+},{"./common.jsx":175,"react":171}],178:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19988,7 +20096,7 @@ var Rect = function (_AkebiSVGComponent) {
 
 exports.default = Rect;
 
-},{"./common.jsx":175,"./point.jsx":176,"react":171}],178:[function(require,module,exports){
+},{"./common.jsx":175,"./point.jsx":177,"react":171}],179:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -20061,4 +20169,4 @@ var Shelf = function (_AkebiSVGComponent) {
 
 exports.default = Shelf;
 
-},{"./common.jsx":175,"./rect.jsx":177,"react":171}]},{},[172]);
+},{"./common.jsx":175,"./rect.jsx":178,"react":171}]},{},[172]);
