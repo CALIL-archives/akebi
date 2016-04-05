@@ -20087,6 +20087,10 @@ var Rect = function (_AkebiSVGComponent) {
   _createClass(Rect, [{
     key: 'renderSVG',
     value: function renderSVG() {
+      if (this.fill) {
+        this.svgs.push(_react2.default.createElement('rect', { x: this.x, y: this.y, width: this.width, height: this.height, stroke: 'currentColor', strokeWidth: '0', fill: this.fill }));
+      }
+
       // left line
       this.drawLine(this.x, this.y + this.height, this.x, this.y, this.leftStrokeDashArray);
       // top line
@@ -20095,10 +20099,6 @@ var Rect = function (_AkebiSVGComponent) {
       this.drawLine(this.x + this.width, this.y, this.x + this.width, this.y + this.height, this.rightStrokeDashArray);
       // bottom line
       this.drawLine(this.x + this.width, this.y + this.height, this.x, this.y + this.height, this.bottomStrokeDashArray);
-
-      if (this.fill) {
-        this.svgs.push(_react2.default.createElement('rect', { x: this.x, y: this.y, width: this.width, height: this.height, stroke: 'currentColor', strokeWidth: '0', fill: this.fill }));
-      }
     }
   }, {
     key: 'drawLine',
