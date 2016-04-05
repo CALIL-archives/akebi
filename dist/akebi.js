@@ -19820,8 +19820,7 @@ var ArtBoard = function (_React$Component) {
         _react2.default.createElement(_rect2.default, { x: '10', y: '100', width: '720', height: '26', strokeTop: '5', drawPointFlag: 'true' }),
         _react2.default.createElement(_shelf2.default, { fill: 'pink', drawPointFlag: 'true' }),
         _react2.default.createElement(_centerpoint2.default, { x: '500', y: '50', range: '10' }),
-        _react2.default.createElement(_multipolygon2.default, null),
-        _react2.default.createElement(_centerpoint2.default, { x: '500', y: '200', range: '10' })
+        _react2.default.createElement(_multipolygon2.default, null)
       );
     }
   }]);
@@ -19961,6 +19960,10 @@ var _point = require('./point.jsx');
 
 var _point2 = _interopRequireDefault(_point);
 
+var _centerpoint = require('./centerpoint.jsx');
+
+var _centerpoint2 = _interopRequireDefault(_centerpoint);
+
 var _rect = require('./rect.jsx');
 
 var _rect2 = _interopRequireDefault(_rect);
@@ -19994,15 +19997,24 @@ var MultiPolygon = function (_AkebiSVGComponent) {
     _this.y = 200;
     _this.fill = 'none';
     _this.close = true;
-    _this.points = [{ type: 'M', x: 10, y: 200 }, { type: 'L', x: 100, y: 200 }, { type: 'L', x: 100, y: 150 }, { type: 'L', x: 200, y: 200 }, { type: 'A', endX: 300, endY: 200, horizontalRadius: 50, verticalRadius: 50 }, { type: 'L', x: 400, y: 200 }, { type: 'L', x: 500, y: 250 }, { type: 'Q', endX: 10, endY: 250, controlPointX: 250, controlPointY: 300 }];
+    _this.points = [{ type: 'M', x: 10, y: 200 }, { type: 'L', x: 100, y: 200 }, { type: 'L', x: 100, y: 150 }, { type: 'L', x: 200, y: 200 }, { type: 'A', endX: 300, endY: 200, horizontalRadius: 10, verticalRadius: 10 }, { type: 'L', x: 400, y: 200 }, { type: 'L', x: 500, y: 250 }, { type: 'L', x: 500, y: 300 }, { type: 'Q', endX: 10, endY: 250, controlPointX: 250, controlPointY: 400 }];
     var xs = [];
     var ys = [];
     _this.points.forEach(function (point) {
-      if (point.type == 'L') {
-        point.x += _this.x;
-        point.y += _this.y;
+      if (point.type == 'M' || point.type == 'L') {
         xs.push(point.x);
         ys.push(point.y);
+      }
+      if (point.type == 'A') {
+        xs.push(point.endX);
+        ys.push(point.endY);
+        // Todo: radius
+      }
+      if (point.type == 'Q') {
+        xs.push(point.endX);
+        xs.push(point.controlPointX);
+        ys.push(point.endY);
+        ys.push(point.endY - (point.endY - point.controlPointY) / 2);
       }
     });
     // debug('xs:'+xs);
@@ -20041,7 +20053,8 @@ var MultiPolygon = function (_AkebiSVGComponent) {
         this.d.push('Z');
       }
       this.svgs.push(_react2.default.createElement('path', { stroke: 'currentColor', strokeWidth: '1', fill: this.fill, d: this.d.join(' ') }));
-      this.svgs.push(_react2.default.createElement(_rect2.default, { x: this.startX + this.endX / 2, y: this.startY + this.startY / 2, width: this.endX - this.startX, height: this.endY - this.endY, fill: 'transparent' }));
+      this.svgs.push(_react2.default.createElement('rect', { x: this.startX, y: this.startY, width: this.endX - this.startX, height: this.endY - this.startY, stroke: '#999999', fill: 'transparent' }));
+      this.svgs.push(_react2.default.createElement(_centerpoint2.default, { x: this.startX + (this.endX - this.startX) / 2, y: this.startY + (this.endY - this.startY) / 2, range: '10' }));
     }
   }, {
     key: 'drawStartPoint',
@@ -20065,9 +20078,9 @@ var MultiPolygon = function (_AkebiSVGComponent) {
   }, {
     key: 'drawArc',
     value: function drawArc(endX, endY, horizontalRadius, verticalRadius) {
-      var rotate = arguments.length <= 4 || arguments[4] === undefined ? 0 : arguments[4];
-      var largeFlag = arguments.length <= 5 || arguments[5] === undefined ? 0 : arguments[5];
-      var clockwise = arguments.length <= 6 || arguments[6] === undefined ? 1 : arguments[6];
+      var clockwise = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
+      var rotate = arguments.length <= 5 || arguments[5] === undefined ? 0 : arguments[5];
+      var largeFlag = arguments.length <= 6 || arguments[6] === undefined ? 0 : arguments[6];
 
       this.d.push('A ' + horizontalRadius + ' ' + verticalRadius + ' ' + rotate + ' ' + largeFlag + ' ' + clockwise + ' ' + endX + ' ' + endY);
       this.drawPoint(endX, endY);
@@ -20086,7 +20099,7 @@ var MultiPolygon = function (_AkebiSVGComponent) {
 exports.default = MultiPolygon;
 ;
 
-},{"./common.jsx":176,"./point.jsx":178,"./rect.jsx":179,"react":171}],178:[function(require,module,exports){
+},{"./centerpoint.jsx":175,"./common.jsx":176,"./point.jsx":178,"./rect.jsx":179,"react":171}],178:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

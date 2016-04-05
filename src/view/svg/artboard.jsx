@@ -12,7 +12,7 @@ export default class ArtBoard extends React.Component {
     super(props);
     this.state = {};
     this.width = 900;
-    this.height = 300;
+    this.height = 500;
   }
   getViewBox() {
     return `0 0 ${this.width} ${this.height}`
