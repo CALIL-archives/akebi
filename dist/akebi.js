@@ -19758,9 +19758,9 @@ var _multipolygon = require('./multipolygon.jsx');
 
 var _multipolygon2 = _interopRequireDefault(_multipolygon);
 
-var _center = require('./center.jsx');
+var _centerpoint = require('./centerpoint.jsx');
 
-var _center2 = _interopRequireDefault(_center);
+var _centerpoint2 = _interopRequireDefault(_centerpoint);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19798,7 +19798,7 @@ var ArtBoard = function (_React$Component) {
         _react2.default.createElement(_point2.default, { x: '10', y: '10' }),
         _react2.default.createElement(_rect2.default, { x: '10', y: '100', width: '720', height: '26', strokeTop: '5', drawPointFlag: 'true' }),
         _react2.default.createElement(_shelf2.default, { fill: 'pink', drawPointFlag: 'true' }),
-        _react2.default.createElement(_center2.default, { x: '500', y: '50', range: '10' }),
+        _react2.default.createElement(_centerpoint2.default, { x: '500', y: '50', range: '10' }),
         _react2.default.createElement(_multipolygon2.default, null)
       );
     }
@@ -19809,7 +19809,7 @@ var ArtBoard = function (_React$Component) {
 
 exports.default = ArtBoard;
 
-},{"./center.jsx":175,"./multipolygon.jsx":177,"./point.jsx":178,"./rect.jsx":179,"./shelf.jsx":180,"react":171}],175:[function(require,module,exports){
+},{"./centerpoint.jsx":175,"./multipolygon.jsx":177,"./point.jsx":178,"./rect.jsx":179,"./shelf.jsx":180,"react":171}],175:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19834,33 +19834,34 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Center = function (_AkebiSVGComponent) {
-  _inherits(Center, _AkebiSVGComponent);
+var CenterPoint = function (_AkebiSVGComponent) {
+  _inherits(CenterPoint, _AkebiSVGComponent);
 
-  function Center(props) {
-    _classCallCheck(this, Center);
+  function CenterPoint(props) {
+    _classCallCheck(this, CenterPoint);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Center).call(this, props));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CenterPoint).call(this, props));
 
     _this.x = parseInt(_this.props.x) || 1;
     _this.y = parseInt(_this.props.y) || 1;
     _this.range = parseInt(_this.props.range) || 5;
+    _this.stroke = '#666666';
     _this.strokeWidth = parseInt(_this.props.strokeWidth) || 1;
     return _this;
   }
 
-  _createClass(Center, [{
+  _createClass(CenterPoint, [{
     key: 'renderSVG',
     value: function renderSVG() {
-      this.svgs.push(_react2.default.createElement('line', { x1: this.x - this.range / 2, y1: this.y - this.range / 2, x2: this.x + this.range / 2, y2: this.y + this.range / 2, stroke: 'gray', strokeWidth: this.strokeWidth }));
-      this.svgs.push(_react2.default.createElement('line', { x1: this.x + this.range / 2, y1: this.y - this.range / 2, x2: this.x - this.range / 2, y2: this.y + this.range / 2, stroke: 'gray', strokeWidth: this.strokeWidth }));
+      this.svgs.push(_react2.default.createElement('line', { x1: this.x - this.range / 2, y1: this.y - this.range / 2, x2: this.x + this.range / 2, y2: this.y + this.range / 2, stroke: this.stroke, strokeWidth: this.strokeWidth }));
+      this.svgs.push(_react2.default.createElement('line', { x1: this.x + this.range / 2, y1: this.y - this.range / 2, x2: this.x - this.range / 2, y2: this.y + this.range / 2, stroke: this.stroke, strokeWidth: this.strokeWidth }));
     }
   }]);
 
-  return Center;
+  return CenterPoint;
 }(_common2.default);
 
-exports.default = Center;
+exports.default = CenterPoint;
 
 },{"./common.jsx":176,"react":171}],176:[function(require,module,exports){
 'use strict';
