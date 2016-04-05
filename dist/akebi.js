@@ -19522,6 +19522,7 @@ getGlobal().debug = function (data) {
   } else {
     document.querySelector('#debug').innerText += data.toString();
   }
+  document.querySelector('#debug').innerText += '\n';
 };
 
 /**
@@ -19800,7 +19801,7 @@ var ArtBoard = function (_React$Component) {
         _react2.default.createElement(_shelf2.default, { fill: 'pink', drawPointFlag: 'true' }),
         _react2.default.createElement(_centerpoint2.default, { x: '500', y: '50', range: '10' }),
         _react2.default.createElement(_multipolygon2.default, null),
-        _react2.default.createElement(_centerpoint2.default, { x: '500', y: '50', range: '10' })
+        _react2.default.createElement(_centerpoint2.default, { x: '500', y: '200', range: '10' })
       );
     }
   }]);
@@ -19940,6 +19941,10 @@ var _point = require('./point.jsx');
 
 var _point2 = _interopRequireDefault(_point);
 
+var _rect = require('./rect.jsx');
+
+var _rect2 = _interopRequireDefault(_rect);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19970,6 +19975,19 @@ var MultiPolygon = function (_AkebiSVGComponent) {
     _this.fill = 'none';
     _this.close = true;
     _this.points = [{ type: 'M', x: 10, y: 200 }, { type: 'L', x: 100, y: 200 }, { type: 'L', x: 100, y: 150 }, { type: 'L', x: 200, y: 200 }, { type: 'A', endX: 300, endY: 200, horizontalRadius: 50, verticalRadius: 50 }, { type: 'L', x: 400, y: 200 }, { type: 'L', x: 500, y: 250 }, { type: 'Q', endX: 10, endY: 250, controlPointX: 250, controlPointY: 300 }];
+    var xs = [];
+    var ys = [];
+    _this.points.forEach(function (point) {
+      if (point.type == 'L') {
+        xs.push(point.x);
+        ys.push(point.y);
+      }
+    });
+    _this.startX = Math.min(xs);
+    _this.startY = Math.min(ys);
+    _this.endX = Math.max(xs);
+    _this.endY = Math.max(ys);
+    debug('this.startX:' + _this.startX);
     return _this;
   }
 
@@ -19996,6 +20014,7 @@ var MultiPolygon = function (_AkebiSVGComponent) {
         this.d.push('Z');
       }
       this.svgs.push(_react2.default.createElement('path', { stroke: 'currentColor', strokeWidth: '1', fill: this.fill, d: this.d.join(' ') }));
+      this.svgs.push(_react2.default.createElement(_rect2.default, { x: this.startX + this.endX / 2, y: this.startY + this.startY / 2, width: this.endX - this.startX, height: this.endY - this.endY, fill: 'transparent' }));
     }
   }, {
     key: 'drawStartPoint',
@@ -20040,7 +20059,7 @@ var MultiPolygon = function (_AkebiSVGComponent) {
 exports.default = MultiPolygon;
 ;
 
-},{"./common.jsx":176,"./point.jsx":178,"react":171}],178:[function(require,module,exports){
+},{"./common.jsx":176,"./point.jsx":178,"./rect.jsx":179,"react":171}],178:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

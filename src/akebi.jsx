@@ -24,6 +24,7 @@ getGlobal().debug = function(data){
   }else{
     document.querySelector('#debug').innerText += data.toString();
   }
+  document.querySelector('#debug').innerText += '\n';
 };
 
 
