@@ -19526,6 +19526,25 @@ getGlobal().debug = function (data) {
   document.querySelector('#debug').innerText += '\n';
 };
 
+// the min and max values from a JavaScript Array
+// http://stackoverflow.com/questions/1669190/javascript-min-max-array-values
+/**
+ * get the max value from Array
+ * @param array
+ * @returns {number}
+ */
+getGlobal().getMin = function (array) {
+  return Math.min.apply(Math, array);
+};
+/**
+ * get the min value from Array
+ * @param array
+ * @returns {number}
+ */
+getGlobal().getMax = function (array) {
+  return Math.max.apply(Math, array);
+};
+
 /**
  * initialize funciton for akebi
  * @param divId
@@ -19782,7 +19801,7 @@ var ArtBoard = function (_React$Component) {
 
     _this.state = {};
     _this.width = 900;
-    _this.height = 300;
+    _this.height = 500;
     return _this;
   }
 
@@ -19980,20 +19999,14 @@ var MultiPolygon = function (_AkebiSVGComponent) {
     var ys = [];
     _this.points.forEach(function (point) {
       if (point.type == 'L') {
+        point.x += _this.x;
+        point.y += _this.y;
         xs.push(point.x);
         ys.push(point.y);
       }
     });
-    // debug('xs:'+xs)
-    // debug('ys:'+ys)
-    // http://stackoverflow.com/questions/1669190/javascript-min-max-array-values
-    function getMin(array) {
-      return Math.min.apply(Math, array);
-    }
-
-    function getMax(array) {
-      return Math.max.apply(Math, array);
-    }
+    // debug('xs:'+xs);
+    // debug('ys:'+ys);
     _this.startX = getMin(xs);
     _this.startY = getMin(ys);
     _this.endX = getMax(xs);

@@ -29,6 +29,26 @@ getGlobal().debug = function(data){
 };
 
 
+// the min and max values from a JavaScript Array
+// http://stackoverflow.com/questions/1669190/javascript-min-max-array-values
+/**
+ * get the max value from Array
+ * @param array
+ * @returns {number}
+ */
+getGlobal().getMin = function(array){
+  return Math.min.apply(Math,array);
+};
+/**
+ * get the min value from Array
+ * @param array
+ * @returns {number}
+ */
+getGlobal().getMax = function(array){
+  return Math.max.apply(Math,array);
+};
+
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 
