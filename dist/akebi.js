@@ -19799,7 +19799,8 @@ var ArtBoard = function (_React$Component) {
         _react2.default.createElement(_rect2.default, { x: '10', y: '100', width: '720', height: '26', strokeTop: '5', drawPointFlag: 'true' }),
         _react2.default.createElement(_shelf2.default, { fill: 'pink', drawPointFlag: 'true' }),
         _react2.default.createElement(_centerpoint2.default, { x: '500', y: '50', range: '10' }),
-        _react2.default.createElement(_multipolygon2.default, null)
+        _react2.default.createElement(_multipolygon2.default, null),
+        _react2.default.createElement(_centerpoint2.default, { x: '500', y: '50', range: '10' })
       );
     }
   }]);
@@ -20229,10 +20230,10 @@ var Shelf = function (_AkebiSVGComponent) {
       "label": '棚番号ふ'
     };
     _this.drawPointFlag = _this.props.drawPointFlag == 'true';
-    _this.x = _this.state.x;
-    _this.y = _this.state.y;
-    _this.width = _this.state.count * _this.state.eachWidth;
-    _this.height = _this.state.side * _this.state.eachHeight;
+    _this.x = parseInt(_this.state.x);
+    _this.y = parseInt(_this.state.y);
+    _this.width = parseInt(_this.state.count) * parseInt(_this.state.eachWidth);
+    _this.height = parseInt(_this.state.side) * parseInt(_this.state.eachHeight);
     // calculate start point from x,y
     _this.startX = _this.x - _this.width / 2;
     _this.startY = _this.y - _this.height / 2;

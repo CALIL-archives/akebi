@@ -22,10 +22,10 @@ export default class Shelf extends AkebiSVGComponent {
       "label": "\u68da\u756a\u53f7\u3075"
     };
     this.drawPointFlag = this.props.drawPointFlag=='true';
-    this.x = this.state.x;
-    this.y = this.state.y;
-    this.width = this.state.count * this.state.eachWidth;
-    this.height = this.state.side * this.state.eachHeight;
+    this.x = parseInt(this.state.x);
+    this.y = parseInt(this.state.y);
+    this.width = parseInt(this.state.count) * parseInt(this.state.eachWidth);
+    this.height = parseInt(this.state.side) * parseInt(this.state.eachHeight);
     // calculate start point from x,y
     this.startX = this.x - this.width / 2;
     this.startY = this.y - this.height / 2;
