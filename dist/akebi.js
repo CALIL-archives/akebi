@@ -19515,6 +19515,7 @@ var getGlobal = require('get-global');
  * @param data
  */
 getGlobal().debug = function (data) {
+  document.querySelector('#debug').style.display = 'block';
   if (typeof data == 'string') {
     document.querySelector('#debug').innerText += data;
   } else if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) == 'object') {
@@ -19983,11 +19984,24 @@ var MultiPolygon = function (_AkebiSVGComponent) {
         ys.push(point.y);
       }
     });
-    _this.startX = Math.min(xs);
-    _this.startY = Math.min(ys);
-    _this.endX = Math.max(xs);
-    _this.endY = Math.max(ys);
-    debug('this.startX:' + _this.startX);
+    // debug('xs:'+xs)
+    // debug('ys:'+ys)
+    // http://stackoverflow.com/questions/1669190/javascript-min-max-array-values
+    function getMin(array) {
+      return Math.min.apply(Math, array);
+    }
+
+    function getMax(array) {
+      return Math.max.apply(Math, array);
+    }
+    _this.startX = getMin(xs);
+    _this.startY = getMin(ys);
+    _this.endX = getMax(xs);
+    _this.endY = getMax(ys);
+    // debug('this.startX:'+this.startX)
+    // debug('this.startY:'+this.startY)
+    // debug('this.endX:'+this.endX)
+    // debug('this.endY:'+this.endY)
     return _this;
   }
 

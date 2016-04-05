@@ -17,6 +17,7 @@ var getGlobal = require('get-global');
  * @param data
  */
 getGlobal().debug = function(data){
+  document.querySelector('#debug').style.display = 'block';
   if(typeof data=='string'){
     document.querySelector('#debug').innerText += data;
   }else if(typeof data=='object'){
