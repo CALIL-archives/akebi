@@ -21004,7 +21004,8 @@ var getGlobal = require('get-global');
  * @param divID
  */
 getGlobal().debug = function (data) {
-  var divID = arguments.length <= 1 || arguments[1] === undefined ? '#debug' : arguments[1];
+  var keylist = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
+  var divID = arguments.length <= 2 || arguments[2] === undefined ? '#debug' : arguments[2];
 
   var debugDIV = document.querySelector(divID);
   debugDIV.style.display = 'block';
@@ -21013,10 +21014,17 @@ getGlobal().debug = function (data) {
   } else if (typeof data == 'string') {
     debugDIV.innerText += data;
   } else if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) == 'object') {
-    try {
-      debugDIV.innerText += JSON.stringify(data);
-    } catch (e) {
-      debugDIV.innerText += data.outerHTML;
+    // list the keys of object
+    if (keylist) {
+      for (var k in data) {
+        debug(k);
+      }
+    } else {
+      try {
+        debugDIV.innerText += JSON.stringify(data);
+      } catch (e) {
+        debugDIV.innerText += data.outerHTML;
+      }
     }
   } else {
     debugDIV.innerText += data.toString();
@@ -21058,7 +21066,9 @@ getGlobal().akebi = function (divId, akebiOptions) {
   };
   _superagent2.default.get('/example/sample.json').send({}).set('Accept', 'application/json').end(function (error, res) {
     if (!error) {
-      debug(res.body.geometry);
+      // res.body.data.haika
+      // res.body.data.features
+      debug(res.body.data.haika, true);
     }
   });
 

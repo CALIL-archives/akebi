@@ -17,7 +17,7 @@ var getGlobal = require('get-global');
  * @param data
  * @param divID
  */
-getGlobal().debug = function(data, divID='#debug') {
+getGlobal().debug = function(data, keylist=false, divID='#debug') {
   var debugDIV = document.querySelector(divID);
   debugDIV.style.display = 'block';
   if (typeof data == 'undefined'){
@@ -25,10 +25,17 @@ getGlobal().debug = function(data, divID='#debug') {
   }else if(typeof data=='string'){
     debugDIV.innerText += data;
   }else if(typeof data=='object'){
-    try{
-      debugDIV.innerText += JSON.stringify(data);
-    }catch(e){
-      debugDIV.innerText += data.outerHTML;
+    // list the keys of object
+    if(keylist){
+      for(var k in data){
+        debug(k);
+      }
+    }else{
+      try{
+        debugDIV.innerText += JSON.stringify(data);
+      }catch(e){
+        debugDIV.innerText += data.outerHTML;
+      }
     }
   }else{
     debugDIV.innerText += data.toString();
@@ -83,7 +90,9 @@ getGlobal().akebi = function(divId, akebiOptions){
     .set('Accept', 'application/json')
     .end(function(error, res){
       if(!error){
-        debug(res.body.geometry)
+        // res.body.data.haika
+        // res.body.data.features
+        debug(res.body.data.haika, true)
       }
     });
 
