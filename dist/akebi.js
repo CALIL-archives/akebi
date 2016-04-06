@@ -19650,7 +19650,7 @@ akebi.save = function () {
   }
 };
 
-},{"./index.jsx":180,"get-global":27,"react":171,"react-dom":29}],173:[function(require,module,exports){
+},{"./index.jsx":184,"get-global":27,"react":171,"react-dom":29}],173:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19663,7 +19663,7 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _CenterPoint = require('../svg/CenterPoint.jsx');
+var _CenterPoint = require('./basic/CenterPoint.jsx');
 
 var _CenterPoint2 = _interopRequireDefault(_CenterPoint);
 
@@ -19718,7 +19718,7 @@ var AkebiSVGComponent = function (_React$Component) {
 
 exports.default = AkebiSVGComponent;
 
-},{"../svg/CenterPoint.jsx":181,"react":171}],174:[function(require,module,exports){
+},{"./basic/CenterPoint.jsx":180,"react":171}],174:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19731,11 +19731,11 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Point = require('../svg/Point.jsx');
+var _Point = require('./basic/Point.jsx');
 
 var _Point2 = _interopRequireDefault(_Point);
 
-var _Rect = require('../svg/Rect.jsx');
+var _Rect = require('./basic/Rect.jsx');
 
 var _Rect2 = _interopRequireDefault(_Rect);
 
@@ -19743,7 +19743,7 @@ var _Shelf = require('./Shelf.jsx');
 
 var _Shelf2 = _interopRequireDefault(_Shelf);
 
-var _MultiPolygon = require('../svg/MultiPolygon.jsx');
+var _MultiPolygon = require('./basic/MultiPolygon.jsx');
 
 var _MultiPolygon2 = _interopRequireDefault(_MultiPolygon);
 
@@ -19813,7 +19813,7 @@ var ArtBoard = function (_React$Component) {
 
 exports.default = ArtBoard;
 
-},{"../svg/MultiPolygon.jsx":182,"../svg/Point.jsx":183,"../svg/Rect.jsx":184,"./Beacon.jsx":175,"./CurvedShelf.jsx":176,"./Floor.jsx":177,"./Shelf.jsx":178,"./Wall.jsx":179,"react":171}],175:[function(require,module,exports){
+},{"./Beacon.jsx":175,"./CurvedShelf.jsx":176,"./Floor.jsx":177,"./Shelf.jsx":178,"./Wall.jsx":179,"./basic/MultiPolygon.jsx":181,"./basic/Point.jsx":182,"./basic/Rect.jsx":183,"react":171}],175:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19830,7 +19830,7 @@ var _AkebiSVGComponent2 = require('./AkebiSVGComponent.jsx');
 
 var _AkebiSVGComponent3 = _interopRequireDefault(_AkebiSVGComponent2);
 
-var _Rect = require('../svg/Rect.jsx');
+var _Rect = require('./basic/Rect.jsx');
 
 var _Rect2 = _interopRequireDefault(_Rect);
 
@@ -19873,7 +19873,7 @@ var Beacon = function (_AkebiSVGComponent) {
 
 exports.default = Beacon;
 
-},{"../svg/Rect.jsx":184,"./AkebiSVGComponent.jsx":173,"react":171}],176:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":173,"./basic/Rect.jsx":183,"react":171}],176:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19982,11 +19982,11 @@ var _AkebiSVGComponent2 = require('./AkebiSVGComponent.jsx');
 
 var _AkebiSVGComponent3 = _interopRequireDefault(_AkebiSVGComponent2);
 
-var _Point = require('../svg/Point.jsx');
+var _Point = require('./basic/Point.jsx');
 
 var _Point2 = _interopRequireDefault(_Point);
 
-var _Rect = require('../svg/Rect.jsx');
+var _Rect = require('./basic/Rect.jsx');
 
 var _Rect2 = _interopRequireDefault(_Rect);
 
@@ -20059,7 +20059,7 @@ var Shelf = function (_AkebiSVGComponent) {
 
 exports.default = Shelf;
 
-},{"../svg/Point.jsx":183,"../svg/Rect.jsx":184,"./AkebiSVGComponent.jsx":173,"react":171}],179:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":173,"./basic/Point.jsx":182,"./basic/Rect.jsx":183,"react":171}],179:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -20118,115 +20118,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ArtBoard = require('./component/ArtBoard.jsx');
-
-var _ArtBoard2 = _interopRequireDefault(_ArtBoard);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Index = function (_React$Component) {
-  _inherits(Index, _React$Component);
-
-  function Index(props) {
-    _classCallCheck(this, Index);
-
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Index).call(this, props));
-
-    _this.state = {};
-    return _this;
-  }
-
-  _createClass(Index, [{
-    key: 'open',
-    value: function open(event) {
-      akebi.open(event);
-    }
-  }, {
-    key: 'handleFileSelect',
-    value: function handleFileSelect(event) {
-      event.stopPropagation();
-      event.preventDefault();
-      akebi.open(event);
-    }
-  }, {
-    key: 'handleDragOver',
-    value: function handleDragOver(event) {
-      event.stopPropagation();
-      event.preventDefault();
-      // mouse cursor style onDragOver
-      // https://developer.mozilla.org/ja/docs/DragDrop/Drag_Operations
-      event.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
-    }
-  }, {
-    key: 'save',
-    value: function save() {
-      akebi.save();
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'h1',
-          null,
-          'Akebi'
-        ),
-        _react2.default.createElement(
-          'p',
-          null,
-          'second generation haika editor'
-        ),
-        _react2.default.createElement(
-          'label',
-          { 'for': 'open', className: 'open' },
-          '＋Open File',
-          _react2.default.createElement('input', { type: 'file', id: 'open', onChange: this.open, accept: 'application/json' })
-        ),
-        _react2.default.createElement(
-          'button',
-          { className: 'save', onClick: this.save },
-          'Save File'
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'dropzone', onDragOver: this.handleDragOver, onDrop: this.handleFileSelect },
-          'Drop files here'
-        ),
-        _react2.default.createElement(
-          'div',
-          { style: { background: 'white', padding: '30px' } },
-          _react2.default.createElement(_ArtBoard2.default, null)
-        )
-      );
-    }
-  }]);
-
-  return Index;
-}(_react2.default.Component);
-
-exports.default = Index;
-
-},{"./component/ArtBoard.jsx":174,"react":171}],181:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20268,7 +20159,7 @@ var CenterPoint = function (_React$Component) {
 
 exports.default = CenterPoint;
 
-},{"react":171}],182:[function(require,module,exports){
+},{"react":171}],181:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -20393,7 +20284,7 @@ var MultiPolygon = function (_React$Component) {
 exports.default = MultiPolygon;
 ;
 
-},{"./Point.jsx":183,"react":171}],183:[function(require,module,exports){
+},{"./Point.jsx":182,"react":171}],182:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -20442,7 +20333,7 @@ var Point = function (_React$Component) {
 
 exports.default = Point;
 
-},{"react":171}],184:[function(require,module,exports){
+},{"react":171}],183:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -20530,4 +20421,113 @@ var Rect = function (_React$Component) {
 
 exports.default = Rect;
 
-},{"./Point.jsx":183,"react":171}]},{},[172]);
+},{"./Point.jsx":182,"react":171}],184:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _ArtBoard = require('./component/ArtBoard.jsx');
+
+var _ArtBoard2 = _interopRequireDefault(_ArtBoard);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Index = function (_React$Component) {
+  _inherits(Index, _React$Component);
+
+  function Index(props) {
+    _classCallCheck(this, Index);
+
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Index).call(this, props));
+
+    _this.state = {};
+    return _this;
+  }
+
+  _createClass(Index, [{
+    key: 'open',
+    value: function open(event) {
+      akebi.open(event);
+    }
+  }, {
+    key: 'handleFileSelect',
+    value: function handleFileSelect(event) {
+      event.stopPropagation();
+      event.preventDefault();
+      akebi.open(event);
+    }
+  }, {
+    key: 'handleDragOver',
+    value: function handleDragOver(event) {
+      event.stopPropagation();
+      event.preventDefault();
+      // mouse cursor style onDragOver
+      // https://developer.mozilla.org/ja/docs/DragDrop/Drag_Operations
+      event.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+    }
+  }, {
+    key: 'save',
+    value: function save() {
+      akebi.save();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Akebi'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'second generation haika editor'
+        ),
+        _react2.default.createElement(
+          'label',
+          { 'for': 'open', className: 'open' },
+          '＋Open File',
+          _react2.default.createElement('input', { type: 'file', id: 'open', onChange: this.open, accept: 'application/json' })
+        ),
+        _react2.default.createElement(
+          'button',
+          { className: 'save', onClick: this.save },
+          'Save File'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'dropzone', onDragOver: this.handleDragOver, onDrop: this.handleFileSelect },
+          'Drop files here'
+        ),
+        _react2.default.createElement(
+          'div',
+          { style: { background: 'white', padding: '30px' } },
+          _react2.default.createElement(_ArtBoard2.default, null)
+        )
+      );
+    }
+  }]);
+
+  return Index;
+}(_react2.default.Component);
+
+exports.default = Index;
+
+},{"./component/ArtBoard.jsx":174,"react":171}]},{},[172]);

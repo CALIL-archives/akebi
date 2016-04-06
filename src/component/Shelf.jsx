@@ -2,8 +2,8 @@
 
 import React from 'react'
 import AkebiSVGComponent from './AkebiSVGComponent.jsx'
-import Point from 'basic/Point.jsx'
-import Rect from 'basic/Rect.jsx'
+import Point from './basic/Point.jsx'
+import Rect from './basic/Rect.jsx'
 
 
 export default class Shelf extends AkebiSVGComponent {
