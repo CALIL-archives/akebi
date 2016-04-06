@@ -18,6 +18,7 @@ var getGlobal = require('get-global');
  * @param divID
  */
 getGlobal().debug = function(data, divID='#debug'){
+  if(typeof data=='undefined') return;
   var debugDIV = document.querySelector(divID);
   debugDIV.style.display = 'block';
   if(typeof data=='string'){

@@ -23,11 +23,13 @@ export default class ArtBoard extends React.Component {
   render() {
     return (
       <svg xmlns="http://www.w3.org/2000/svg" ref="svg" viewBox={this.getViewBox()} width={this.width} height={this.height}>
-        <Point x="10" y="10"></Point>
-        <Rect x="10" y="100" width="720" height="26" strokeTop="5" drawPointFlag="true"></Rect>
-        <Shelf x="500" y="100" fill="pink" drawPointFlag="true"></Shelf>
+        <Point x="10" y="10" fill="red"></Point>
+        <Rect x="10" y="200" width="720" height="26" strokeTop="5" drawPointFlag="true"></Rect>
+        <MultiPolygon x="500" y="700"></MultiPolygon>
+
+        <Shelf x="500" y="100" fill="pink" color="red" drawPointFlag="true"></Shelf>
+
         <Beacon x="500" y="100"></Beacon>
-        <MultiPolygon></MultiPolygon>
         <CurvedShelf></CurvedShelf>
         <Wall></Wall>
         <Floor></Floor>

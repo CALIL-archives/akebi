@@ -13,8 +13,10 @@ export default class Rect extends React.Component {
     this.width = parseInt(this.props.width) || 100;
     this.height = parseInt(this.props.height) || 100;
 
-    this.fill = this.props.fill || 'none';
+    this.fill = this.props.fill || 'transparent';
     this.drawPointFlag = (this.props.drawPointFlag=='true');
+
+    this.stroke = this.props.stroke || 'red';
     this.strokeWidth = parseInt(this.props.strokeWidth) || 1;
 
     this.leftStrokeDashArray = parseInt(this.props.leftStrokeDashArray) || 0;
@@ -40,8 +42,8 @@ export default class Rect extends React.Component {
   }
   drawLine(x1, y1, x2, y2, strokeDasharray=0){
     if(this.drawPointFlag){
-      this.svgs.push(<Point x={x1} y={y1}></Point>);
+      this.svgs.push(<Point x={x1} y={y1} fill={this.stroke}></Point>);
     }
-    this.svgs.push(<line x1={x1} y1={y1} x2={x2} y2={y2} stroke="currentColor" strokeWidth={this.strokeWidth} strokeDasharray={strokeDasharray}/>);
+    this.svgs.push(<line x1={x1} y1={y1} x2={x2} y2={y2} stroke={this.stroke} strokeWidth={this.strokeWidth} strokeDasharray={strokeDasharray}/>);
   }
 }

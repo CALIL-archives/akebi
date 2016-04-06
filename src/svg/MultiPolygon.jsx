@@ -7,9 +7,11 @@ export default class MultiPolygon extends React.Component {
   constructor(props) {
     super(props);
     this.svgs = [];
+    this.stroke = this.props.stroke || 'red';
 
     this.x = parseInt(this.props.x) || 0;
     this.y = parseInt(this.props.y) || 0;
+
     this.points = this.props.points || null;
     // if(!this.points) return console.error('no points on MultPolygon');
     this.drawPointFlag = (this.props.drawPointFlag == 'true');
@@ -18,20 +20,18 @@ export default class MultiPolygon extends React.Component {
 
     // Todo: dummy params
     this.drawPointFlag = true;
-    this.x = 10;
-    this.y = 200;
     this.fill = 'transparent';
     this.close = true;
     this.points = [
-      {type:'M', x:10, y:200},
-      {type:'L', x:100, y:200},
-      {type:'L', x:100, y:150},
-      {type:'L', x:200, y:200},
-      {type:'A', endX:300, endY:200, horizontalRadius:10, verticalRadius:10},
-      {type:'L', x:400, y:200},
-      {type:'L', x:500, y:250},
-      {type:'L', x:500, y:300},
-      {type:'Q', endX:10, endY:250, controlPointX:250, controlPointY:500}
+      {type:'M', x:10, y:0},
+      {type:'L', x:100, y:0},
+      {type:'L', x:100, y:-50},
+      {type:'L', x:200, y:0},
+      {type:'A', endX:300, endY:0, horizontalRadius:10, verticalRadius:10},
+      {type:'L', x:400, y:0},
+      {type:'L', x:500, y:50},
+      {type:'L', x:500, y:100},
+      {type:'Q', endX:10, endY:50, controlPointX:50, controlPointY:200}
     ];
   }
   render(){
@@ -52,9 +52,9 @@ export default class MultiPolygon extends React.Component {
     if(this.close){
       this.d.push('Z');
     }
-    this.svgs.push(<path stroke="currentColor" strokeWidth="1" fill={this.fill||'transparent'} d={this.d.join(' ')}/>);
+    this.svgs.push(<path stroke={this.stroke} strokeWidth="1" fill={this.fill||'transparent'} d={this.d.join(' ')}/>);
     return (
-      <g color="currentColor">
+      <g style={{transformOrigin:'center center', transform:`translate(${this.x/2}px,${this.y/2}px)`}}>
         {this.svgs}
       </g>
     )
@@ -65,7 +65,7 @@ export default class MultiPolygon extends React.Component {
   }
   drawPoint(x, y){
     if(this.drawPointFlag){
-      this.svgs.push(<Point x={x} y={y}></Point>);
+      this.svgs.push(<Point x={x} y={y} fill={this.stroke}></Point>);
     }
   }
   drawLine(x, y){

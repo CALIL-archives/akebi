@@ -19518,6 +19518,7 @@ var getGlobal = require('get-global');
 getGlobal().debug = function (data) {
   var divID = arguments.length <= 1 || arguments[1] === undefined ? '#debug' : arguments[1];
 
+  if (typeof data == 'undefined') return;
   var debugDIV = document.querySelector(divID);
   debugDIV.style.display = 'block';
   if (typeof data == 'string') {
@@ -19795,11 +19796,11 @@ var ArtBoard = function (_React$Component) {
       return _react2.default.createElement(
         'svg',
         { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height },
-        _react2.default.createElement(_Point2.default, { x: '10', y: '10' }),
-        _react2.default.createElement(_Rect2.default, { x: '10', y: '100', width: '720', height: '26', strokeTop: '5', drawPointFlag: 'true' }),
-        _react2.default.createElement(_Shelf2.default, { x: '500', y: '100', fill: 'pink', drawPointFlag: 'true' }),
+        _react2.default.createElement(_Point2.default, { x: '10', y: '10', fill: 'red' }),
+        _react2.default.createElement(_Rect2.default, { x: '10', y: '200', width: '720', height: '26', strokeTop: '5', drawPointFlag: 'true' }),
+        _react2.default.createElement(_MultiPolygon2.default, { x: '500', y: '700' }),
+        _react2.default.createElement(_Shelf2.default, { x: '500', y: '100', fill: 'pink', color: 'red', drawPointFlag: 'true' }),
         _react2.default.createElement(_Beacon2.default, { x: '500', y: '100' }),
-        _react2.default.createElement(_MultiPolygon2.default, null),
         _react2.default.createElement(_CurvedShelf2.default, null),
         _react2.default.createElement(_Wall2.default, null),
         _react2.default.createElement(_Floor2.default, null)
@@ -20036,11 +20037,11 @@ var Shelf = function (_AkebiSVGComponent) {
         if (fillRects.indexOf(i) >= 0 && this.props.fill) {
           var fill = this.props.fill;
         }
-        this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.startX + this.state.eachWidth * i, y: this.startY, width: this.state.eachWidth, height: this.state.eachHeight, topStrokeDashArray: '5', fill: fill }));
+        this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.startX + this.state.eachWidth * i, y: this.startY, width: this.state.eachWidth, height: this.state.eachHeight, topStrokeDashArray: '5', fill: fill, stroke: this.stroke }));
       }
       if (this.state.side == 2) {
         for (var i = 0, l = this.state.count; i < l; i++) {
-          this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.startX + this.state.eachWidth * i, y: this.startY + this.state.eachHeight, width: this.state.eachWidth, height: this.state.eachHeight }));
+          this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.startX + this.state.eachWidth * i, y: this.startY + this.state.eachHeight, width: this.state.eachWidth, height: this.state.eachHeight, stroke: this.stroke }));
           this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.startX + this.state.eachWidth * i, y: this.startY, width: this.state.eachWidth, height: this.state.eachHeight, topStrokeDashArray: '5', fill: 'transparent' }));
         }
       }
@@ -20301,9 +20302,11 @@ var MultiPolygon = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MultiPolygon).call(this, props));
 
     _this.svgs = [];
+    _this.stroke = _this.props.stroke || 'red';
 
     _this.x = parseInt(_this.props.x) || 0;
     _this.y = parseInt(_this.props.y) || 0;
+
     _this.points = _this.props.points || null;
     // if(!this.points) return console.error('no points on MultPolygon');
     _this.drawPointFlag = _this.props.drawPointFlag == 'true';
@@ -20312,11 +20315,9 @@ var MultiPolygon = function (_React$Component) {
 
     // Todo: dummy params
     _this.drawPointFlag = true;
-    _this.x = 10;
-    _this.y = 200;
     _this.fill = 'transparent';
     _this.close = true;
-    _this.points = [{ type: 'M', x: 10, y: 200 }, { type: 'L', x: 100, y: 200 }, { type: 'L', x: 100, y: 150 }, { type: 'L', x: 200, y: 200 }, { type: 'A', endX: 300, endY: 200, horizontalRadius: 10, verticalRadius: 10 }, { type: 'L', x: 400, y: 200 }, { type: 'L', x: 500, y: 250 }, { type: 'L', x: 500, y: 300 }, { type: 'Q', endX: 10, endY: 250, controlPointX: 250, controlPointY: 500 }];
+    _this.points = [{ type: 'M', x: 10, y: 0 }, { type: 'L', x: 100, y: 0 }, { type: 'L', x: 100, y: -50 }, { type: 'L', x: 200, y: 0 }, { type: 'A', endX: 300, endY: 0, horizontalRadius: 10, verticalRadius: 10 }, { type: 'L', x: 400, y: 0 }, { type: 'L', x: 500, y: 50 }, { type: 'L', x: 500, y: 100 }, { type: 'Q', endX: 10, endY: 50, controlPointX: 50, controlPointY: 200 }];
     return _this;
   }
 
@@ -20342,10 +20343,10 @@ var MultiPolygon = function (_React$Component) {
       if (this.close) {
         this.d.push('Z');
       }
-      this.svgs.push(_react2.default.createElement('path', { stroke: 'currentColor', strokeWidth: '1', fill: this.fill || 'transparent', d: this.d.join(' ') }));
+      this.svgs.push(_react2.default.createElement('path', { stroke: this.stroke, strokeWidth: '1', fill: this.fill || 'transparent', d: this.d.join(' ') }));
       return _react2.default.createElement(
         'g',
-        { color: 'currentColor' },
+        { style: { transformOrigin: 'center center', transform: 'translate(' + this.x / 2 + 'px,' + this.y / 2 + 'px)' } },
         this.svgs
       );
     }
@@ -20359,7 +20360,7 @@ var MultiPolygon = function (_React$Component) {
     key: 'drawPoint',
     value: function drawPoint(x, y) {
       if (this.drawPointFlag) {
-        this.svgs.push(_react2.default.createElement(_Point2.default, { x: x, y: y }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { x: x, y: y, fill: this.stroke }));
       }
     }
   }, {
@@ -20421,6 +20422,8 @@ var Point = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Point).call(this, props));
 
+    _this.fill = _this.props.fill || 'red';
+
     _this.x = parseInt(_this.props.x) || 1;
     _this.y = parseInt(_this.props.y) || 1;
     _this.r = parseInt(_this.props.r) || 5;
@@ -20430,7 +20433,7 @@ var Point = function (_React$Component) {
   _createClass(Point, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('circle', { cx: this.x, cy: this.y, r: this.r, stroke: 'currentColor', 'stroke-width': '1', fill: 'currentColor' });
+      return _react2.default.createElement('circle', { cx: this.x, cy: this.y, r: this.r, 'stroke-width': '1', fill: this.fill });
     }
   }]);
 
@@ -20479,8 +20482,10 @@ var Rect = function (_React$Component) {
     _this.width = parseInt(_this.props.width) || 100;
     _this.height = parseInt(_this.props.height) || 100;
 
-    _this.fill = _this.props.fill || 'none';
+    _this.fill = _this.props.fill || 'transparent';
     _this.drawPointFlag = _this.props.drawPointFlag == 'true';
+
+    _this.stroke = _this.props.stroke || 'red';
     _this.strokeWidth = parseInt(_this.props.strokeWidth) || 1;
 
     _this.leftStrokeDashArray = parseInt(_this.props.leftStrokeDashArray) || 0;
@@ -20514,9 +20519,9 @@ var Rect = function (_React$Component) {
       var strokeDasharray = arguments.length <= 4 || arguments[4] === undefined ? 0 : arguments[4];
 
       if (this.drawPointFlag) {
-        this.svgs.push(_react2.default.createElement(_Point2.default, { x: x1, y: y1 }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { x: x1, y: y1, fill: this.stroke }));
       }
-      this.svgs.push(_react2.default.createElement('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: 'currentColor', strokeWidth: this.strokeWidth, strokeDasharray: strokeDasharray }));
+      this.svgs.push(_react2.default.createElement('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: this.stroke, strokeWidth: this.strokeWidth, strokeDasharray: strokeDasharray }));
     }
   }]);
 
