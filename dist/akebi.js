@@ -21067,7 +21067,9 @@ getGlobal().akebi = function () {
     this.react = null;
     var akebiOptions = {
       open: false,
-      akebi: this
+      akebi: this,
+      width: 900,
+      height: 500
     };
     var options = {
       save: true
@@ -21298,8 +21300,8 @@ var ArtBoard = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ArtBoard).call(this, props));
 
     _this.state = {};
-    _this.width = 900;
-    _this.height = 500;
+    _this.width = parseInt(_this.props.width) || 900;
+    _this.height = parseInt(_this.props.height) || 500;
     return _this;
   }
 
@@ -21973,6 +21975,8 @@ var Index = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Index).call(this, props));
 
     _this.state = {};
+    _this.width = parseInt(_this.props.width) || 900;
+    _this.height = parseInt(_this.props.height) || 100;
     // Todo: refactor
     // debug(this.props.akebi.geojson)
     _this.props.akebi.geojson.forEach(function (feature) {
@@ -22011,8 +22015,8 @@ var Index = function (_React$Component) {
     key: 'createCompoenent',
     value: function createCompoenent(feature) {
       if (feature.properties.type == 'shelf') {
-        debug(feature.properties);
-        debug(feature.geometry);
+        // debug(feature.properties)
+        // debug(feature.geometry)
       }
     }
   }, {
@@ -22050,7 +22054,7 @@ var Index = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { style: { background: 'white', padding: '30px' } },
-          _react2.default.createElement(_ArtBoard2.default, null)
+          _react2.default.createElement(_ArtBoard2.default, { width: this.width, height: this.height })
         )
       );
     }

@@ -7,6 +7,8 @@ export default class Index extends React.Component {
   constructor(props){
     super(props);
     this.state = {};
+    this.width = parseInt(this.props.width) || 900;
+    this.height = parseInt(this.props.height) || 100;
     // Todo: refactor
     // debug(this.props.akebi.geojson)
     this.props.akebi.geojson.forEach((feature)=>{
@@ -33,8 +35,8 @@ export default class Index extends React.Component {
   }
   createCompoenent(feature){
     if(feature.properties.type=='shelf'){
-      debug(feature.properties)
-      debug(feature.geometry)
+      // debug(feature.properties)
+      // debug(feature.geometry)
     }
   }
   render() {
@@ -49,7 +51,7 @@ export default class Index extends React.Component {
         <button className="save" onClick={this.save}>Save File</button>
         <div className="dropzone" onDragOver={this.handleDragOver} onDrop={this.handleFileSelect}>Drop files here</div>
         <div style={{background: 'white', padding: '30px'}}>
-          <ArtBoard></ArtBoard>
+          <ArtBoard width={this.width} height={this.height}></ArtBoard>
         </div>
       </div>
     )

@@ -84,7 +84,9 @@ getGlobal().akebi = class {
     this.react = null;
     var akebiOptions = {
       open: false,
-      akebi: this
+      akebi: this,
+      width: 900,
+      height: 500
     };
     var options = {
       save: true
