@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react'
-import CenterPoint from './centerpoint.jsx'
+import CenterPoint from './CenterPoint.jsx'
 
 export default class AkebiSVGComponent extends React.Component {
   constructor(props) {

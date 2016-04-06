@@ -19654,9 +19654,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _artboard = require('./svg/artboard.jsx');
+var _ArtBoard = require('./svg/ArtBoard.jsx');
 
-var _artboard2 = _interopRequireDefault(_artboard);
+var _ArtBoard2 = _interopRequireDefault(_ArtBoard);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19739,7 +19739,7 @@ var Index = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { style: { background: 'white', padding: '30px' } },
-          _react2.default.createElement(_artboard2.default, null)
+          _react2.default.createElement(_ArtBoard2.default, null)
         )
       );
     }
@@ -19750,7 +19750,7 @@ var Index = function (_React$Component) {
 
 exports.default = Index;
 
-},{"./svg/artboard.jsx":174,"react":171}],174:[function(require,module,exports){
+},{"./svg/ArtBoard.jsx":174,"react":171}],174:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

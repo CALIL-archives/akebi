@@ -1,8 +1,8 @@
 'use strict';
 
 import React from 'react'
-import AkebiSVGComponent from './common.jsx'
-import Point from './point.jsx'
+import AkebiSVGComponent from './AkebiSVGComponent.jsx'
+import Point from './Point.jsx'
 
 export default class MultiPolygon extends AkebiSVGComponent {
   constructor(props) {

@@ -1,9 +1,9 @@
 'use strict';
 
 import React from 'react'
-import AkebiSVGComponent from './common.jsx'
-import Point from './point.jsx'
-import Rect from './rect.jsx'
+import AkebiSVGComponent from './AkebiSVGComponent.jsx'
+import Point from './Point.jsx'
+import Rect from './Rect.jsx'
 
 
 export default class Shelf extends AkebiSVGComponent {

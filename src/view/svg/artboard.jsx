@@ -1,10 +1,10 @@
 'use strict';
 
 import React from 'react'
-import Point from './point.jsx'
-import Rect from './rect.jsx'
-import Shelf from './shelf.jsx'
-import MultiPolygon from './multipolygon.jsx'
+import Point from './Point.jsx'
+import Rect from './Rect.jsx'
+import Shelf from './Shelf.jsx'
+import MultiPolygon from './MultiPolygon.jsx'
 
 export default class ArtBoard extends React.Component {
   constructor(props) {

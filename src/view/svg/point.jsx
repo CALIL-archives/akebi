@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react'
-import AkebiSVGComponent from './common.jsx'
+import AkebiSVGComponent from './AkebiSVGComponent.jsx'
 
 export default class Point extends AkebiSVGComponent {
   constructor(props) {
