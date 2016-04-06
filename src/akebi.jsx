@@ -81,8 +81,10 @@ import Index from './index.jsx'
 getGlobal().akebi = class {
   constructor(divId, akebiOption) {
     this.geojson = null;
+    this.react = null;
     var akebiOptions = {
-      open: false
+      open: false,
+      akebi: this
     };
     var options = {
       save: true

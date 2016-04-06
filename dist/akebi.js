@@ -21064,8 +21064,10 @@ getGlobal().akebi = function () {
     _classCallCheck(this, _class);
 
     this.geojson = null;
+    this.react = null;
     var akebiOptions = {
-      open: false
+      open: false,
+      akebi: this
     };
     var options = {
       save: true
@@ -21971,6 +21973,11 @@ var Index = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Index).call(this, props));
 
     _this.state = {};
+    // Todo: refactor
+    // debug(this.props.akebi.geojson)
+    _this.props.akebi.geojson.forEach(function (feature) {
+      _this.createCompoenent(feature);
+    });
     return _this;
   }
 
@@ -21999,6 +22006,14 @@ var Index = function (_React$Component) {
     key: 'save',
     value: function save() {
       akebi.save();
+    }
+  }, {
+    key: 'createCompoenent',
+    value: function createCompoenent(feature) {
+      if (feature.properties.type == 'shelf') {
+        debug(feature.properties);
+        debug(feature.geometry);
+      }
     }
   }, {
     key: 'render',

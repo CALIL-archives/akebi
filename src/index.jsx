@@ -7,6 +7,11 @@ export default class Index extends React.Component {
   constructor(props){
     super(props);
     this.state = {};
+    // Todo: refactor
+    // debug(this.props.akebi.geojson)
+    this.props.akebi.geojson.forEach((feature)=>{
+      this.createCompoenent(feature);
+    });
   }
   open(event){
     akebi.open(event)
@@ -25,6 +30,12 @@ export default class Index extends React.Component {
   }
   save(){
     akebi.save()
+  }
+  createCompoenent(feature){
+    if(feature.properties.type=='shelf'){
+      debug(feature.properties)
+      debug(feature.geometry)
+    }
   }
   render() {
     return (
