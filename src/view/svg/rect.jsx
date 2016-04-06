@@ -22,9 +22,7 @@ export default class Rect extends AkebiSVGComponent {
     this.bottomStrokeDashArray = parseInt(this.props.bottomStrokeDashArray) || 0;
   }
   renderSVG(){
-    if(this.fill){
-      this.svgs.push(<rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="0" fill={this.fill} />);
-    }
+    this.svgs.push(<rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="0" fill={this.fill||'transparent'} />);
     // left line
     this.drawLine(this.x, this.y + this.height, this.x, this.y, this.leftStrokeDashArray);
     // top line

@@ -19779,10 +19779,6 @@ var _multipolygon = require('./multipolygon.jsx');
 
 var _multipolygon2 = _interopRequireDefault(_multipolygon);
 
-var _centerpoint = require('./centerpoint.jsx');
-
-var _centerpoint2 = _interopRequireDefault(_centerpoint);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19819,7 +19815,6 @@ var ArtBoard = function (_React$Component) {
         _react2.default.createElement(_point2.default, { x: '10', y: '10' }),
         _react2.default.createElement(_rect2.default, { x: '10', y: '100', width: '720', height: '26', strokeTop: '5', drawPointFlag: 'true' }),
         _react2.default.createElement(_shelf2.default, { fill: 'pink', drawPointFlag: 'true' }),
-        _react2.default.createElement(_centerpoint2.default, { x: '500', y: '50', range: '10' }),
         _react2.default.createElement(_multipolygon2.default, null)
       );
     }
@@ -19830,7 +19825,7 @@ var ArtBoard = function (_React$Component) {
 
 exports.default = ArtBoard;
 
-},{"./centerpoint.jsx":175,"./multipolygon.jsx":177,"./point.jsx":178,"./rect.jsx":179,"./shelf.jsx":180,"react":171}],175:[function(require,module,exports){
+},{"./multipolygon.jsx":177,"./point.jsx":178,"./rect.jsx":179,"./shelf.jsx":180,"react":171}],175:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19843,10 +19838,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _common = require('./common.jsx');
-
-var _common2 = _interopRequireDefault(_common);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19855,8 +19846,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var CenterPoint = function (_AkebiSVGComponent) {
-  _inherits(CenterPoint, _AkebiSVGComponent);
+var CenterPoint = function (_React$Component) {
+  _inherits(CenterPoint, _React$Component);
 
   function CenterPoint(props) {
     _classCallCheck(this, CenterPoint);
@@ -19872,19 +19863,23 @@ var CenterPoint = function (_AkebiSVGComponent) {
   }
 
   _createClass(CenterPoint, [{
-    key: 'renderSVG',
-    value: function renderSVG() {
-      this.svgs.push(_react2.default.createElement('line', { x1: this.x - this.range / 2, y1: this.y - this.range / 2, x2: this.x + this.range / 2, y2: this.y + this.range / 2, stroke: this.stroke, strokeWidth: this.strokeWidth }));
-      this.svgs.push(_react2.default.createElement('line', { x1: this.x + this.range / 2, y1: this.y - this.range / 2, x2: this.x - this.range / 2, y2: this.y + this.range / 2, stroke: this.stroke, strokeWidth: this.strokeWidth }));
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'g',
+        null,
+        _react2.default.createElement('line', { x1: this.x - this.range / 2, y1: this.y - this.range / 2, x2: this.x + this.range / 2, y2: this.y + this.range / 2, stroke: this.stroke, strokeWidth: this.strokeWidth }),
+        _react2.default.createElement('line', { x1: this.x + this.range / 2, y1: this.y - this.range / 2, x2: this.x - this.range / 2, y2: this.y + this.range / 2, stroke: this.stroke, strokeWidth: this.strokeWidth })
+      );
     }
   }]);
 
   return CenterPoint;
-}(_common2.default);
+}(_react2.default.Component);
 
 exports.default = CenterPoint;
 
-},{"./common.jsx":176,"react":171}],176:[function(require,module,exports){
+},{"react":171}],176:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19896,6 +19891,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _centerpoint = require('./centerpoint.jsx');
+
+var _centerpoint2 = _interopRequireDefault(_centerpoint);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19918,17 +19917,26 @@ var AkebiSVGComponent = function (_React$Component) {
   }
 
   _createClass(AkebiSVGComponent, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {}
+  }, {
     key: 'onClick',
     value: function onClick() {
       debug('click');
+      // this.forceUpdate();
     }
   }, {
     key: 'render',
     value: function render() {
       this.renderSVG();
+      // if(this.refs.g){
+      //   var bboxRect = this.refs.g.getBBox();
+      //   this.svgs.push(<rect x={bboxRect.x} y={bboxRect.y} width={bboxRect.width} height={bboxRect.height} stroke="#999999" strokeWidth="1" fill="transparent"></rect>);
+      //   this.svgs.push(<CenterPoint x={bboxRect.x+bboxRect.width/2} y={bboxRect.y+bboxRect.height/2} range="10"></CenterPoint>);
+      // }
       return _react2.default.createElement(
         'g',
-        { color: '#D72541', onClick: this.onClick },
+        { color: '#D72541', onClick: this.onClick.bind(this), ref: 'g' },
         this.svgs
       );
     }
@@ -19939,7 +19947,7 @@ var AkebiSVGComponent = function (_React$Component) {
 
 exports.default = AkebiSVGComponent;
 
-},{"react":171}],177:[function(require,module,exports){
+},{"./centerpoint.jsx":175,"react":171}],177:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19959,14 +19967,6 @@ var _common2 = _interopRequireDefault(_common);
 var _point = require('./point.jsx');
 
 var _point2 = _interopRequireDefault(_point);
-
-var _centerpoint = require('./centerpoint.jsx');
-
-var _centerpoint2 = _interopRequireDefault(_centerpoint);
-
-var _rect = require('./rect.jsx');
-
-var _rect2 = _interopRequireDefault(_rect);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19992,41 +19992,13 @@ var MultiPolygon = function (_AkebiSVGComponent) {
     _this.strokeWidth = parseInt(_this.props.strokeWidth) || 1;
     _this.d = [];
 
+    // Todo: dummy params
     _this.drawPointFlag = true;
     _this.x = 10;
     _this.y = 200;
-    _this.fill = 'none';
+    _this.fill = 'transparent';
     _this.close = true;
-    _this.points = [{ type: 'M', x: 10, y: 200 }, { type: 'L', x: 100, y: 200 }, { type: 'L', x: 100, y: 150 }, { type: 'L', x: 200, y: 200 }, { type: 'A', endX: 300, endY: 200, horizontalRadius: 10, verticalRadius: 10 }, { type: 'L', x: 400, y: 200 }, { type: 'L', x: 500, y: 250 }, { type: 'L', x: 500, y: 300 }, { type: 'Q', endX: 10, endY: 250, controlPointX: 250, controlPointY: 400 }];
-    var xs = [];
-    var ys = [];
-    _this.points.forEach(function (point) {
-      if (point.type == 'M' || point.type == 'L') {
-        xs.push(point.x);
-        ys.push(point.y);
-      }
-      if (point.type == 'A') {
-        xs.push(point.endX);
-        ys.push(point.endY);
-        // Todo: radius
-      }
-      if (point.type == 'Q') {
-        xs.push(point.endX);
-        xs.push(point.controlPointX);
-        ys.push(point.endY);
-        ys.push(point.endY - (point.endY - point.controlPointY) / 2);
-      }
-    });
-    // debug('xs:'+xs);
-    // debug('ys:'+ys);
-    _this.startX = getMin(xs);
-    _this.startY = getMin(ys);
-    _this.endX = getMax(xs);
-    _this.endY = getMax(ys);
-    // debug('this.startX:'+this.startX)
-    // debug('this.startY:'+this.startY)
-    // debug('this.endX:'+this.endX)
-    // debug('this.endY:'+this.endY)
+    _this.points = [{ type: 'M', x: 10, y: 200 }, { type: 'L', x: 100, y: 200 }, { type: 'L', x: 100, y: 150 }, { type: 'L', x: 200, y: 200 }, { type: 'A', endX: 300, endY: 200, horizontalRadius: 10, verticalRadius: 10 }, { type: 'L', x: 400, y: 200 }, { type: 'L', x: 500, y: 250 }, { type: 'L', x: 500, y: 300 }, { type: 'Q', endX: 10, endY: 250, controlPointX: 250, controlPointY: 500 }];
     return _this;
   }
 
@@ -20052,9 +20024,7 @@ var MultiPolygon = function (_AkebiSVGComponent) {
       if (this.close) {
         this.d.push('Z');
       }
-      this.svgs.push(_react2.default.createElement('path', { stroke: 'currentColor', strokeWidth: '1', fill: this.fill, d: this.d.join(' ') }));
-      this.svgs.push(_react2.default.createElement('rect', { x: this.startX, y: this.startY, width: this.endX - this.startX, height: this.endY - this.startY, stroke: '#999999', fill: 'transparent' }));
-      this.svgs.push(_react2.default.createElement(_centerpoint2.default, { x: this.startX + (this.endX - this.startX) / 2, y: this.startY + (this.endY - this.startY) / 2, range: '10' }));
+      this.svgs.push(_react2.default.createElement('path', { stroke: 'currentColor', strokeWidth: '1', fill: this.fill || 'transparent', d: this.d.join(' ') }));
     }
   }, {
     key: 'drawStartPoint',
@@ -20099,7 +20069,7 @@ var MultiPolygon = function (_AkebiSVGComponent) {
 exports.default = MultiPolygon;
 ;
 
-},{"./centerpoint.jsx":175,"./common.jsx":176,"./point.jsx":178,"./rect.jsx":179,"react":171}],178:[function(require,module,exports){
+},{"./common.jsx":176,"./point.jsx":178,"react":171}],178:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -20206,9 +20176,7 @@ var Rect = function (_AkebiSVGComponent) {
   _createClass(Rect, [{
     key: 'renderSVG',
     value: function renderSVG() {
-      if (this.fill) {
-        this.svgs.push(_react2.default.createElement('rect', { x: this.x, y: this.y, width: this.width, height: this.height, stroke: 'currentColor', strokeWidth: '0', fill: this.fill }));
-      }
+      this.svgs.push(_react2.default.createElement('rect', { x: this.x, y: this.y, width: this.width, height: this.height, stroke: 'currentColor', strokeWidth: '0', fill: this.fill || 'transparent' }));
       // left line
       this.drawLine(this.x, this.y + this.height, this.x, this.y, this.leftStrokeDashArray);
       // top line
@@ -20304,15 +20272,16 @@ var Shelf = function (_AkebiSVGComponent) {
     value: function renderSVG() {
       var fillRects = [1, 4, 5];
       for (var i = 0, l = this.state.count; i < l; i++) {
-        var fill = 'none';
-        if (fillRects.indexOf(i) >= 0) {
-          var fill = this.props.fill || 'none';
+        var fill = 'transparent';
+        if (fillRects.indexOf(i) >= 0 && this.props.fill) {
+          var fill = this.props.fill;
         }
         this.svgs.push(_react2.default.createElement(_rect2.default, { x: this.startX + this.state.eachWidth * i, y: this.startY, width: this.state.eachWidth, height: this.state.eachHeight, topStrokeDashArray: '5', fill: fill }));
       }
       if (this.state.side == 2) {
         for (var i = 0, l = this.state.count; i < l; i++) {
           this.svgs.push(_react2.default.createElement(_rect2.default, { x: this.startX + this.state.eachWidth * i, y: this.startY + this.state.eachHeight, width: this.state.eachWidth, height: this.state.eachHeight }));
+          this.svgs.push(_react2.default.createElement(_rect2.default, { x: this.startX + this.state.eachWidth * i, y: this.startY, width: this.state.eachWidth, height: this.state.eachHeight, topStrokeDashArray: '5', fill: 'transparent' }));
         }
       }
       if (this.drawPointFlag) {

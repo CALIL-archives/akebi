@@ -33,15 +33,16 @@ export default class Shelf extends AkebiSVGComponent {
   renderSVG() {
     var fillRects = [1, 4, 5];
     for(var i=0,l=this.state.count;i<l;i++){
-      var fill = 'none';
-      if(fillRects.indexOf(i)>=0){
-        var fill = this.props.fill || 'none';
+      var fill = 'transparent';
+      if(fillRects.indexOf(i)>=0 && this.props.fill){
+        var fill = this.props.fill;
       }
       this.svgs.push(<Rect x={this.startX+this.state.eachWidth*i} y={this.startY} width={this.state.eachWidth} height={this.state.eachHeight} topStrokeDashArray="5" fill={fill}></Rect>)
     }
     if(this.state.side==2){
       for(var i=0,l=this.state.count;i<l;i++){
         this.svgs.push(<Rect x={this.startX+this.state.eachWidth*i} y={this.startY+this.state.eachHeight} width={this.state.eachWidth} height={this.state.eachHeight}></Rect>)
+        this.svgs.push(<Rect x={this.startX+this.state.eachWidth*i} y={this.startY} width={this.state.eachWidth} height={this.state.eachHeight} topStrokeDashArray="5" fill="transparent"></Rect>)
       }
     }
     if(this.drawPointFlag){
