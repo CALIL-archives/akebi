@@ -20996,6 +20996,8 @@ var _index2 = _interopRequireDefault(_index);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 var getGlobal = require('get-global');
 
 /**
@@ -21052,31 +21054,40 @@ getGlobal().getMax = function (array) {
 };
 
 /**
- * initialize funciton for akebi
+ * akebi class
  * @param divId
  * @param akebiOptions
  */
 
-getGlobal().akebi = function (divId, akebiOptions) {
-  var akebiOptions = {
-    open: false
-  };
-  var options = {
-    save: true
-  };
-  _superagent2.default.get('/example/sample.json').send({}).set('Accept', 'application/json').end(function (error, res) {
-    if (!error) {
-      // res.body.data.haika
-      // res.body.data.features
-      debug(res.body.data.haika, true);
-    }
-  });
+getGlobal().akebi = function () {
+  function _class(divId, akebiOption) {
+    _classCallCheck(this, _class);
 
-  // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
-  // merge appOptions to options
-  Object.assign(options, akebiOptions);
-  _reactDom2.default.render(_react2.default.createElement(_index2.default, options), document.getElementById(divId));
-};
+    this.geojson = null;
+    var akebiOptions = {
+      open: false
+    };
+    var options = {
+      save: true
+    };
+    // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+    // merge appOptions to options
+    Object.assign(options, akebiOptions);
+
+    // load json
+    _superagent2.default.get('/example/sample.json').send({}).set('Accept', 'application/json').end(function (error, res) {
+      if (!error) {
+        // res.body.data.haika
+        // res.body.data.features
+        // debug(res.body.data.haika, true);
+        this.geojson = res.body.data.features;
+        this.react = _reactDom2.default.render(_react2.default.createElement(_index2.default, options), document.getElementById(divId));
+      }
+    }.bind(this));
+  }
+
+  return _class;
+}();
 
 /**
  *

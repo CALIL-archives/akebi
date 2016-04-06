@@ -72,39 +72,45 @@ import request from 'superagent'
 import Index from './index.jsx'
 
 /**
- * initialize funciton for akebi
+ * akebi class
  * @param divId
  * @param akebiOptions
  */
 
-getGlobal().akebi = function(divId, akebiOptions){
-  var akebiOptions = {
-    open: false
-  };
-  var options = {
-    save: true
-  };
-  request
-    .get('/example/sample.json')
-    .send({})
-    .set('Accept', 'application/json')
-    .end(function(error, res){
-      if(!error){
-        // res.body.data.haika
-        // res.body.data.features
-        debug(res.body.data.haika, true)
-      }
-    });
 
+getGlobal().akebi = class {
+  constructor(divId, akebiOption) {
+    this.geojson = null;
+    var akebiOptions = {
+      open: false
+    };
+    var options = {
+      save: true
+    };
+    // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+    // merge appOptions to options
+    Object.assign(options, akebiOptions);
 
-  // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
-  // merge appOptions to options
-  Object.assign(options, akebiOptions);
-  ReactDOM.render(
-    React.createElement(Index, options),
-    document.getElementById(divId)
-  );
+    // load json
+    request
+      .get('/example/sample.json')
+      .send({})
+      .set('Accept', 'application/json')
+      .end(function(error, res){
+        if(!error){
+          // res.body.data.haika
+          // res.body.data.features
+          // debug(res.body.data.haika, true);
+          this.geojson = res.body.data.features;
+          this.react = ReactDOM.render(
+            React.createElement(Index, options),
+            document.getElementById(divId)
+          );
+        }
+      }.bind(this));
+  }
 };
+
 
 /**
  *
