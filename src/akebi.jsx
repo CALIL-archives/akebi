@@ -15,6 +15,7 @@ var getGlobal = require('get-global');
 /**
  * debug
  * @param data
+ * @param divID
  */
 getGlobal().debug = function(data, divID='#debug'){
   var debugDIV = document.querySelector(divID);
@@ -57,7 +58,7 @@ getGlobal().getMax = function(array){
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Index from './view/index.jsx'
+import Index from './index.jsx'
 
 /**
  * initialize funciton for akebi

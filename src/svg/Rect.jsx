@@ -1,12 +1,13 @@
 'use strict';
 
 import React from 'react'
-import AkebiSVGComponent from './AkebiSVGComponent.jsx'
 import Point from './Point.jsx'
 
-export default class Rect extends AkebiSVGComponent {
+export default class Rect extends React.Component {
   constructor(props) {
     super(props);
+    this.svgs = [];
+
     this.x = parseInt(this.props.x) || 0;
     this.y = parseInt(this.props.y) || 0;
     this.width = parseInt(this.props.width) || 100;
@@ -21,7 +22,7 @@ export default class Rect extends AkebiSVGComponent {
     this.rightStrokeDashArray = parseInt(this.props.rightStrokeDashArray) || 0;
     this.bottomStrokeDashArray = parseInt(this.props.bottomStrokeDashArray) || 0;
   }
-  renderSVG(){
+  render(){
     this.svgs.push(<rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="0" fill={this.fill||'transparent'} />);
     // left line
     this.drawLine(this.x, this.y + this.height, this.x, this.y, this.leftStrokeDashArray);
@@ -31,6 +32,11 @@ export default class Rect extends AkebiSVGComponent {
     this.drawLine(this.x + this.width, this.y, this.x + this.width, this.y + this.height, this.rightStrokeDashArray);
     // bottom line
     this.drawLine(this.x + this.width, this.y + this.height, this.x, this.y + this.height, this.bottomStrokeDashArray);
+    return (
+      <g color="currentColor">
+        {this.svgs}
+      </g>
+    )
   }
   drawLine(x1, y1, x2, y2, strokeDasharray=0){
     if(this.drawPointFlag){

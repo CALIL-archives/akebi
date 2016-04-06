@@ -1,8 +1,9 @@
 'use strict';
 
 import React from 'react';
+import AkebiSVGComponent from './AkebiSVGComponent.jsx'
 
-export default class CurvedShelf extends React.Component {
+export default class Beacon extends AkebiSVGComponent {
   constructor(props) {
     super(props);
   }

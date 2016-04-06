@@ -1,12 +1,12 @@
 'use strict';
 
 import React from 'react'
-import AkebiSVGComponent from './AkebiSVGComponent.jsx'
 import Point from './Point.jsx'
 
-export default class MultiPolygon extends AkebiSVGComponent {
+export default class MultiPolygon extends React.Component {
   constructor(props) {
     super(props);
+    this.svgs = [];
 
     this.x = parseInt(this.props.x) || 0;
     this.y = parseInt(this.props.y) || 0;
@@ -34,7 +34,7 @@ export default class MultiPolygon extends AkebiSVGComponent {
       {type:'Q', endX:10, endY:250, controlPointX:250, controlPointY:500}
     ];
   }
-  renderSVG(){
+  render(){
     this.points.forEach((point)=> {
       if(point.type=='M'){
         this.drawStartPoint(point.x, point.y)
@@ -53,6 +53,11 @@ export default class MultiPolygon extends AkebiSVGComponent {
       this.d.push('Z');
     }
     this.svgs.push(<path stroke="currentColor" strokeWidth="1" fill={this.fill||'transparent'} d={this.d.join(' ')}/>);
+    return (
+      <g color="currentColor">
+        {this.svgs}
+      </g>
+    )
   }
   drawStartPoint(x, y){
     this.drawPoint(x, y);
