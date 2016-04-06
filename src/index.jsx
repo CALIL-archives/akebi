@@ -35,9 +35,14 @@ export default class Index extends React.Component {
   }
   createCompoenent(feature){
     if(feature.properties.type=='shelf'){
+      this.translateToXY(feature.properties)
       // debug(feature.properties)
       // debug(feature.geometry)
     }
+  }
+  translateToXY(feature){
+    debug(feature.top_cm)
+    debug(feature.left_cm)
   }
   render() {
     return (

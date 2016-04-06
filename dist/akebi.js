@@ -22015,9 +22015,16 @@ var Index = function (_React$Component) {
     key: 'createCompoenent',
     value: function createCompoenent(feature) {
       if (feature.properties.type == 'shelf') {
+        this.translateToXY(feature.properties);
         // debug(feature.properties)
         // debug(feature.geometry)
       }
+    }
+  }, {
+    key: 'translateToXY',
+    value: function translateToXY(feature) {
+      debug(feature.top_cm);
+      debug(feature.left_cm);
     }
   }, {
     key: 'render',
