@@ -21069,7 +21069,7 @@ getGlobal().akebi = function () {
       open: false,
       akebi: this,
       width: 900,
-      height: 500
+      height: 900
     };
     var options = {
       save: true
@@ -21302,6 +21302,12 @@ var ArtBoard = function (_React$Component) {
     _this.state = {};
     _this.width = parseInt(_this.props.width) || 900;
     _this.height = parseInt(_this.props.height) || 500;
+    // Todo: refactor
+    // debug(this.props.geojson)
+    _this.svgs = [];
+    _this.props.geojson.forEach(function (feature) {
+      _this.createCompoenent(feature);
+    });
     return _this;
   }
 
@@ -21311,19 +21317,29 @@ var ArtBoard = function (_React$Component) {
       return '0 0 ' + this.width + ' ' + this.height;
     }
   }, {
+    key: 'createCompoenent',
+    value: function createCompoenent(feature) {
+      // Todo: data structure design
+      // debug(feature.properties)
+      // debug(feature.geometry)
+      // debug(feature.properties.top_cm)
+      // debug(feature.properties, true)
+      // debug(this.width)
+      if (feature.properties.type == 'shelf') {
+        feature.properties.x = parseInt(feature.properties.left_cm) + this.width / 2;
+        feature.properties.y = parseInt(feature.properties.top_cm) + this.height / 2;
+        // debug(feature.properties.x)
+        // debug(feature.properties.y)
+        this.svgs.push(_react2.default.createElement(_Shelf2.default, { geojson: feature.properties, fill: 'pink', color: 'red', drawPointFlag: 'true' }));
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'svg',
         { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height },
-        _react2.default.createElement(_Point2.default, { x: '10', y: '10', fill: 'red' }),
-        _react2.default.createElement(_Rect2.default, { x: '10', y: '200', width: '720', height: '26', strokeTop: '5', drawPointFlag: 'true' }),
-        _react2.default.createElement(_MultiPolygon2.default, { x: '500', y: '700' }),
-        _react2.default.createElement(_Shelf2.default, { x: '500', y: '100', fill: 'pink', color: 'red', drawPointFlag: 'true' }),
-        _react2.default.createElement(_Beacon2.default, { x: '500', y: '100' }),
-        _react2.default.createElement(_CurvedShelf2.default, null),
-        _react2.default.createElement(_Wall2.default, null),
-        _react2.default.createElement(_Floor2.default, null)
+        this.svgs
       );
     }
   }]);
@@ -21526,18 +21542,19 @@ var Shelf = function (_AkebiSVGComponent) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Shelf).call(this, props));
 
-    _this.state = {
-      "id": 4,
-      "type": "shelf",
-      "side": 2,
-      "count": 8,
-      "angle": 0,
-      "eachHeight": 26,
-      "eachWidth": 90,
-      "label": '棚番号ふ'
-    };
-    _this.x = parseInt(_this.props.x) || 0;
-    _this.y = parseInt(_this.props.y) || 0;
+    _this.state = _this.props.geojson;
+    // this.state = {
+    //   "id": 4,
+    //   "type": "shelf",
+    //   "side": 2,
+    //   "count": 8,
+    //   "angle": 0,
+    //   "eachHeight": 26,
+    //   "eachWidth": 90,
+    //   "label": "\u68da\u756a\u53f7\u3075"
+    // };
+    _this.x = parseInt(_this.state.x) || 0;
+    _this.y = parseInt(_this.state.y) || 0;
 
     _this.drawPointFlag = _this.props.drawPointFlag == 'true';
     _this.width = parseInt(_this.state.count) * parseInt(_this.state.eachWidth);
@@ -21551,7 +21568,8 @@ var Shelf = function (_AkebiSVGComponent) {
   _createClass(Shelf, [{
     key: 'renderSVG',
     value: function renderSVG() {
-      var fillRects = [1, 4, 5];
+      var fillRects = [];
+      // var fillRects = [1, 4, 5];
       for (var i = 0, l = this.state.count; i < l; i++) {
         var fill = 'transparent';
         if (fillRects.indexOf(i) >= 0 && this.props.fill) {
@@ -21977,11 +21995,6 @@ var Index = function (_React$Component) {
     _this.state = {};
     _this.width = parseInt(_this.props.width) || 900;
     _this.height = parseInt(_this.props.height) || 100;
-    // Todo: refactor
-    // debug(this.props.akebi.geojson)
-    _this.props.akebi.geojson.forEach(function (feature) {
-      _this.createCompoenent(feature);
-    });
     return _this;
   }
 
@@ -22010,21 +22023,6 @@ var Index = function (_React$Component) {
     key: 'save',
     value: function save() {
       akebi.save();
-    }
-  }, {
-    key: 'createCompoenent',
-    value: function createCompoenent(feature) {
-      if (feature.properties.type == 'shelf') {
-        this.translateToXY(feature.properties);
-        // debug(feature.properties)
-        // debug(feature.geometry)
-      }
-    }
-  }, {
-    key: 'translateToXY',
-    value: function translateToXY(feature) {
-      debug(feature.top_cm);
-      debug(feature.left_cm);
     }
   }, {
     key: 'render',
@@ -22061,7 +22059,7 @@ var Index = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { style: { background: 'white', padding: '30px' } },
-          _react2.default.createElement(_ArtBoard2.default, { width: this.width, height: this.height })
+          _react2.default.createElement(_ArtBoard2.default, { width: this.width, height: this.height, geojson: this.props.akebi.geojson })
         )
       );
     }

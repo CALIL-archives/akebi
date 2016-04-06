@@ -9,18 +9,19 @@ import Rect from './basic/Rect.jsx'
 export default class Shelf extends AkebiSVGComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      "id": 4,
-      "type": "shelf",
-      "side": 2,
-      "count": 8,
-      "angle": 0,
-      "eachHeight": 26,
-      "eachWidth": 90,
-      "label": "\u68da\u756a\u53f7\u3075"
-    };
-    this.x = parseInt(this.props.x) || 0;
-    this.y = parseInt(this.props.y) || 0;
+    this.state = this.props.geojson;
+    // this.state = {
+    //   "id": 4,
+    //   "type": "shelf",
+    //   "side": 2,
+    //   "count": 8,
+    //   "angle": 0,
+    //   "eachHeight": 26,
+    //   "eachWidth": 90,
+    //   "label": "\u68da\u756a\u53f7\u3075"
+    // };
+    this.x = parseInt(this.state.x) || 0;
+    this.y = parseInt(this.state.y) || 0;
 
     this.drawPointFlag = this.props.drawPointFlag=='true';
     this.width = parseInt(this.state.count) * parseInt(this.state.eachWidth);
@@ -30,7 +31,8 @@ export default class Shelf extends AkebiSVGComponent {
     this.startY = this.y - this.height / 2;
   }
   renderSVG() {
-    var fillRects = [1, 4, 5];
+    var fillRects = [];
+    // var fillRects = [1, 4, 5];
     for(var i=0,l=this.state.count;i<l;i++){
       var fill = 'transparent';
       if(fillRects.indexOf(i)>=0 && this.props.fill){
