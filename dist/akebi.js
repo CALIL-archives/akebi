@@ -19794,13 +19794,13 @@ var ArtBoard = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'svg',
-        { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height, color: 'red' },
+        { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height },
         _react2.default.createElement(_Point2.default, { x: '10', y: '10' }),
         _react2.default.createElement(_Rect2.default, { x: '10', y: '100', width: '720', height: '26', strokeTop: '5', drawPointFlag: 'true' }),
-        _react2.default.createElement(_Shelf2.default, { fill: 'pink', drawPointFlag: 'true' }),
+        _react2.default.createElement(_Shelf2.default, { x: '500', y: '100', fill: 'pink', drawPointFlag: 'true' }),
+        _react2.default.createElement(_Beacon2.default, { x: '500', y: '100' }),
         _react2.default.createElement(_MultiPolygon2.default, null),
         _react2.default.createElement(_CurvedShelf2.default, null),
-        _react2.default.createElement(_Beacon2.default, null),
         _react2.default.createElement(_Wall2.default, null),
         _react2.default.createElement(_Floor2.default, null)
       );
@@ -19829,6 +19829,10 @@ var _AkebiSVGComponent2 = require('./AkebiSVGComponent.jsx');
 
 var _AkebiSVGComponent3 = _interopRequireDefault(_AkebiSVGComponent2);
 
+var _Rect = require('../svg/Rect.jsx');
+
+var _Rect2 = _interopRequireDefault(_Rect);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19843,13 +19847,23 @@ var Beacon = function (_AkebiSVGComponent) {
   function Beacon(props) {
     _classCallCheck(this, Beacon);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Beacon).call(this, props));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Beacon).call(this, props));
+
+    _this.x = parseInt(_this.props.x) || 1;
+    _this.y = parseInt(_this.props.y) || 1;
+    _this.range = parseInt(_this.props.range) || 10;
+    _this.fill = parseInt(_this.props.fill) || 'black';
+    return _this;
   }
 
   _createClass(Beacon, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('g', null);
+      return _react2.default.createElement(
+        'g',
+        null,
+        _react2.default.createElement(_Rect2.default, { x: this.x - this.range / 2, y: this.y - this.range / 2, width: this.range, height: this.range, fill: this.fill, strokeWidth: '0' })
+      );
     }
   }]);
 
@@ -19858,7 +19872,7 @@ var Beacon = function (_AkebiSVGComponent) {
 
 exports.default = Beacon;
 
-},{"./AkebiSVGComponent.jsx":173,"react":171}],176:[function(require,module,exports){
+},{"../svg/Rect.jsx":184,"./AkebiSVGComponent.jsx":173,"react":171}],176:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19997,15 +20011,14 @@ var Shelf = function (_AkebiSVGComponent) {
       "side": 2,
       "count": 8,
       "angle": 0,
-      "y": 50,
-      "x": 500,
       "eachHeight": 26,
       "eachWidth": 90,
       "label": '棚番号ふ'
     };
+    _this.x = parseInt(_this.props.x) || 0;
+    _this.y = parseInt(_this.props.y) || 0;
+
     _this.drawPointFlag = _this.props.drawPointFlag == 'true';
-    _this.x = parseInt(_this.state.x);
-    _this.y = parseInt(_this.state.y);
     _this.width = parseInt(_this.state.count) * parseInt(_this.state.eachWidth);
     _this.height = parseInt(_this.state.side) * parseInt(_this.state.eachHeight);
     // calculate start point from x,y
@@ -20408,9 +20421,9 @@ var Point = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Point).call(this, props));
 
-    _this.x = _this.props.x || 1;
-    _this.y = _this.props.y || 1;
-    _this.r = _this.props.r || 5;
+    _this.x = parseInt(_this.props.x) || 1;
+    _this.y = parseInt(_this.props.y) || 1;
+    _this.r = parseInt(_this.props.r) || 5;
     return _this;
   }
 

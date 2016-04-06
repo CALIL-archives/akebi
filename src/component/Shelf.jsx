@@ -15,15 +15,14 @@ export default class Shelf extends AkebiSVGComponent {
       "side": 2,
       "count": 8,
       "angle": 0,
-      "y": 50,
-      "x": 500,
       "eachHeight": 26,
       "eachWidth": 90,
       "label": "\u68da\u756a\u53f7\u3075"
     };
+    this.x = parseInt(this.props.x) || 0;
+    this.y = parseInt(this.props.y) || 0;
+
     this.drawPointFlag = this.props.drawPointFlag=='true';
-    this.x = parseInt(this.state.x);
-    this.y = parseInt(this.state.y);
     this.width = parseInt(this.state.count) * parseInt(this.state.eachWidth);
     this.height = parseInt(this.state.side) * parseInt(this.state.eachHeight);
     // calculate start point from x,y
