@@ -19750,7 +19750,7 @@ var Index = function (_React$Component) {
 
 exports.default = Index;
 
-},{"./svg/ArtBoard.jsx":174,"react":171}],174:[function(require,module,exports){
+},{"./svg/ArtBoard.jsx":175,"react":171}],174:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19763,21 +19763,89 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _point = require('./point.jsx');
+var _CenterPoint = require('./CenterPoint.jsx');
 
-var _point2 = _interopRequireDefault(_point);
+var _CenterPoint2 = _interopRequireDefault(_CenterPoint);
 
-var _rect = require('./rect.jsx');
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _rect2 = _interopRequireDefault(_rect);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _shelf = require('./shelf.jsx');
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-var _shelf2 = _interopRequireDefault(_shelf);
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _multipolygon = require('./multipolygon.jsx');
+var AkebiSVGComponent = function (_React$Component) {
+  _inherits(AkebiSVGComponent, _React$Component);
 
-var _multipolygon2 = _interopRequireDefault(_multipolygon);
+  function AkebiSVGComponent(props) {
+    _classCallCheck(this, AkebiSVGComponent);
+
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AkebiSVGComponent).call(this, props));
+
+    _this.svgs = [];
+    return _this;
+  }
+
+  _createClass(AkebiSVGComponent, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {}
+  }, {
+    key: 'onClick',
+    value: function onClick() {
+      debug('click');
+      // this.forceUpdate();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      this.renderSVG();
+      // if(this.refs.g){
+      //   var bboxRect = this.refs.g.getBBox();
+      //   this.svgs.push(<rect x={bboxRect.x} y={bboxRect.y} width={bboxRect.width} height={bboxRect.height} stroke="#999999" strokeWidth="1" fill="transparent"></rect>);
+      //   this.svgs.push(<CenterPoint x={bboxRect.x+bboxRect.width/2} y={bboxRect.y+bboxRect.height/2} range="10"></CenterPoint>);
+      // }
+      return _react2.default.createElement(
+        'g',
+        { color: '#D72541', onClick: this.onClick.bind(this), ref: 'g' },
+        this.svgs
+      );
+    }
+  }]);
+
+  return AkebiSVGComponent;
+}(_react2.default.Component);
+
+exports.default = AkebiSVGComponent;
+
+},{"./CenterPoint.jsx":176,"react":171}],175:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Point = require('./Point.jsx');
+
+var _Point2 = _interopRequireDefault(_Point);
+
+var _Rect = require('./Rect.jsx');
+
+var _Rect2 = _interopRequireDefault(_Rect);
+
+var _Shelf = require('./Shelf.jsx');
+
+var _Shelf2 = _interopRequireDefault(_Shelf);
+
+var _MultiPolygon = require('./MultiPolygon.jsx');
+
+var _MultiPolygon2 = _interopRequireDefault(_MultiPolygon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19812,10 +19880,10 @@ var ArtBoard = function (_React$Component) {
       return _react2.default.createElement(
         'svg',
         { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height },
-        _react2.default.createElement(_point2.default, { x: '10', y: '10' }),
-        _react2.default.createElement(_rect2.default, { x: '10', y: '100', width: '720', height: '26', strokeTop: '5', drawPointFlag: 'true' }),
-        _react2.default.createElement(_shelf2.default, { fill: 'pink', drawPointFlag: 'true' }),
-        _react2.default.createElement(_multipolygon2.default, null)
+        _react2.default.createElement(_Point2.default, { x: '10', y: '10' }),
+        _react2.default.createElement(_Rect2.default, { x: '10', y: '100', width: '720', height: '26', strokeTop: '5', drawPointFlag: 'true' }),
+        _react2.default.createElement(_Shelf2.default, { fill: 'pink', drawPointFlag: 'true' }),
+        _react2.default.createElement(_MultiPolygon2.default, null)
       );
     }
   }]);
@@ -19825,7 +19893,7 @@ var ArtBoard = function (_React$Component) {
 
 exports.default = ArtBoard;
 
-},{"./multipolygon.jsx":177,"./point.jsx":178,"./rect.jsx":179,"./shelf.jsx":180,"react":171}],175:[function(require,module,exports){
+},{"./MultiPolygon.jsx":177,"./Point.jsx":178,"./Rect.jsx":179,"./Shelf.jsx":180,"react":171}],176:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19879,7 +19947,7 @@ var CenterPoint = function (_React$Component) {
 
 exports.default = CenterPoint;
 
-},{"react":171}],176:[function(require,module,exports){
+},{"react":171}],177:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19892,81 +19960,13 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _centerpoint = require('./centerpoint.jsx');
+var _AkebiSVGComponent2 = require('./AkebiSVGComponent.jsx');
 
-var _centerpoint2 = _interopRequireDefault(_centerpoint);
+var _AkebiSVGComponent3 = _interopRequireDefault(_AkebiSVGComponent2);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _Point = require('./Point.jsx');
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AkebiSVGComponent = function (_React$Component) {
-  _inherits(AkebiSVGComponent, _React$Component);
-
-  function AkebiSVGComponent(props) {
-    _classCallCheck(this, AkebiSVGComponent);
-
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AkebiSVGComponent).call(this, props));
-
-    _this.svgs = [];
-    return _this;
-  }
-
-  _createClass(AkebiSVGComponent, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {}
-  }, {
-    key: 'onClick',
-    value: function onClick() {
-      debug('click');
-      // this.forceUpdate();
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      this.renderSVG();
-      // if(this.refs.g){
-      //   var bboxRect = this.refs.g.getBBox();
-      //   this.svgs.push(<rect x={bboxRect.x} y={bboxRect.y} width={bboxRect.width} height={bboxRect.height} stroke="#999999" strokeWidth="1" fill="transparent"></rect>);
-      //   this.svgs.push(<CenterPoint x={bboxRect.x+bboxRect.width/2} y={bboxRect.y+bboxRect.height/2} range="10"></CenterPoint>);
-      // }
-      return _react2.default.createElement(
-        'g',
-        { color: '#D72541', onClick: this.onClick.bind(this), ref: 'g' },
-        this.svgs
-      );
-    }
-  }]);
-
-  return AkebiSVGComponent;
-}(_react2.default.Component);
-
-exports.default = AkebiSVGComponent;
-
-},{"./centerpoint.jsx":175,"react":171}],177:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _common = require('./common.jsx');
-
-var _common2 = _interopRequireDefault(_common);
-
-var _point = require('./point.jsx');
-
-var _point2 = _interopRequireDefault(_point);
+var _Point2 = _interopRequireDefault(_Point);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20036,7 +20036,7 @@ var MultiPolygon = function (_AkebiSVGComponent) {
     key: 'drawPoint',
     value: function drawPoint(x, y) {
       if (this.drawPointFlag) {
-        this.svgs.push(_react2.default.createElement(_point2.default, { x: x, y: y }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { x: x, y: y }));
       }
     }
   }, {
@@ -20064,12 +20064,12 @@ var MultiPolygon = function (_AkebiSVGComponent) {
   }]);
 
   return MultiPolygon;
-}(_common2.default);
+}(_AkebiSVGComponent3.default);
 
 exports.default = MultiPolygon;
 ;
 
-},{"./common.jsx":176,"./point.jsx":178,"react":171}],178:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":174,"./Point.jsx":178,"react":171}],178:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -20082,9 +20082,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _common = require('./common.jsx');
+var _AkebiSVGComponent2 = require('./AkebiSVGComponent.jsx');
 
-var _common2 = _interopRequireDefault(_common);
+var _AkebiSVGComponent3 = _interopRequireDefault(_AkebiSVGComponent2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20116,11 +20116,11 @@ var Point = function (_AkebiSVGComponent) {
   }]);
 
   return Point;
-}(_common2.default);
+}(_AkebiSVGComponent3.default);
 
 exports.default = Point;
 
-},{"./common.jsx":176,"react":171}],179:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":174,"react":171}],179:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -20133,13 +20133,13 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _common = require('./common.jsx');
+var _AkebiSVGComponent2 = require('./AkebiSVGComponent.jsx');
 
-var _common2 = _interopRequireDefault(_common);
+var _AkebiSVGComponent3 = _interopRequireDefault(_AkebiSVGComponent2);
 
-var _point = require('./point.jsx');
+var _Point = require('./Point.jsx');
 
-var _point2 = _interopRequireDefault(_point);
+var _Point2 = _interopRequireDefault(_Point);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20192,18 +20192,18 @@ var Rect = function (_AkebiSVGComponent) {
       var strokeDasharray = arguments.length <= 4 || arguments[4] === undefined ? 0 : arguments[4];
 
       if (this.drawPointFlag) {
-        this.svgs.push(_react2.default.createElement(_point2.default, { x: x1, y: y1 }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { x: x1, y: y1 }));
       }
       this.svgs.push(_react2.default.createElement('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: 'currentColor', strokeWidth: this.strokeWidth, strokeDasharray: strokeDasharray }));
     }
   }]);
 
   return Rect;
-}(_common2.default);
+}(_AkebiSVGComponent3.default);
 
 exports.default = Rect;
 
-},{"./common.jsx":176,"./point.jsx":178,"react":171}],180:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":174,"./Point.jsx":178,"react":171}],180:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -20216,17 +20216,17 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _common = require('./common.jsx');
+var _AkebiSVGComponent2 = require('./AkebiSVGComponent.jsx');
 
-var _common2 = _interopRequireDefault(_common);
+var _AkebiSVGComponent3 = _interopRequireDefault(_AkebiSVGComponent2);
 
-var _point = require('./point.jsx');
+var _Point = require('./Point.jsx');
 
-var _point2 = _interopRequireDefault(_point);
+var _Point2 = _interopRequireDefault(_Point);
 
-var _rect = require('./rect.jsx');
+var _Rect = require('./Rect.jsx');
 
-var _rect2 = _interopRequireDefault(_rect);
+var _Rect2 = _interopRequireDefault(_Rect);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20276,26 +20276,26 @@ var Shelf = function (_AkebiSVGComponent) {
         if (fillRects.indexOf(i) >= 0 && this.props.fill) {
           var fill = this.props.fill;
         }
-        this.svgs.push(_react2.default.createElement(_rect2.default, { x: this.startX + this.state.eachWidth * i, y: this.startY, width: this.state.eachWidth, height: this.state.eachHeight, topStrokeDashArray: '5', fill: fill }));
+        this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.startX + this.state.eachWidth * i, y: this.startY, width: this.state.eachWidth, height: this.state.eachHeight, topStrokeDashArray: '5', fill: fill }));
       }
       if (this.state.side == 2) {
         for (var i = 0, l = this.state.count; i < l; i++) {
-          this.svgs.push(_react2.default.createElement(_rect2.default, { x: this.startX + this.state.eachWidth * i, y: this.startY + this.state.eachHeight, width: this.state.eachWidth, height: this.state.eachHeight }));
-          this.svgs.push(_react2.default.createElement(_rect2.default, { x: this.startX + this.state.eachWidth * i, y: this.startY, width: this.state.eachWidth, height: this.state.eachHeight, topStrokeDashArray: '5', fill: 'transparent' }));
+          this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.startX + this.state.eachWidth * i, y: this.startY + this.state.eachHeight, width: this.state.eachWidth, height: this.state.eachHeight }));
+          this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.startX + this.state.eachWidth * i, y: this.startY, width: this.state.eachWidth, height: this.state.eachHeight, topStrokeDashArray: '5', fill: 'transparent' }));
         }
       }
       if (this.drawPointFlag) {
-        this.svgs.push(_react2.default.createElement(_point2.default, { x: this.startX, y: this.startY }));
-        this.svgs.push(_react2.default.createElement(_point2.default, { x: this.startX + this.width, y: this.startY }));
-        this.svgs.push(_react2.default.createElement(_point2.default, { x: this.startX + this.width, y: this.startY + this.height }));
-        this.svgs.push(_react2.default.createElement(_point2.default, { x: this.startX, y: this.startY + this.height }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.startX, y: this.startY }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.startX + this.width, y: this.startY }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.startX + this.width, y: this.startY + this.height }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.startX, y: this.startY + this.height }));
       }
     }
   }]);
 
   return Shelf;
-}(_common2.default);
+}(_AkebiSVGComponent3.default);
 
 exports.default = Shelf;
 
-},{"./common.jsx":176,"./point.jsx":178,"./rect.jsx":179,"react":171}]},{},[172]);
+},{"./AkebiSVGComponent.jsx":174,"./Point.jsx":178,"./Rect.jsx":179,"react":171}]},{},[172]);
