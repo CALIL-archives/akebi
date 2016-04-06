@@ -5,6 +5,10 @@ import Point from './Point.jsx'
 import Rect from './Rect.jsx'
 import Shelf from './Shelf.jsx'
 import MultiPolygon from './MultiPolygon.jsx'
+import CurvedShelf from './CurvedShelf.jsx'
+import Beacon from './Beacon.jsx'
+import Wall from './Wall.jsx'
+import Floor from './Floor.jsx'
 
 export default class ArtBoard extends React.Component {
   constructor(props) {
@@ -23,6 +27,10 @@ export default class ArtBoard extends React.Component {
         <Rect x="10" y="100" width="720" height="26" strokeTop="5" drawPointFlag="true"></Rect>
         <Shelf fill="pink" drawPointFlag="true"></Shelf>
         <MultiPolygon></MultiPolygon>
+        <CurvedShelf></CurvedShelf>
+        <Beacon></Beacon>
+        <Wall></Wall>
+        <Floor></Floor>
       </svg>
     )
   }

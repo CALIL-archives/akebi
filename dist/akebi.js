@@ -19818,7 +19818,7 @@ var AkebiSVGComponent = function (_React$Component) {
 
 exports.default = AkebiSVGComponent;
 
-},{"./CenterPoint.jsx":176,"react":171}],175:[function(require,module,exports){
+},{"./CenterPoint.jsx":177,"react":171}],175:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19846,6 +19846,22 @@ var _Shelf2 = _interopRequireDefault(_Shelf);
 var _MultiPolygon = require('./MultiPolygon.jsx');
 
 var _MultiPolygon2 = _interopRequireDefault(_MultiPolygon);
+
+var _CurvedShelf = require('./CurvedShelf.jsx');
+
+var _CurvedShelf2 = _interopRequireDefault(_CurvedShelf);
+
+var _Beacon = require('./Beacon.jsx');
+
+var _Beacon2 = _interopRequireDefault(_Beacon);
+
+var _Wall = require('./Wall.jsx');
+
+var _Wall2 = _interopRequireDefault(_Wall);
+
+var _Floor = require('./Floor.jsx');
+
+var _Floor2 = _interopRequireDefault(_Floor);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19883,7 +19899,11 @@ var ArtBoard = function (_React$Component) {
         _react2.default.createElement(_Point2.default, { x: '10', y: '10' }),
         _react2.default.createElement(_Rect2.default, { x: '10', y: '100', width: '720', height: '26', strokeTop: '5', drawPointFlag: 'true' }),
         _react2.default.createElement(_Shelf2.default, { fill: 'pink', drawPointFlag: 'true' }),
-        _react2.default.createElement(_MultiPolygon2.default, null)
+        _react2.default.createElement(_MultiPolygon2.default, null),
+        _react2.default.createElement(_CurvedShelf2.default, null),
+        _react2.default.createElement(_Beacon2.default, null),
+        _react2.default.createElement(_Wall2.default, null),
+        _react2.default.createElement(_Floor2.default, null)
       );
     }
   }]);
@@ -19893,7 +19913,49 @@ var ArtBoard = function (_React$Component) {
 
 exports.default = ArtBoard;
 
-},{"./MultiPolygon.jsx":177,"./Point.jsx":178,"./Rect.jsx":179,"./Shelf.jsx":180,"react":171}],176:[function(require,module,exports){
+},{"./Beacon.jsx":176,"./CurvedShelf.jsx":178,"./Floor.jsx":179,"./MultiPolygon.jsx":180,"./Point.jsx":181,"./Rect.jsx":182,"./Shelf.jsx":183,"./Wall.jsx":184,"react":171}],176:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Beacon = function (_React$Component) {
+  _inherits(Beacon, _React$Component);
+
+  function Beacon(props) {
+    _classCallCheck(this, Beacon);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Beacon).call(this, props));
+  }
+
+  _createClass(Beacon, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement('g', null);
+    }
+  }]);
+
+  return Beacon;
+}(_react2.default.Component);
+
+exports.default = Beacon;
+
+},{"react":171}],177:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19947,7 +20009,91 @@ var CenterPoint = function (_React$Component) {
 
 exports.default = CenterPoint;
 
-},{"react":171}],177:[function(require,module,exports){
+},{"react":171}],178:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CurvedShelf = function (_React$Component) {
+  _inherits(CurvedShelf, _React$Component);
+
+  function CurvedShelf(props) {
+    _classCallCheck(this, CurvedShelf);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(CurvedShelf).call(this, props));
+  }
+
+  _createClass(CurvedShelf, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement('g', null);
+    }
+  }]);
+
+  return CurvedShelf;
+}(_react2.default.Component);
+
+exports.default = CurvedShelf;
+
+},{"react":171}],179:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Floor = function (_React$Component) {
+  _inherits(Floor, _React$Component);
+
+  function Floor(props) {
+    _classCallCheck(this, Floor);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Floor).call(this, props));
+  }
+
+  _createClass(Floor, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement('g', null);
+    }
+  }]);
+
+  return Floor;
+}(_react2.default.Component);
+
+exports.default = Floor;
+
+},{"react":171}],180:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -20069,7 +20215,7 @@ var MultiPolygon = function (_AkebiSVGComponent) {
 exports.default = MultiPolygon;
 ;
 
-},{"./AkebiSVGComponent.jsx":174,"./Point.jsx":178,"react":171}],178:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":174,"./Point.jsx":181,"react":171}],181:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -20120,7 +20266,7 @@ var Point = function (_AkebiSVGComponent) {
 
 exports.default = Point;
 
-},{"./AkebiSVGComponent.jsx":174,"react":171}],179:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":174,"react":171}],182:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -20203,7 +20349,7 @@ var Rect = function (_AkebiSVGComponent) {
 
 exports.default = Rect;
 
-},{"./AkebiSVGComponent.jsx":174,"./Point.jsx":178,"react":171}],180:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":174,"./Point.jsx":181,"react":171}],183:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -20298,4 +20444,46 @@ var Shelf = function (_AkebiSVGComponent) {
 
 exports.default = Shelf;
 
-},{"./AkebiSVGComponent.jsx":174,"./Point.jsx":178,"./Rect.jsx":179,"react":171}]},{},[172]);
+},{"./AkebiSVGComponent.jsx":174,"./Point.jsx":181,"./Rect.jsx":182,"react":171}],184:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Wall = function (_React$Component) {
+  _inherits(Wall, _React$Component);
+
+  function Wall(props) {
+    _classCallCheck(this, Wall);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Wall).call(this, props));
+  }
+
+  _createClass(Wall, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement('g', null);
+    }
+  }]);
+
+  return Wall;
+}(_react2.default.Component);
+
+exports.default = Wall;
+
+},{"react":171}]},{},[172]);
