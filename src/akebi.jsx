@@ -17,11 +17,12 @@ var getGlobal = require('get-global');
  * @param data
  * @param divID
  */
-getGlobal().debug = function(data, divID='#debug'){
-  if(typeof data=='undefined') return;
+getGlobal().debug = function(data, divID='#debug') {
   var debugDIV = document.querySelector(divID);
   debugDIV.style.display = 'block';
-  if(typeof data=='string'){
+  if (typeof data == 'undefined'){
+    debugDIV.innerText = 'undefined';
+  }else if(typeof data=='string'){
     debugDIV.innerText += data;
   }else if(typeof data=='object'){
     try{
@@ -59,6 +60,8 @@ getGlobal().getMax = function(array){
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import request from 'superagent'
+
 import Index from './index.jsx'
 
 /**
@@ -74,6 +77,17 @@ getGlobal().akebi = function(divId, akebiOptions){
   var options = {
     save: true
   };
+  request
+    .get('/example/sample.json')
+    .send({})
+    .set('Accept', 'application/json')
+    .end(function(error, res){
+      if(!error){
+        debug(res.body.geometry)
+      }
+    });
+
+
   // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
   // merge appOptions to options
   Object.assign(options, akebiOptions);
