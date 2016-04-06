@@ -21,7 +21,11 @@ getGlobal().debug = function(data){
   if(typeof data=='string'){
     document.querySelector('#debug').innerText += data;
   }else if(typeof data=='object'){
-    document.querySelector('#debug').innerText += JSON.stringify(data);
+    try{
+      document.querySelector('#debug').innerText += JSON.stringify(data);
+    }catch(e){
+      document.querySelector('#debug').innerText += data.outerHTML;
+    }
   }else{
     document.querySelector('#debug').innerText += data.toString();
   }
@@ -63,7 +67,7 @@ import Index from './view/index.jsx'
 getGlobal().akebi = function(divId, akebiOptions){
   var akebiOptions = {
     open: false
-  }
+  };
   var options = {
     save: true
   };

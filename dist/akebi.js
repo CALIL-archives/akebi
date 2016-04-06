@@ -19519,7 +19519,11 @@ getGlobal().debug = function (data) {
   if (typeof data == 'string') {
     document.querySelector('#debug').innerText += data;
   } else if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) == 'object') {
-    document.querySelector('#debug').innerText += JSON.stringify(data);
+    try {
+      document.querySelector('#debug').innerText += JSON.stringify(data);
+    } catch (e) {
+      document.querySelector('#debug').innerText += data.outerHTML;
+    }
   } else {
     document.querySelector('#debug').innerText += data.toString();
   }
