@@ -2,7 +2,7 @@
 
 import React from 'react';
 import AkebiSVGComponent from './AkebiSVGComponent.jsx'
-import Rect from '../svg/Rect.jsx'
+import Rect from 'basic/Rect.jsx'
 
 export default class Beacon extends AkebiSVGComponent {
   constructor(props) {
