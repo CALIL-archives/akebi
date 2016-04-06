@@ -19515,19 +19515,22 @@ var getGlobal = require('get-global');
  * @param data
  */
 getGlobal().debug = function (data) {
-  document.querySelector('#debug').style.display = 'block';
+  var divID = arguments.length <= 1 || arguments[1] === undefined ? '#debug' : arguments[1];
+
+  var debugDIV = document.querySelector(divID);
+  debugDIV.style.display = 'block';
   if (typeof data == 'string') {
-    document.querySelector('#debug').innerText += data;
+    debugDIV.innerText += data;
   } else if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) == 'object') {
     try {
-      document.querySelector('#debug').innerText += JSON.stringify(data);
+      debugDIV.innerText += JSON.stringify(data);
     } catch (e) {
-      document.querySelector('#debug').innerText += data.outerHTML;
+      debugDIV.innerText += data.outerHTML;
     }
   } else {
-    document.querySelector('#debug').innerText += data.toString();
+    debugDIV.innerText += data.toString();
   }
-  document.querySelector('#debug').innerText += '\n';
+  debugDIV.innerText += '\n';
 };
 
 // the min and max values from a JavaScript Array
