@@ -7,9 +7,9 @@ export default class Point extends React.Component {
     super(props);
     this.fill = this.props.fill || 'red';
 
-    this.x = parseInt(this.props.x) || 1;
-    this.y = parseInt(this.props.y) || 1;
-    this.r = parseInt(this.props.r) || 5;
+    this.x = parseFloat(this.props.x) || 1;
+    this.y = parseFloat(this.props.y) || 1;
+    this.r = parseFloat(this.props.r) || 5;
   }
   render(){
     return <circle cx={this.x} cy={this.y} r={this.r} stroke-width="1" fill={this.fill}/>

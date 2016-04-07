@@ -14,8 +14,8 @@ export default class ArtBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.width = parseInt(this.props.width) || 900;
-    this.height = parseInt(this.props.height) || 500;
+    this.width = parseFloat(this.props.width) || 900;
+    this.height = parseFloat(this.props.height) || 500;
     // Todo: refactor
     // debug(this.props.geojson)
     this.svgs = [];
@@ -33,12 +33,20 @@ export default class ArtBoard extends React.Component {
     // debug(feature.properties.top_cm)
     // debug(feature.properties, true)
     // debug(this.width)
+    feature.properties.x = parseFloat(feature.properties.left_cm) + this.width/2;
+    feature.properties.y = parseFloat(feature.properties.top_cm) + this.height/2;
     if(feature.properties.type=='shelf'){
-      feature.properties.x = parseInt(feature.properties.left_cm) + this.width/2;
-      feature.properties.y = parseInt(feature.properties.top_cm) + this.height/2;
       // debug(feature.properties.x)
       // debug(feature.properties.y)
       this.svgs.push(<Shelf geojson={feature.properties} fill="pink" color="red" drawPointFlag="true"></Shelf>);
+    }
+    if(feature.properties.type=='beacon') {
+      this.svgs.push(<Beacon geojson={feature.properties} fill="black" stroke="white"></Beacon>);
+    }
+    if(feature.properties.type=='wall') {
+      feature.properties.width = parseFloat(feature.properties.width_scale) * 100;
+      feature.properties.height = parseFloat(feature.properties.height_scale) * 100;
+      this.svgs.push(<Wall geojson={feature.properties} fill="black" stroke="black"></Wall>);
     }
   }
   render() {

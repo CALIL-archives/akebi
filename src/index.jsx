@@ -7,8 +7,8 @@ export default class Index extends React.Component {
   constructor(props){
     super(props);
     this.state = {};
-    this.width = parseInt(this.props.width) || 900;
-    this.height = parseInt(this.props.height) || 100;
+    this.width = parseFloat(this.props.width) || 900;
+    this.height = parseFloat(this.props.height) || 100;
   }
   open(event){
     akebi.open(event)

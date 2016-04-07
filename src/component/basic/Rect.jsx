@@ -8,21 +8,21 @@ export default class Rect extends React.Component {
     super(props);
     this.svgs = [];
 
-    this.x = parseInt(this.props.x) || 0;
-    this.y = parseInt(this.props.y) || 0;
-    this.width = parseInt(this.props.width) || 100;
-    this.height = parseInt(this.props.height) || 100;
+    this.x = parseFloat(this.props.x) || 0;
+    this.y = parseFloat(this.props.y) || 0;
+    this.width = parseFloat(this.props.width) || 100;
+    this.height = parseFloat(this.props.height) || 100;
 
     this.fill = this.props.fill || 'transparent';
     this.drawPointFlag = (this.props.drawPointFlag=='true');
 
     this.stroke = this.props.stroke || 'red';
-    this.strokeWidth = parseInt(this.props.strokeWidth) || 1;
+    this.strokeWidth = parseFloat(this.props.strokeWidth) || 1;
 
-    this.leftStrokeDashArray = parseInt(this.props.leftStrokeDashArray) || 0;
-    this.topStrokeDashArray = parseInt(this.props.topStrokeDashArray) || 0;
-    this.rightStrokeDashArray = parseInt(this.props.rightStrokeDashArray) || 0;
-    this.bottomStrokeDashArray = parseInt(this.props.bottomStrokeDashArray) || 0;
+    this.leftStrokeDashArray = parseFloat(this.props.leftStrokeDashArray) || 0;
+    this.topStrokeDashArray = parseFloat(this.props.topStrokeDashArray) || 0;
+    this.rightStrokeDashArray = parseFloat(this.props.rightStrokeDashArray) || 0;
+    this.bottomStrokeDashArray = parseFloat(this.props.bottomStrokeDashArray) || 0;
   }
   render(){
     this.svgs.push(<rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="0" fill={this.fill||'transparent'} />);

@@ -21068,7 +21068,7 @@ getGlobal().akebi = function () {
     var akebiOptions = {
       open: false,
       akebi: this,
-      width: 900,
+      width: 1200,
       height: 900
     };
     var options = {
@@ -21300,8 +21300,8 @@ var ArtBoard = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ArtBoard).call(this, props));
 
     _this.state = {};
-    _this.width = parseInt(_this.props.width) || 900;
-    _this.height = parseInt(_this.props.height) || 500;
+    _this.width = parseFloat(_this.props.width) || 900;
+    _this.height = parseFloat(_this.props.height) || 500;
     // Todo: refactor
     // debug(this.props.geojson)
     _this.svgs = [];
@@ -21325,12 +21325,20 @@ var ArtBoard = function (_React$Component) {
       // debug(feature.properties.top_cm)
       // debug(feature.properties, true)
       // debug(this.width)
+      feature.properties.x = parseFloat(feature.properties.left_cm) + this.width / 2;
+      feature.properties.y = parseFloat(feature.properties.top_cm) + this.height / 2;
       if (feature.properties.type == 'shelf') {
-        feature.properties.x = parseInt(feature.properties.left_cm) + this.width / 2;
-        feature.properties.y = parseInt(feature.properties.top_cm) + this.height / 2;
         // debug(feature.properties.x)
         // debug(feature.properties.y)
         this.svgs.push(_react2.default.createElement(_Shelf2.default, { geojson: feature.properties, fill: 'pink', color: 'red', drawPointFlag: 'true' }));
+      }
+      if (feature.properties.type == 'beacon') {
+        this.svgs.push(_react2.default.createElement(_Beacon2.default, { geojson: feature.properties, fill: 'black', stroke: 'white' }));
+      }
+      if (feature.properties.type == 'wall') {
+        feature.properties.width = parseFloat(feature.properties.width_scale) * 100;
+        feature.properties.height = parseFloat(feature.properties.height_scale) * 100;
+        this.svgs.push(_react2.default.createElement(_Wall2.default, { geojson: feature.properties, fill: 'black', stroke: 'black' }));
       }
     }
   }, {
@@ -21386,10 +21394,11 @@ var Beacon = function (_AkebiSVGComponent) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Beacon).call(this, props));
 
-    _this.x = parseInt(_this.props.x) || 1;
-    _this.y = parseInt(_this.props.y) || 1;
-    _this.range = parseInt(_this.props.range) || 10;
-    _this.fill = parseInt(_this.props.fill) || 'black';
+    _this.x = parseFloat(_this.props.geojson.x) || 1;
+    _this.y = parseFloat(_this.props.geojson.y) || 1;
+    _this.range = parseFloat(_this.props.range) || 10;
+    _this.fill = _this.props.fill || 'black';
+    _this.stroke = _this.props.stroke || 'black';
     return _this;
   }
 
@@ -21399,7 +21408,7 @@ var Beacon = function (_AkebiSVGComponent) {
       return _react2.default.createElement(
         'g',
         null,
-        _react2.default.createElement(_Rect2.default, { x: this.x - this.range / 2, y: this.y - this.range / 2, width: this.range, height: this.range, fill: this.fill, strokeWidth: '0' })
+        _react2.default.createElement(_Rect2.default, { x: this.x - this.range / 2, y: this.y - this.range / 2, width: this.range, height: this.range, fill: this.fill, strokeWidth: '1', stroke: this.stroke })
       );
     }
   }]);
@@ -21553,12 +21562,12 @@ var Shelf = function (_AkebiSVGComponent) {
     //   "eachWidth": 90,
     //   "label": "\u68da\u756a\u53f7\u3075"
     // };
-    _this.x = parseInt(_this.state.x) || 0;
-    _this.y = parseInt(_this.state.y) || 0;
+    _this.x = parseFloat(_this.state.x) || 0;
+    _this.y = parseFloat(_this.state.y) || 0;
 
     _this.drawPointFlag = _this.props.drawPointFlag == 'true';
-    _this.width = parseInt(_this.state.count) * parseInt(_this.state.eachWidth);
-    _this.height = parseInt(_this.state.side) * parseInt(_this.state.eachHeight);
+    _this.width = parseFloat(_this.state.count) * parseFloat(_this.state.eachWidth);
+    _this.height = parseFloat(_this.state.side) * parseFloat(_this.state.eachHeight);
     // calculate start point from x,y
     _this.startX = _this.x - _this.width / 2;
     _this.startY = _this.y - _this.height / 2;
@@ -21600,6 +21609,8 @@ exports.default = Shelf;
 },{"./AkebiSVGComponent.jsx":179,"./basic/Point.jsx":188,"./basic/Rect.jsx":189,"react":171}],185:[function(require,module,exports){
 'use strict';
 
+'use strict';
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -21614,6 +21625,10 @@ var _AkebiSVGComponent2 = require('./AkebiSVGComponent.jsx');
 
 var _AkebiSVGComponent3 = _interopRequireDefault(_AkebiSVGComponent2);
 
+var _Rect = require('./basic/Rect.jsx');
+
+var _Rect2 = _interopRequireDefault(_Rect);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21622,28 +21637,40 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Wall = function (_AkebiSVGComponent) {
-  _inherits(Wall, _AkebiSVGComponent);
+var Beacon = function (_AkebiSVGComponent) {
+  _inherits(Beacon, _AkebiSVGComponent);
 
-  function Wall(props) {
-    _classCallCheck(this, Wall);
+  function Beacon(props) {
+    _classCallCheck(this, Beacon);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Wall).call(this, props));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Beacon).call(this, props));
+
+    _this.x = parseFloat(_this.props.geojson.x) || 1;
+    _this.y = parseFloat(_this.props.geojson.y) || 1;
+    _this.width = parseFloat(_this.props.geojson.width) || 1;
+    _this.height = parseFloat(_this.props.geojson.height) || 1;
+    _this.fill = _this.props.fill || 'black';
+    _this.stroke = _this.props.stroke || 'black';
+    return _this;
   }
 
-  _createClass(Wall, [{
+  _createClass(Beacon, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('g', null);
+      return _react2.default.createElement(
+        'g',
+        null,
+        _react2.default.createElement(_Rect2.default, { x: this.x - this.width / 2, y: this.y - this.height / 2, width: this.width, height: this.height, fill: this.fill, strokeWidth: '0', stroke: this.stroke })
+      );
     }
   }]);
 
-  return Wall;
+  return Beacon;
 }(_AkebiSVGComponent3.default);
 
-exports.default = Wall;
+exports.default = Beacon;
 
-},{"./AkebiSVGComponent.jsx":179,"react":171}],186:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":179,"./basic/Rect.jsx":189,"react":171}],186:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -21672,11 +21699,11 @@ var CenterPoint = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CenterPoint).call(this, props));
 
-    _this.x = parseInt(_this.props.x) || 1;
-    _this.y = parseInt(_this.props.y) || 1;
-    _this.range = parseInt(_this.props.range) || 5;
+    _this.x = parseFloat(_this.props.x) || 1;
+    _this.y = parseFloat(_this.props.y) || 1;
+    _this.range = parseFloat(_this.props.range) || 5;
     _this.stroke = '#666666';
-    _this.strokeWidth = parseInt(_this.props.strokeWidth) || 1;
+    _this.strokeWidth = parseFloat(_this.props.strokeWidth) || 1;
     return _this;
   }
 
@@ -21733,13 +21760,13 @@ var MultiPolygon = function (_React$Component) {
     _this.svgs = [];
     _this.stroke = _this.props.stroke || 'red';
 
-    _this.x = parseInt(_this.props.x) || 0;
-    _this.y = parseInt(_this.props.y) || 0;
+    _this.x = parseFloat(_this.props.x) || 0;
+    _this.y = parseFloat(_this.props.y) || 0;
 
     _this.points = _this.props.points || null;
     // if(!this.points) return console.error('no points on MultPolygon');
     _this.drawPointFlag = _this.props.drawPointFlag == 'true';
-    _this.strokeWidth = parseInt(_this.props.strokeWidth) || 1;
+    _this.strokeWidth = parseFloat(_this.props.strokeWidth) || 1;
     _this.d = [];
 
     // Todo: dummy params
@@ -21853,9 +21880,9 @@ var Point = function (_React$Component) {
 
     _this.fill = _this.props.fill || 'red';
 
-    _this.x = parseInt(_this.props.x) || 1;
-    _this.y = parseInt(_this.props.y) || 1;
-    _this.r = parseInt(_this.props.r) || 5;
+    _this.x = parseFloat(_this.props.x) || 1;
+    _this.y = parseFloat(_this.props.y) || 1;
+    _this.r = parseFloat(_this.props.r) || 5;
     return _this;
   }
 
@@ -21906,21 +21933,21 @@ var Rect = function (_React$Component) {
 
     _this.svgs = [];
 
-    _this.x = parseInt(_this.props.x) || 0;
-    _this.y = parseInt(_this.props.y) || 0;
-    _this.width = parseInt(_this.props.width) || 100;
-    _this.height = parseInt(_this.props.height) || 100;
+    _this.x = parseFloat(_this.props.x) || 0;
+    _this.y = parseFloat(_this.props.y) || 0;
+    _this.width = parseFloat(_this.props.width) || 100;
+    _this.height = parseFloat(_this.props.height) || 100;
 
     _this.fill = _this.props.fill || 'transparent';
     _this.drawPointFlag = _this.props.drawPointFlag == 'true';
 
     _this.stroke = _this.props.stroke || 'red';
-    _this.strokeWidth = parseInt(_this.props.strokeWidth) || 1;
+    _this.strokeWidth = parseFloat(_this.props.strokeWidth) || 1;
 
-    _this.leftStrokeDashArray = parseInt(_this.props.leftStrokeDashArray) || 0;
-    _this.topStrokeDashArray = parseInt(_this.props.topStrokeDashArray) || 0;
-    _this.rightStrokeDashArray = parseInt(_this.props.rightStrokeDashArray) || 0;
-    _this.bottomStrokeDashArray = parseInt(_this.props.bottomStrokeDashArray) || 0;
+    _this.leftStrokeDashArray = parseFloat(_this.props.leftStrokeDashArray) || 0;
+    _this.topStrokeDashArray = parseFloat(_this.props.topStrokeDashArray) || 0;
+    _this.rightStrokeDashArray = parseFloat(_this.props.rightStrokeDashArray) || 0;
+    _this.bottomStrokeDashArray = parseFloat(_this.props.bottomStrokeDashArray) || 0;
     return _this;
   }
 
@@ -21993,8 +22020,8 @@ var Index = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Index).call(this, props));
 
     _this.state = {};
-    _this.width = parseInt(_this.props.width) || 900;
-    _this.height = parseInt(_this.props.height) || 100;
+    _this.width = parseFloat(_this.props.width) || 900;
+    _this.height = parseFloat(_this.props.height) || 100;
     return _this;
   }
 

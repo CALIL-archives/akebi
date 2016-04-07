@@ -9,13 +9,13 @@ export default class MultiPolygon extends React.Component {
     this.svgs = [];
     this.stroke = this.props.stroke || 'red';
 
-    this.x = parseInt(this.props.x) || 0;
-    this.y = parseInt(this.props.y) || 0;
+    this.x = parseFloat(this.props.x) || 0;
+    this.y = parseFloat(this.props.y) || 0;
 
     this.points = this.props.points || null;
     // if(!this.points) return console.error('no points on MultPolygon');
     this.drawPointFlag = (this.props.drawPointFlag == 'true');
-    this.strokeWidth = parseInt(this.props.strokeWidth) || 1;
+    this.strokeWidth = parseFloat(this.props.strokeWidth) || 1;
     this.d = [];
 
     // Todo: dummy params

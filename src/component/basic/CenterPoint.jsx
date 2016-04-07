@@ -5,11 +5,11 @@ import React from 'react';
 export default class CenterPoint extends React.Component {
   constructor(props) {
     super(props);
-    this.x = parseInt(this.props.x) || 1;
-    this.y = parseInt(this.props.y) || 1;
-    this.range = parseInt(this.props.range) || 5;
+    this.x = parseFloat(this.props.x) || 1;
+    this.y = parseFloat(this.props.y) || 1;
+    this.range = parseFloat(this.props.range) || 5;
     this.stroke = '#666666';
-    this.strokeWidth = parseInt(this.props.strokeWidth) || 1;
+    this.strokeWidth = parseFloat(this.props.strokeWidth) || 1;
   }
   render(){
     return (
