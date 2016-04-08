@@ -11,12 +11,10 @@ export default class Floor extends AkebiSVGComponent {
     this.y = parseFloat(this.props.geojson.y) || 0;
     this.width = parseFloat(this.props.geojson.width) ||  1;
     this.height = parseFloat(this.props.geojson.height) || 1;
+    this.fill = this.props.fill || '#FFB3B3';
+    this.stroke = this.props.stroke || '#FF0000';
   }
-  render(){
-    return (
-      <g>
-        <Rect x={this.x} y={this.y} width={this.width} height={this.height}></Rect>
-      </g>
-    )
+  renderSVG(){
+    this.svgs.push(<Rect x={this.x} y={this.y} width={this.width} height={this.height} stroke={this.stroke} leftStrokeDashArray="5" topStrokeDashArray="5" rightStrokeDashArray="5" bottomStrokeDashArray="5" fill={this.fill}></Rect>);
   }
 }

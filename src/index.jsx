@@ -39,7 +39,7 @@ export default class Index extends React.Component {
         </label>
         <button className="save" onClick={this.save}>Save File</button>
         <div className="dropzone" onDragOver={this.handleDragOver} onDrop={this.handleFileSelect}>Drop files here</div>
-        <ArtBoard width={this.width} height={this.height} geojson={this.props.akebi.geojson}></ArtBoard>
+        <ArtBoard ref="ArtBoard" width={this.width} height={this.height} geojson={this.props.akebi.geojson}></ArtBoard>
       </div>
     )
   }

@@ -22,7 +22,7 @@ export default class AkebiSVGComponent extends React.Component {
     //   this.svgs.push(<CenterPoint x={bboxRect.x+bboxRect.width/2} y={bboxRect.y+bboxRect.height/2} range="10"></CenterPoint>);
     // }
     return (
-      <g color="#D72541" onClick={this.onClick.bind(this)} ref="g">
+      <g color="#D72541" onClick={this.onClick.bind(this)} ref="g" className="akebiComponent">
         {this.svgs}
       </g>
     )

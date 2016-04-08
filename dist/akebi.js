@@ -21227,7 +21227,7 @@ var AkebiSVGComponent = function (_React$Component) {
       // }
       return _react2.default.createElement(
         'g',
-        { color: '#D72541', onClick: this.onClick.bind(this), ref: 'g' },
+        { color: '#D72541', onClick: this.onClick.bind(this), ref: 'g', className: 'akebiComponent' },
         this.svgs
       );
     }
@@ -21349,8 +21349,49 @@ var ArtBoard = function (_React$Component) {
       if (geojson.type == 'floor') {
         geojson.width = geojson.width_cm;
         geojson.height = geojson.height_cm;
-        this.svgs.push(_react2.default.createElement(_Floor2.default, { geojson: geojson, fill: 'black', stroke: 'black' }));
+        this.svgs.push(_react2.default.createElement(_Floor2.default, { geojson: geojson }));
       }
+    }
+    // componentDidMount() {
+    //   var akebiComponents = document.getElementsByClassName('akebiComponent');
+    //   // rang of floor
+    //   // Todo: dummy data
+    //   var floorRange = [
+    //     [129, 197],
+    //     [1129, 197],
+    //     [1129, 1197],
+    //     [129, 1197]
+    //   ];
+    //   // out of range?
+    //   for(var i=0,l=akebiComponents.length;i<l;i++) {
+    //     var bboxRect = akebiComponents[i].getBBox();
+    //   }
+    //   debug(floorRange);
+    // }
+
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var svgElements = document.getElementsByClassName('akebiComponent');
+      var xs = [],
+          x2s = [],
+          ys = [],
+          y2s = [];
+      for (var i = 0, l = svgElements.length; i < l; i++) {
+        // debug(svgElements[i].getBBox(), true)
+        var bboxRect = svgElements[i].getBBox();
+        xs.push(bboxRect.x);
+        x2s.push(bboxRect.x + bboxRect.width);
+        ys.push(bboxRect.y);
+        y2s.push(bboxRect.y + bboxRect.height);
+        // this.svgs.push(<Point x={bboxRect.x} y={bboxRect.y} fill="red"></Point>);
+      };
+      var x = getMin(xs);
+      var y = getMin(ys);
+      var width = getMax(x2s) - x;
+      var height = getMax(y2s) - y;
+      this.svgs.push(_react2.default.createElement('rect', { x: x, y: y, width: width, height: height, strokeWidth: '5', fill: 'transparent', stroke: 'red' }));
+      this.setState({});
     }
   }, {
     key: 'render',
@@ -21517,17 +21558,15 @@ var Floor = function (_AkebiSVGComponent) {
     _this.y = parseFloat(_this.props.geojson.y) || 0;
     _this.width = parseFloat(_this.props.geojson.width) || 1;
     _this.height = parseFloat(_this.props.geojson.height) || 1;
+    _this.fill = _this.props.fill || '#FFB3B3';
+    _this.stroke = _this.props.stroke || '#FF0000';
     return _this;
   }
 
   _createClass(Floor, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'g',
-        null,
-        _react2.default.createElement(_Rect2.default, { x: this.x, y: this.y, width: this.width, height: this.height })
-      );
+    key: 'renderSVG',
+    value: function renderSVG() {
+      this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.x, y: this.y, width: this.width, height: this.height, stroke: this.stroke, leftStrokeDashArray: '5', topStrokeDashArray: '5', rightStrokeDashArray: '5', bottomStrokeDashArray: '5', fill: this.fill }));
     }
   }]);
 
@@ -21734,13 +21773,9 @@ var Beacon = function (_AkebiSVGComponent) {
   }
 
   _createClass(Beacon, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'g',
-        null,
-        _react2.default.createElement(_Rect2.default, { x: this.x, y: this.y, width: this.width, height: this.height, fill: this.fill, strokeWidth: '0', stroke: this.stroke })
-      );
+    key: 'renderSVG',
+    value: function renderSVG() {
+      this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.x, y: this.y, width: this.width, height: this.height, fill: this.fill, strokeWidth: '0', stroke: this.stroke }));
     }
   }]);
 
@@ -22164,7 +22199,7 @@ var Index = function (_React$Component) {
           { className: 'dropzone', onDragOver: this.handleDragOver, onDrop: this.handleFileSelect },
           'Drop files here'
         ),
-        _react2.default.createElement(_ArtBoard2.default, { width: this.width, height: this.height, geojson: this.props.akebi.geojson })
+        _react2.default.createElement(_ArtBoard2.default, { ref: 'ArtBoard', width: this.width, height: this.height, geojson: this.props.akebi.geojson })
       );
     }
   }]);

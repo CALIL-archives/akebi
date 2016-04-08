@@ -21,14 +21,16 @@ export default class ArtBoard extends React.Component {
     // Todo: refactor
     // debug(this.props.geojson)
     this.svgs = [];
-    this.props.geojson.forEach((feature)=>{
+    this.props.geojson.forEach((feature)=> {
       this.createCompoenent(feature);
     });
   }
+
   getViewBox() {
     return `0 0 ${this.width} ${this.height}`
   }
-  createCompoenent(feature){
+
+  createCompoenent(feature) {
     // Todo: data structure design
     var geojson = feature.properties;
     // debug(geojson)
@@ -36,26 +38,62 @@ export default class ArtBoard extends React.Component {
     // debug(geojson.top_cm)
     // debug(geojson, true)
     // debug(this.width)
-    geojson.x = parseFloat(geojson.left_cm) + this.width/2;
-    geojson.y = parseFloat(geojson.top_cm) + this.height/2;
-    if(geojson.type=='shelf'){
+    geojson.x = parseFloat(geojson.left_cm) + this.width / 2;
+    geojson.y = parseFloat(geojson.top_cm) + this.height / 2;
+    if (geojson.type == 'shelf') {
       // debug(geojson.x)
       // debug(geojson.y)
       this.svgs.push(<Shelf geojson={geojson} fill="pink" color="red" drawPointFlag="true"></Shelf>);
     }
-    if(geojson.type=='beacon') {
+    if (geojson.type == 'beacon') {
       this.svgs.push(<Beacon geojson={geojson} fill="black" stroke="white"></Beacon>);
     }
-    if(geojson.type=='wall') {
+    if (geojson.type == 'wall') {
       geojson.width = parseFloat(geojson.width_scale) * 100;
       geojson.height = parseFloat(geojson.height_scale) * 100;
       this.svgs.push(<Wall geojson={geojson} fill="black" stroke="black"></Wall>);
     }
-    if(geojson.type=='floor') {
+    if (geojson.type == 'floor') {
       geojson.width = geojson.width_cm;
       geojson.height = geojson.height_cm;
-      this.svgs.push(<Floor geojson={geojson} fill="black" stroke="black"></Floor>);
+      this.svgs.push(<Floor geojson={geojson}></Floor>);
     }
+  }
+  // componentDidMount() {
+  //   var akebiComponents = document.getElementsByClassName('akebiComponent');
+  //   // rang of floor
+  //   // Todo: dummy data
+  //   var floorRange = [
+  //     [129, 197],
+  //     [1129, 197],
+  //     [1129, 1197],
+  //     [129, 1197]
+  //   ];
+  //   // out of range?
+  //   for(var i=0,l=akebiComponents.length;i<l;i++) {
+  //     var bboxRect = akebiComponents[i].getBBox();
+  //   }
+  //   debug(floorRange);
+  // }
+  componentDidMount() {
+    var svgElements = document.getElementsByClassName('akebiComponent');
+    var xs = [], x2s = [], ys = [], y2s = [];
+    for(var i=0,l=svgElements.length;i<l;i++){
+      // debug(svgElements[i].getBBox(), true)
+      var bboxRect = svgElements[i].getBBox();
+      xs.push(bboxRect.x);
+      x2s.push(bboxRect.x+bboxRect.width);
+      ys.push(bboxRect.y);
+      y2s.push(bboxRect.y+bboxRect.height);
+      // this.svgs.push(<Point x={bboxRect.x} y={bboxRect.y} fill="red"></Point>);
+
+    };
+    var x = getMin(xs);
+    var y = getMin(ys);
+    var width = getMax(x2s) - x;
+    var height = getMax(y2s) - y;
+    this.svgs.push(<rect x={x} y={y} width={width} height={height} strokeWidth="5" fill="transparent" stroke="red"></rect>);
+    this.setState({});
   }
   render() {
     return (
