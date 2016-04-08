@@ -28,6 +28,7 @@ export default class Shelf extends AkebiSVGComponent {
     this.side = 2;
     this.eachWidth = parseFloat(this.state.eachWidth);
     this.eachHeight = parseFloat(this.state.eachHeight);
+    this.fill = this.props.fill || 'transparent';
 
     this.drawPointFlag = this.props.drawPointFlag=='true';
     this.width = this.count * this.eachWidth;
@@ -39,9 +40,9 @@ export default class Shelf extends AkebiSVGComponent {
     this.svgs.push(<Point x={this.x} y={this.y} fill="red"></Point>);
     this.svgs.push(<Rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="#CCCCCC"></Rect>)
     for(var i=0,l=this.count;i<l;i++){
-      this.svgs.push(<Rect x={this.startX+this.eachWidth*i} y={this.startY} width={this.eachWidth} height={this.eachHeight} stroke={this.stroke}></Rect>)
+      this.svgs.push(<Rect x={this.startX+this.eachWidth*i} y={this.startY} width={this.eachWidth} height={this.eachHeight} stroke={this.stroke} fill={this.fill}></Rect>)
       if(this.side==2){
-       this.svgs.push(<Rect x={this.startX+this.eachWidth*i} y={this.startY+this.eachHeight} width={this.eachWidth} height={this.eachHeight} stroke={this.stroke}></Rect>)
+       this.svgs.push(<Rect x={this.startX+this.eachWidth*i} y={this.startY+this.eachHeight} width={this.eachWidth} height={this.eachHeight} stroke={this.stroke} fill={this.fill}></Rect>)
       }
     }
     if(this.drawPointFlag){

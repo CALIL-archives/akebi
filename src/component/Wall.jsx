@@ -1,7 +1,5 @@
 'use strict';
 
-'use strict';
-
 import React from 'react';
 import AkebiSVGComponent from './AkebiSVGComponent.jsx'
 import Rect from './basic/Rect.jsx'
