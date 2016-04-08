@@ -17,6 +17,7 @@ export default class ArtBoard extends React.Component {
     this.state = {};
     this.width = parseFloat(this.props.width) || 900;
     this.height = parseFloat(this.props.height) || 500;
+    this.backgroundColor = this.props.backgroundColor || '#FFFFFF';
     // Todo: refactor
     // debug(this.props.geojson)
     this.svgs = [];
@@ -51,12 +52,14 @@ export default class ArtBoard extends React.Component {
       this.svgs.push(<Wall geojson={geojson} fill="black" stroke="black"></Wall>);
     }
     if(geojson.type=='floor') {
+      geojson.width = geojson.width_cm;
+      geojson.height = geojson.height_cm;
       this.svgs.push(<Floor geojson={geojson} fill="black" stroke="black"></Floor>);
     }
   }
   render() {
     return (
-      <svg xmlns="http://www.w3.org/2000/svg" ref="svg" id="ArtBoard" viewBox={this.getViewBox()} width={this.width} height={this.height}>
+      <svg xmlns="http://www.w3.org/2000/svg" ref="svg" id="ArtBoard" viewBox={this.getViewBox()} width={this.width} height={this.height} style={{backgroundColor: this.backgroundColor}}>
         <Grid width={this.width} height={this.height}></Grid>
         {this.svgs}
         {/*

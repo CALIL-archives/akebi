@@ -21069,7 +21069,7 @@ getGlobal().akebi = function () {
       open: false,
       akebi: this,
       width: 1200,
-      height: 900
+      height: 1200
     };
     var options = {
       save: true
@@ -21306,6 +21306,7 @@ var ArtBoard = function (_React$Component) {
     _this.state = {};
     _this.width = parseFloat(_this.props.width) || 900;
     _this.height = parseFloat(_this.props.height) || 500;
+    _this.backgroundColor = _this.props.backgroundColor || '#FFFFFF';
     // Todo: refactor
     // debug(this.props.geojson)
     _this.svgs = [];
@@ -21346,6 +21347,8 @@ var ArtBoard = function (_React$Component) {
         this.svgs.push(_react2.default.createElement(_Wall2.default, { geojson: geojson, fill: 'black', stroke: 'black' }));
       }
       if (geojson.type == 'floor') {
+        geojson.width = geojson.width_cm;
+        geojson.height = geojson.height_cm;
         this.svgs.push(_react2.default.createElement(_Floor2.default, { geojson: geojson, fill: 'black', stroke: 'black' }));
       }
     }
@@ -21354,7 +21357,7 @@ var ArtBoard = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'svg',
-        { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', id: 'ArtBoard', viewBox: this.getViewBox(), width: this.width, height: this.height },
+        { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', id: 'ArtBoard', viewBox: this.getViewBox(), width: this.width, height: this.height, style: { backgroundColor: this.backgroundColor } },
         _react2.default.createElement(_Grid2.default, { width: this.width, height: this.height }),
         this.svgs
       );
@@ -21490,6 +21493,10 @@ var _AkebiSVGComponent2 = require('./AkebiSVGComponent.jsx');
 
 var _AkebiSVGComponent3 = _interopRequireDefault(_AkebiSVGComponent2);
 
+var _Rect = require('./basic/Rect.jsx');
+
+var _Rect2 = _interopRequireDefault(_Rect);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21504,13 +21511,23 @@ var Floor = function (_AkebiSVGComponent) {
   function Floor(props) {
     _classCallCheck(this, Floor);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Floor).call(this, props));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Floor).call(this, props));
+
+    _this.x = parseFloat(_this.props.geojson.x) || 0;
+    _this.y = parseFloat(_this.props.geojson.y) || 0;
+    _this.width = parseFloat(_this.props.geojson.width) || 1;
+    _this.height = parseFloat(_this.props.geojson.height) || 1;
+    return _this;
   }
 
   _createClass(Floor, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('g', null);
+      return _react2.default.createElement(
+        'g',
+        null,
+        _react2.default.createElement(_Rect2.default, { x: this.x, y: this.y, width: this.width, height: this.height })
+      );
     }
   }]);
 
@@ -21519,7 +21536,7 @@ var Floor = function (_AkebiSVGComponent) {
 
 exports.default = Floor;
 
-},{"./AkebiSVGComponent.jsx":179,"react":171}],184:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":179,"./basic/Rect.jsx":190,"react":171}],184:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -22147,11 +22164,7 @@ var Index = function (_React$Component) {
           { className: 'dropzone', onDragOver: this.handleDragOver, onDrop: this.handleFileSelect },
           'Drop files here'
         ),
-        _react2.default.createElement(
-          'div',
-          { style: { background: 'white', padding: '30px' } },
-          _react2.default.createElement(_ArtBoard2.default, { width: this.width, height: this.height, geojson: this.props.akebi.geojson })
-        )
+        _react2.default.createElement(_ArtBoard2.default, { width: this.width, height: this.height, geojson: this.props.akebi.geojson })
       );
     }
   }]);

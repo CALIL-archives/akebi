@@ -86,7 +86,7 @@ getGlobal().akebi = class {
       open: false,
       akebi: this,
       width: 1200,
-      height: 900
+      height: 1200
     };
     var options = {
       save: true
