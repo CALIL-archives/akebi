@@ -16,7 +16,7 @@ export default class Beacon extends AkebiSVGComponent {
   render(){
     return (
       <g>
-        <Rect x={this.x-this.range/2} y={this.y-this.range/2} width={this.range} height={this.range} fill={this.fill} strokeWidth="1" stroke={this.stroke}></Rect>
+        <Rect x={this.x} y={this.y} width={this.range} height={this.range} fill={this.fill} strokeWidth="1" stroke={this.stroke}></Rect>
       </g>
     )
   }

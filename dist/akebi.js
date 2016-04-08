@@ -21346,8 +21346,22 @@ var ArtBoard = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'svg',
-        { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height },
-        this.svgs
+        { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', id: 'ArtBoard', viewBox: this.getViewBox(), width: this.width, height: this.height },
+        _react2.default.createElement('line', { x1: this.width / 2, y1: 0, x2: this.width / 2, y2: this.height, stroke: '#999999', strokeWidth: '1' }),
+        _react2.default.createElement('line', { x1: 0, y1: this.height / 2, x2: this.width, y2: this.height / 2, stroke: '#999999', strokeWidth: '1' }),
+        _react2.default.createElement(_Rect2.default, { x: this.width / 2, y: this.height / 2, width: '720', height: '26', strokeTop: '5', drawPointFlag: 'true' }),
+        _react2.default.createElement(_Shelf2.default, { geojson: {
+            "id": 4,
+            "type": "shelf",
+            "side": 2,
+            "count": 8,
+            "angle": 0,
+            x: this.width / 2,
+            y: 200,
+            "eachHeight": 26,
+            "eachWidth": 90,
+            "label": '棚番号ふ'
+          }, fill: 'pink', color: 'red', drawPointFlag: 'true' })
       );
     }
   }]);
@@ -21408,7 +21422,7 @@ var Beacon = function (_AkebiSVGComponent) {
       return _react2.default.createElement(
         'g',
         null,
-        _react2.default.createElement(_Rect2.default, { x: this.x - this.range / 2, y: this.y - this.range / 2, width: this.range, height: this.range, fill: this.fill, strokeWidth: '1', stroke: this.stroke })
+        _react2.default.createElement(_Rect2.default, { x: this.x, y: this.y, width: this.range, height: this.range, fill: this.fill, strokeWidth: '1', stroke: this.stroke })
       );
     }
   }]);
@@ -21562,41 +21576,40 @@ var Shelf = function (_AkebiSVGComponent) {
     //   "eachWidth": 90,
     //   "label": "\u68da\u756a\u53f7\u3075"
     // };
-    _this.x = parseFloat(_this.state.x) || 0;
-    _this.y = parseFloat(_this.state.y) || 0;
+    _this.x = parseFloat(_this.props.geojson.x) || 0;
+    _this.y = parseFloat(_this.props.geojson.y) || 0;
+    _this.count = parseFloat(_this.props.geojson.count);
+    _this.side = parseFloat(_this.props.geojson.side);
+    _this.count = 8;
+    _this.side = 2;
+    _this.eachWidth = parseFloat(_this.state.eachWidth);
+    _this.eachHeight = parseFloat(_this.state.eachHeight);
 
     _this.drawPointFlag = _this.props.drawPointFlag == 'true';
-    _this.width = parseFloat(_this.state.count) * parseFloat(_this.state.eachWidth);
-    _this.height = parseFloat(_this.state.side) * parseFloat(_this.state.eachHeight);
-    // calculate start point from x,y
-    _this.startX = _this.x - _this.width / 2;
-    _this.startY = _this.y - _this.height / 2;
+    _this.width = _this.count * _this.eachWidth;
+    _this.height = _this.side * _this.eachHeight;
+    _this.startX = _this.x + _this.eachWidth / 2 - _this.width / 2;
+    _this.startY = _this.y - _this.eachHeight / 2;
     return _this;
   }
 
   _createClass(Shelf, [{
     key: 'renderSVG',
     value: function renderSVG() {
-      var fillRects = [];
-      // var fillRects = [1, 4, 5];
-      for (var i = 0, l = this.state.count; i < l; i++) {
-        var fill = 'transparent';
-        if (fillRects.indexOf(i) >= 0 && this.props.fill) {
-          var fill = this.props.fill;
-        }
-        this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.startX + this.state.eachWidth * i, y: this.startY, width: this.state.eachWidth, height: this.state.eachHeight, topStrokeDashArray: '5', fill: fill, stroke: this.stroke }));
-      }
-      if (this.state.side == 2) {
-        for (var i = 0, l = this.state.count; i < l; i++) {
-          this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.startX + this.state.eachWidth * i, y: this.startY + this.state.eachHeight, width: this.state.eachWidth, height: this.state.eachHeight, stroke: this.stroke }));
-          this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.startX + this.state.eachWidth * i, y: this.startY, width: this.state.eachWidth, height: this.state.eachHeight, topStrokeDashArray: '5', fill: 'transparent' }));
+      this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.x, y: this.y, fill: 'red' }));
+      this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.x, y: this.y, width: this.width, height: this.height, stroke: '#CCCCCC' }));
+      for (var i = 0, l = this.count; i < l; i++) {
+        this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.startX + this.eachWidth * i, y: this.startY, width: this.eachWidth, height: this.eachHeight, stroke: this.stroke }));
+        if (this.side == 2) {
+          this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.startX + this.eachWidth * i, y: this.startY + this.eachHeight, width: this.eachWidth, height: this.eachHeight, stroke: this.stroke }));
         }
       }
       if (this.drawPointFlag) {
-        this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.startX, y: this.startY }));
-        this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.startX + this.width, y: this.startY }));
-        this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.startX + this.width, y: this.startY + this.height }));
-        this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.startX, y: this.startY + this.height }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.x - this.width / 2, y: this.y - this.height / 2 }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.x + this.width / 2, y: this.y - this.height / 2 }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.x + this.width / 2, y: this.y + this.height / 2 }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.x - this.width / 2, y: this.y + this.height / 2 }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.x - this.width / 2, y: this.y + this.height / 2 }));
       }
     }
   }]);
@@ -21660,7 +21673,7 @@ var Beacon = function (_AkebiSVGComponent) {
       return _react2.default.createElement(
         'g',
         null,
-        _react2.default.createElement(_Rect2.default, { x: this.x - this.width / 2, y: this.y - this.height / 2, width: this.width, height: this.height, fill: this.fill, strokeWidth: '0', stroke: this.stroke })
+        _react2.default.createElement(_Rect2.default, { x: this.x, y: this.y, width: this.width, height: this.height, fill: this.fill, strokeWidth: '0', stroke: this.stroke })
       );
     }
   }]);
@@ -21954,15 +21967,17 @@ var Rect = function (_React$Component) {
   _createClass(Rect, [{
     key: 'render',
     value: function render() {
-      this.svgs.push(_react2.default.createElement('rect', { x: this.x, y: this.y, width: this.width, height: this.height, stroke: 'currentColor', strokeWidth: '0', fill: this.fill || 'transparent' }));
+      var x = this.x - this.width / 2;
+      var y = this.y - this.height / 2;
+      this.svgs.push(_react2.default.createElement('rect', { x: x, y: y, width: this.width, height: this.height, stroke: 'currentColor', strokeWidth: '0', fill: this.fill || 'transparent' }));
       // left line
-      this.drawLine(this.x, this.y + this.height, this.x, this.y, this.leftStrokeDashArray);
+      this.drawLine(x, y + this.height, x, y, this.leftStrokeDashArray);
       // top line
-      this.drawLine(this.x, this.y, this.x + this.width, this.y, this.topStrokeDashArray);
+      this.drawLine(x, y, x + this.width, y, this.topStrokeDashArray);
       // right line
-      this.drawLine(this.x + this.width, this.y, this.x + this.width, this.y + this.height, this.rightStrokeDashArray);
+      this.drawLine(x + this.width, y, x + this.width, y + this.height, this.rightStrokeDashArray);
       // bottom line
-      this.drawLine(this.x + this.width, this.y + this.height, this.x, this.y + this.height, this.bottomStrokeDashArray);
+      this.drawLine(x + this.width, y + this.height, x, y + this.height, this.bottomStrokeDashArray);
       return _react2.default.createElement(
         'g',
         { color: 'currentColor' },

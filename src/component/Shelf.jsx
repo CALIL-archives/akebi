@@ -20,37 +20,35 @@ export default class Shelf extends AkebiSVGComponent {
     //   "eachWidth": 90,
     //   "label": "\u68da\u756a\u53f7\u3075"
     // };
-    this.x = parseFloat(this.state.x) || 0;
-    this.y = parseFloat(this.state.y) || 0;
+    this.x = parseFloat(this.props.geojson.x) || 0;
+    this.y = parseFloat(this.props.geojson.y) || 0;
+    this.count = parseFloat(this.props.geojson.count);
+    this.side = parseFloat(this.props.geojson.side);
+    this.count = 8;
+    this.side = 2;
+    this.eachWidth = parseFloat(this.state.eachWidth);
+    this.eachHeight = parseFloat(this.state.eachHeight);
 
     this.drawPointFlag = this.props.drawPointFlag=='true';
-    this.width = parseFloat(this.state.count) * parseFloat(this.state.eachWidth);
-    this.height = parseFloat(this.state.side) * parseFloat(this.state.eachHeight);
-    // calculate start point from x,y
-    this.startX = this.x - this.width / 2;
-    this.startY = this.y - this.height / 2;
+    this.width = this.count * this.eachWidth;
+    this.height = this.side * this.eachHeight;
+    this.startX = this.x+this.eachWidth/2-this.width/2;
+    this.startY = this.y-this.eachHeight/2;
   }
   renderSVG() {
-    var fillRects = [];
-    // var fillRects = [1, 4, 5];
-    for(var i=0,l=this.state.count;i<l;i++){
-      var fill = 'transparent';
-      if(fillRects.indexOf(i)>=0 && this.props.fill){
-        var fill = this.props.fill;
-      }
-      this.svgs.push(<Rect x={this.startX+this.state.eachWidth*i} y={this.startY} width={this.state.eachWidth} height={this.state.eachHeight} topStrokeDashArray="5" fill={fill} stroke={this.stroke}></Rect>)
-    }
-    if(this.state.side==2){
-      for(var i=0,l=this.state.count;i<l;i++){
-        this.svgs.push(<Rect x={this.startX+this.state.eachWidth*i} y={this.startY+this.state.eachHeight} width={this.state.eachWidth} height={this.state.eachHeight} stroke={this.stroke}></Rect>)
-        this.svgs.push(<Rect x={this.startX+this.state.eachWidth*i} y={this.startY} width={this.state.eachWidth} height={this.state.eachHeight} topStrokeDashArray="5" fill="transparent"></Rect>)
+    this.svgs.push(<Point x={this.x} y={this.y} fill="red"></Point>);
+    this.svgs.push(<Rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="#CCCCCC"></Rect>)
+    for(var i=0,l=this.count;i<l;i++){
+      this.svgs.push(<Rect x={this.startX+this.eachWidth*i} y={this.startY} width={this.eachWidth} height={this.eachHeight} stroke={this.stroke}></Rect>)
+      if(this.side==2){
+       this.svgs.push(<Rect x={this.startX+this.eachWidth*i} y={this.startY+this.eachHeight} width={this.eachWidth} height={this.eachHeight} stroke={this.stroke}></Rect>)
       }
     }
     if(this.drawPointFlag){
-      this.svgs.push(<Point x={this.startX} y={this.startY}></Point>);
-      this.svgs.push(<Point x={this.startX+this.width} y={this.startY}></Point>);
-      this.svgs.push(<Point x={this.startX+this.width} y={this.startY+this.height}></Point>);
-      this.svgs.push(<Point x={this.startX} y={this.startY+this.height}></Point>);
+      this.svgs.push(<Point x={this.x-this.width/2} y={this.y-this.height/2}></Point>);
+      this.svgs.push(<Point x={this.x+this.width/2} y={this.y-this.height/2}></Point>);
+      this.svgs.push(<Point x={this.x+this.width/2} y={this.y+this.height/2}></Point>);
+      this.svgs.push(<Point x={this.x-this.width/2} y={this.y+this.height/2}></Point>);
     }
   }
 }

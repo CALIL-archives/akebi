@@ -25,15 +25,17 @@ export default class Rect extends React.Component {
     this.bottomStrokeDashArray = parseFloat(this.props.bottomStrokeDashArray) || 0;
   }
   render(){
-    this.svgs.push(<rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="0" fill={this.fill||'transparent'} />);
+    var x = this.x - this.width/2;
+    var y = this.y - this.height/2;
+    this.svgs.push(<rect x={x} y={y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="0" fill={this.fill||'transparent'} />);
     // left line
-    this.drawLine(this.x, this.y + this.height, this.x, this.y, this.leftStrokeDashArray);
+    this.drawLine(x, y + this.height, x, y, this.leftStrokeDashArray);
     // top line
-    this.drawLine(this.x, this.y, this.x + this.width, this.y, this.topStrokeDashArray);
+    this.drawLine(x, y, x + this.width, y, this.topStrokeDashArray);
     // right line
-    this.drawLine(this.x + this.width, this.y, this.x + this.width, this.y + this.height, this.rightStrokeDashArray);
+    this.drawLine(x + this.width, y, x + this.width, y + this.height, this.rightStrokeDashArray);
     // bottom line
-    this.drawLine(this.x + this.width, this.y + this.height, this.x, this.y + this.height, this.bottomStrokeDashArray);
+    this.drawLine(x + this.width, y + this.height, x, y + this.height, this.bottomStrokeDashArray);
     return (
       <g color="currentColor">
         {this.svgs}

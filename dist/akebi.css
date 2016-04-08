@@ -34,6 +34,8 @@ body {
     border: 3px dashed #ffffff;
     padding: 2rem;
     margin: 2rem 0; }
+  body #ArtBoard {
+    border: 1px solid #666666; }
 
 #debug {
   display: none;

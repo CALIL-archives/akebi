@@ -51,14 +51,27 @@ export default class ArtBoard extends React.Component {
   }
   render() {
     return (
-      <svg xmlns="http://www.w3.org/2000/svg" ref="svg" viewBox={this.getViewBox()} width={this.width} height={this.height}>
-        {this.svgs}
+      <svg xmlns="http://www.w3.org/2000/svg" ref="svg" id="ArtBoard" viewBox={this.getViewBox()} width={this.width} height={this.height}>
+        <line x1={this.width/2} y1={0} x2={this.width/2} y2={this.height} stroke="#999999" strokeWidth="1" />
+        <line x1={0} y1={this.height/2} x2={this.width} y2={this.height/2} stroke="#999999" strokeWidth="1" />
+        <Rect x={this.width/2} y={this.height/2} width="720" height="26" strokeTop="5" drawPointFlag="true"></Rect>
+        <Shelf geojson={{
+          "id": 4,
+          "type": "shelf",
+          "side": 2,
+          "count": 8,
+          "angle": 0,
+          x: this.width/2,
+          y: 200,
+          "eachHeight": 26,
+          "eachWidth": 90,
+          "label": "\u68da\u756a\u53f7\u3075"
+         }} fill="pink" color="red" drawPointFlag="true"></Shelf>
         {/*
+        {this.svgs}
         <Point x="10" y="10" fill="red"></Point>
-        <Rect x="10" y="200" width="720" height="26" strokeTop="5" drawPointFlag="true"></Rect>
         <MultiPolygon x="500" y="700"></MultiPolygon>
 
-        <Shelf x="500" y="100" fill="pink" color="red" drawPointFlag="true"></Shelf>
 
         <Beacon x="500" y="100"></Beacon>
         <CurvedShelf></CurvedShelf>
