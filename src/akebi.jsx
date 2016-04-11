@@ -12,28 +12,41 @@
 
 var getGlobal = require('get-global');
 
+class Util {
+    static getValName(val) {
+      if(typeof val !== 'function') {
+        return '';
+      }
+      return val.name;
+    }
+}
+
 /**
  * debug
  * @param data
  * @param divID
  */
-getGlobal().debug = function(data, keylist=false, divID='#debug') {
-  var debugDIV = document.querySelector(divID);
+getGlobal().debug = function(data, keylist = false, divID = '#debug') {
+  let debugDIV = document.querySelector(divID);
   debugDIV.style.display = 'block';
-  if (typeof data == 'undefined'){
-    debugDIV.innerText = 'undefined';
-  }else if(typeof data=='string'){
+  let name = Util.getValName(data)
+  if(name) {
+    debugDIV.innerText += `${name}:`;
+  }
+  if (typeof data === 'undefined') {
+    debugDIV.innerText += 'undefined';
+  }else if(typeof data === 'string') {
     debugDIV.innerText += data;
-  }else if(typeof data=='object'){
+  }else if(typeof data === 'object') {
     // list the keys of object
-    if(keylist){
-      for(var k in data){
+    if(keylist) {
+      for (let k in data) {
         debug(k);
       }
     }else{
       try{
         debugDIV.innerText += JSON.stringify(data);
-      }catch(e){
+      }catch(e) {
         debugDIV.innerText += data.outerHTML;
       }
     }
@@ -85,8 +98,8 @@ getGlobal().akebi = class {
     var akebiOptions = {
       open: false,
       akebi: this,
-      width: 1200,
-      height: 1200
+      width: 800,
+      height: 600
     };
     var options = {
       save: true
