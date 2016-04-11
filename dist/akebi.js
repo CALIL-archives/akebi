@@ -21257,6 +21257,10 @@ var _Rect = require('./basic/Rect.jsx');
 
 var _Rect2 = _interopRequireDefault(_Rect);
 
+var _Grid = require('./basic/Grid.jsx');
+
+var _Grid2 = _interopRequireDefault(_Grid);
+
 var _Shelf = require('./Shelf.jsx');
 
 var _Shelf2 = _interopRequireDefault(_Shelf);
@@ -21281,10 +21285,6 @@ var _Floor = require('./Floor.jsx');
 
 var _Floor2 = _interopRequireDefault(_Floor);
 
-var _Grid = require('./Grid.jsx');
-
-var _Grid2 = _interopRequireDefault(_Grid);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21302,7 +21302,7 @@ var ArtBoard = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ArtBoard).call(this, props));
 
     _this.state = {};
-    _this.scale = 1;
+    _this.scale = 0.1;
     _this.width = parseFloat(_this.props.width) || 900;
     _this.height = parseFloat(_this.props.height) || 500;
     _this.backgroundColor = _this.props.backgroundColor || '#FFFFFF';
@@ -21406,7 +21406,7 @@ var ArtBoard = function (_React$Component) {
 
 exports.default = ArtBoard;
 
-},{"./Beacon.jsx":181,"./CurvedShelf.jsx":182,"./Floor.jsx":183,"./Grid.jsx":184,"./Shelf.jsx":185,"./Wall.jsx":186,"./basic/MultiPolygon.jsx":187,"./basic/Point.jsx":188,"./basic/Rect.jsx":189,"react":171}],181:[function(require,module,exports){
+},{"./Beacon.jsx":181,"./CurvedShelf.jsx":182,"./Floor.jsx":183,"./Shelf.jsx":184,"./Wall.jsx":185,"./basic/Grid.jsx":186,"./basic/MultiPolygon.jsx":187,"./basic/Point.jsx":188,"./basic/Rect.jsx":189,"react":171}],181:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -21588,62 +21588,6 @@ var _AkebiSVGComponent2 = require('./AkebiSVGComponent.jsx');
 
 var _AkebiSVGComponent3 = _interopRequireDefault(_AkebiSVGComponent2);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Grid = function (_AkebiSVGComponent) {
-  _inherits(Grid, _AkebiSVGComponent);
-
-  function Grid(props) {
-    _classCallCheck(this, Grid);
-
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Grid).call(this, props));
-
-    _this.width = parseFloat(_this.props.width) || 1;
-    _this.height = parseFloat(_this.props.height) || 1;
-    _this.stroke = _this.props.stroke || '#CCCCCC';
-    return _this;
-  }
-
-  _createClass(Grid, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'g',
-        null,
-        _react2.default.createElement('line', { x1: this.width / 2, y1: 0, x2: this.width / 2, y2: this.height, stroke: '#999999', strokeWidth: '1' }),
-        _react2.default.createElement('line', { x1: 0, y1: this.height / 2, x2: this.width, y2: this.height / 2, stroke: '#999999', strokeWidth: '1' })
-      );
-    }
-  }]);
-
-  return Grid;
-}(_AkebiSVGComponent3.default);
-
-exports.default = Grid;
-
-},{"./AkebiSVGComponent.jsx":179,"react":171}],185:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _AkebiSVGComponent2 = require('./AkebiSVGComponent.jsx');
-
-var _AkebiSVGComponent3 = _interopRequireDefault(_AkebiSVGComponent2);
-
 var _Point = require('./basic/Point.jsx');
 
 var _Point2 = _interopRequireDefault(_Point);
@@ -21720,7 +21664,7 @@ var Shelf = function (_AkebiSVGComponent) {
 
 exports.default = Shelf;
 
-},{"./AkebiSVGComponent.jsx":179,"./basic/Point.jsx":188,"./basic/Rect.jsx":189,"react":171}],186:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":179,"./basic/Point.jsx":188,"./basic/Rect.jsx":189,"react":171}],185:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -21778,7 +21722,59 @@ var Beacon = function (_AkebiSVGComponent) {
 
 exports.default = Beacon;
 
-},{"./AkebiSVGComponent.jsx":179,"./basic/Rect.jsx":189,"react":171}],187:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":179,"./basic/Rect.jsx":189,"react":171}],186:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Grid = function (_React$Component) {
+  _inherits(Grid, _React$Component);
+
+  function Grid(props) {
+    _classCallCheck(this, Grid);
+
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Grid).call(this, props));
+
+    _this.width = parseFloat(_this.props.width) || 1;
+    _this.height = parseFloat(_this.props.height) || 1;
+    _this.stroke = _this.props.stroke || '#CCCCCC';
+    return _this;
+  }
+
+  _createClass(Grid, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'g',
+        null,
+        _react2.default.createElement('line', { x1: this.width / 2, y1: 0, x2: this.width / 2, y2: this.height, stroke: '#999999', strokeWidth: '1' }),
+        _react2.default.createElement('line', { x1: 0, y1: this.height / 2, x2: this.width, y2: this.height / 2, stroke: '#999999', strokeWidth: '1' })
+      );
+    }
+  }]);
+
+  return Grid;
+}(_react2.default.Component);
+
+exports.default = Grid;
+
+},{"react":171}],187:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
