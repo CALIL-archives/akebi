@@ -1,15 +1,15 @@
 'use strict';
 
 import React from 'react';
-import Point from './basic/Point.jsx';
-import Rect from './basic/Rect.jsx';
-import Grid from './basic/Grid.jsx';
-import Shelf from './Shelf.jsx';
-import MultiPolygon from './basic/MultiPolygon.jsx';
-import CurvedShelf from './CurvedShelf.jsx';
-import Beacon from './Beacon.jsx';
-import Wall from './Wall.jsx';
-import Floor from './Floor.jsx';
+import Point from './Point.jsx';
+import Rect from './Rect.jsx';
+import Grid from './Grid.jsx';
+import Shelf from './../Shelf.jsx';
+import MultiPolygon from './MultiPolygon.jsx';
+import CurvedShelf from './../CurvedShelf.jsx';
+import Beacon from './../Beacon.jsx';
+import Wall from './../Wall.jsx';
+import Floor from './../Floor.jsx';
 
 export default class ArtBoard extends React.Component {
   constructor(props) {
