@@ -20978,6 +20978,8 @@ Emitter.prototype.hasListeners = function(event){
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -21000,22 +21002,46 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var getGlobal = require('get-global');
 
+var Util = function () {
+  function Util() {
+    _classCallCheck(this, Util);
+  }
+
+  _createClass(Util, null, [{
+    key: 'getValName',
+    value: function getValName(val) {
+      if (typeof val !== 'function') {
+        return '';
+      }
+      return val.name;
+    }
+  }]);
+
+  return Util;
+}();
+
 /**
  * debug
  * @param data
  * @param divID
  */
+
+
 getGlobal().debug = function (data) {
   var keylist = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
   var divID = arguments.length <= 2 || arguments[2] === undefined ? '#debug' : arguments[2];
 
   var debugDIV = document.querySelector(divID);
   debugDIV.style.display = 'block';
-  if (typeof data == 'undefined') {
-    debugDIV.innerText = 'undefined';
-  } else if (typeof data == 'string') {
+  var name = Util.getValName(data);
+  if (name) {
+    debugDIV.innerText += name + ':';
+  }
+  if (typeof data === 'undefined') {
+    debugDIV.innerText += 'undefined';
+  } else if (typeof data === 'string') {
     debugDIV.innerText += data;
-  } else if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) == 'object') {
+  } else if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) === 'object') {
     // list the keys of object
     if (keylist) {
       for (var k in data) {
@@ -21068,8 +21094,8 @@ getGlobal().akebi = function () {
     var akebiOptions = {
       open: false,
       akebi: this,
-      width: 1200,
-      height: 1200
+      width: 800,
+      height: 600
     };
     var options = {
       save: true
@@ -21713,10 +21739,14 @@ var ArtBoard = function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'svg',
-        { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', id: 'ArtBoard', viewBox: this.getViewBox(), width: this.width, height: this.height, style: { backgroundColor: this.backgroundColor } },
-        _react2.default.createElement(_Grid2.default, { width: this.width, height: this.height }),
-        this.svgs
+        'div',
+        { id: 'ArtBoard' },
+        _react2.default.createElement(
+          'svg',
+          { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height, style: { backgroundColor: this.backgroundColor } },
+          _react2.default.createElement(_Grid2.default, { width: this.width, height: this.height }),
+          this.svgs
+        )
       );
     }
   }]);
@@ -22111,33 +22141,7 @@ var Index = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
-        _react2.default.createElement(
-          'h1',
-          null,
-          'Akebi'
-        ),
-        _react2.default.createElement(
-          'p',
-          null,
-          'second generation haika editor'
-        ),
-        _react2.default.createElement(
-          'label',
-          { 'for': 'open', className: 'open' },
-          '＋Open File',
-          _react2.default.createElement('input', { type: 'file', id: 'open', onChange: this.open, accept: 'application/json' })
-        ),
-        _react2.default.createElement(
-          'button',
-          { className: 'save', onClick: this.save },
-          'Save File'
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'dropzone', onDragOver: this.handleDragOver, onDrop: this.handleFileSelect },
-          'Drop files here'
-        ),
+        { style: { height: '100%' } },
         _react2.default.createElement(_ArtBoard2.default, { ref: 'ArtBoard', width: this.width, height: this.height, geojson: this.props.akebi.geojson })
       );
     }

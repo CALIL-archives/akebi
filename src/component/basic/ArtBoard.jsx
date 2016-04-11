@@ -103,33 +103,35 @@ export default class ArtBoard extends React.Component {
   // }
   render() {
     return (
-      <svg xmlns="http://www.w3.org/2000/svg" ref="svg" id="ArtBoard" viewBox={this.getViewBox()} width={this.width} height={this.height} style={{backgroundColor: this.backgroundColor}}>
-        <Grid width={this.width} height={this.height}></Grid>
-        {this.svgs}
-        {/*
-        <Rect x={this.width/2} y={this.height/2} width="720" height="26" strokeTop="5" drawPointFlag="true"></Rect>
-        <Shelf geojson={{
-          "id": 4,
-          "type": "shelf",
-          "side": 2,
-          "count": 8,
-          "angle": 0,
-          x: this.width/2,
-          y: 200,
-          "eachHeight": 26,
-          "eachWidth": 90,
-          "label": "\u68da\u756a\u53f7\u3075"
-         }} fill="pink" color="red" drawPointFlag="true"></Shelf>
-        <Point x="10" y="10" fill="red"></Point>
-        <MultiPolygon x="500" y="700"></MultiPolygon>
+      <div id="ArtBoard">
+        <svg xmlns="http://www.w3.org/2000/svg" ref="svg" viewBox={this.getViewBox()} width={this.width} height={this.height} style={{backgroundColor: this.backgroundColor}}>
+          <Grid width={this.width} height={this.height}></Grid>
+          {this.svgs}
+          {/*
+          <Rect x={this.width/2} y={this.height/2} width="720" height="26" strokeTop="5" drawPointFlag="true"></Rect>
+          <Shelf geojson={{
+            "id": 4,
+            "type": "shelf",
+            "side": 2,
+            "count": 8,
+            "angle": 0,
+            x: this.width/2,
+            y: 200,
+            "eachHeight": 26,
+            "eachWidth": 90,
+            "label": "\u68da\u756a\u53f7\u3075"
+           }} fill="pink" color="red" drawPointFlag="true"></Shelf>
+          <Point x="10" y="10" fill="red"></Point>
+          <MultiPolygon x="500" y="700"></MultiPolygon>
 
 
-        <Beacon x="500" y="100"></Beacon>
-        <CurvedShelf></CurvedShelf>
-        <Wall></Wall>
-        <Floor></Floor>
-        */}
-      </svg>
+          <Beacon x="500" y="100"></Beacon>
+          <CurvedShelf></CurvedShelf>
+          <Wall></Wall>
+          <Floor></Floor>
+          */}
+        </svg>
+      </div>
     );
   }
 }

@@ -1,6 +1,9 @@
 * {
   box-sizing: border-box; }
 
+html, body {
+  height: 100%; }
+
 body {
   font-size: 16px;
   color: #ffffff;
@@ -34,6 +37,36 @@ body {
     border: 3px dashed #ffffff;
     padding: 2rem;
     margin: 2rem 0; }
+  body #akebi {
+    height: 100%; }
+  body #ArtBoard {
+    background: #3F3F3C;
+    height: 100%;
+    overflow: scroll;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center; }
+    body #ArtBoard::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+      background: #444; }
+    body #ArtBoard::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background: #444; }
+    body #ArtBoard::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background: #666; }
+    body #ArtBoard::-webkit-scrollbar-corner {
+      background: #444; }
 
 #debug {
   display: none;
