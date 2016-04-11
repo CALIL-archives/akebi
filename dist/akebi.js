@@ -21618,7 +21618,9 @@ var ArtBoard = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ArtBoard).call(this, props));
 
     _this.state = {};
-    _this.scale = 0.5;
+    _this.x = 500;
+    _this.y = 500;
+    _this.scale = 0.1;
     _this.width = parseFloat(_this.props.width) || 900;
     _this.height = parseFloat(_this.props.height) || 500;
     _this.backgroundColor = _this.props.backgroundColor || '#FFFFFF';
@@ -21648,14 +21650,14 @@ var ArtBoard = function (_React$Component) {
       // debug(this.width)
       geojson.x = parseFloat(geojson.left_cm) + this.width / 2;
       geojson.y = parseFloat(geojson.top_cm) + this.height / 2;
-      geojson.x = geojson.x * this.scale;
-      geojson.y = geojson.y * this.scale;
+      geojson.x = geojson.x * this.scale + this.x;
+      geojson.y = geojson.y * this.scale + this.y;
       if (geojson.type === 'shelf') {
         // debug(geojson.x)
         // debug(geojson.y)
         geojson.eachWidth = geojson.eachWidth * this.scale;
         geojson.eachHeight = geojson.eachHeight * this.scale;
-        this.svgs.push(_react2.default.createElement(_Shelf2.default, { geojson: geojson, fill: 'pink', color: 'red', drawPointFlag: 'true' }));
+        this.svgs.push(_react2.default.createElement(_Shelf2.default, { geojson: geojson, fill: 'pink', color: 'red', drawPointFlag: 'false' }));
       }
       if (geojson.type === 'beacon') {
         this.svgs.push(_react2.default.createElement(_Beacon2.default, { geojson: geojson, fill: 'black', stroke: 'white' }));
