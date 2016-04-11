@@ -21393,7 +21393,7 @@ var ArtBoard = function (_React$Component) {
         'svg',
         { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', id: 'ArtBoard', viewBox: this.getViewBox(), width: this.width, height: this.height, style: { backgroundColor: this.backgroundColor } },
         _react2.default.createElement(_Grid2.default, { width: this.width, height: this.height }),
-        this.svgs
+        _react2.default.createElement(_MultiPolygon2.default, { x: '500', y: '700' })
       );
     }
   }]);
@@ -21816,7 +21816,7 @@ var MultiPolygon = function (_React$Component) {
 
     _this.points = _this.props.points || null;
     // if(!this.points) return console.error('no points on MultPolygon');
-    _this.drawPointFlag = _this.props.drawPointFlag == 'true';
+    _this.drawPointFlag = _this.props.drawPointFlag === 'true';
     _this.strokeWidth = parseFloat(_this.props.strokeWidth) || 1;
     _this.d = [];
 
@@ -21834,16 +21834,16 @@ var MultiPolygon = function (_React$Component) {
       var _this2 = this;
 
       this.points.forEach(function (point) {
-        if (point.type == 'M') {
+        if (point.type === 'M') {
           _this2.drawStartPoint(point.x, point.y);
         }
-        if (point.type == 'L') {
+        if (point.type === 'L') {
           _this2.drawLine(point.x, point.y);
         }
-        if (point.type == 'A') {
+        if (point.type === 'A') {
           _this2.drawArc(point.endX, point.endY, point.horizontalRadius, point.verticalRadius);
         }
-        if (point.type == 'Q') {
+        if (point.type === 'Q') {
           _this2.drawBezierCurve(point.endX, point.endY, point.controlPointX, point.controlPointY);
         }
       });
@@ -21853,7 +21853,7 @@ var MultiPolygon = function (_React$Component) {
       this.svgs.push(_react2.default.createElement('path', { stroke: this.stroke, strokeWidth: '1', fill: this.fill || 'transparent', d: this.d.join(' ') }));
       return _react2.default.createElement(
         'g',
-        { style: { transformOrigin: 'center center', transform: 'translate(' + this.x / 2 + 'px,' + this.y / 2 + 'px)' } },
+        { transform: 'translate(' + this.x / 2 + ',' + this.y / 2 + ')' },
         this.svgs
       );
     }
@@ -21898,7 +21898,6 @@ var MultiPolygon = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = MultiPolygon;
-;
 
 },{"./Point.jsx":188,"react":171}],188:[function(require,module,exports){
 'use strict';
