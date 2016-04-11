@@ -21646,9 +21646,9 @@ var ArtBoard = function (_React$Component) {
     _this.state = {};
     _this.x = 500;
     _this.y = 500;
-    _this.scale = 0.1;
-    _this.width = parseFloat(_this.props.width);
-    _this.height = parseFloat(_this.props.height);
+    _this.scale = 1;
+    _this.width = 10000;
+    _this.height = 10000;
     _this.backgroundColor = _this.props.backgroundColor || '#FFFFFF';
     // Todo: refactor
     // debug(this.props.geojson)
@@ -21665,14 +21665,23 @@ var ArtBoard = function (_React$Component) {
       return '0 0 ' + this.width + ' ' + this.height;
     }
   }, {
+    key: 'getScale',
+    value: function getScale() {
+      return 'scale(' + this.scale + ', ' + this.scale + ')';
+    }
+  }, {
     key: 'upScale',
     value: function upScale() {
-      debug(this.upScale);
+      if (this.scale >= 10) return;
+      this.scale += 0.1;
+      this.setState({});
     }
   }, {
     key: 'dowonScale',
     value: function dowonScale() {
-      debug(this);
+      if (this.scale <= 0) return;
+      this.scale -= 0.1;
+      this.setState({});
     }
   }, {
     key: 'createCompoenent',
@@ -21686,28 +21695,54 @@ var ArtBoard = function (_React$Component) {
       // debug(this.width)
       geojson.x = parseFloat(geojson.left_cm) + this.width / 2;
       geojson.y = parseFloat(geojson.top_cm) + this.height / 2;
-      geojson.x = geojson.x * this.scale + this.x;
-      geojson.y = geojson.y * this.scale + this.y;
+      geojson.x = geojson.x + this.x;
+      geojson.y = geojson.y + this.y;
       if (geojson.type === 'shelf') {
         // debug(geojson.x)
         // debug(geojson.y)
-        geojson.eachWidth = geojson.eachWidth * this.scale;
-        geojson.eachHeight = geojson.eachHeight * this.scale;
         this.svgs.push(_react2.default.createElement(_Shelf2.default, { geojson: geojson, fill: 'pink', color: 'red', drawPointFlag: 'false' }));
       }
       if (geojson.type === 'beacon') {
         this.svgs.push(_react2.default.createElement(_Beacon2.default, { geojson: geojson, fill: 'black', stroke: 'white' }));
       }
       if (geojson.type === 'wall') {
-        geojson.width = parseFloat(geojson.width_scale) * 100 * this.scale;
-        geojson.height = parseFloat(geojson.height_scale) * 100 * this.scale;
+        geojson.width = parseFloat(geojson.width_scale) * 100;
+        geojson.height = parseFloat(geojson.height_scale) * 100;
         this.svgs.push(_react2.default.createElement(_Wall2.default, { geojson: geojson, fill: 'black', stroke: 'black' }));
       }
       if (geojson.type === 'floor') {
-        geojson.width = geojson.width_cm * this.scale;
-        geojson.height = geojson.height_cm * this.scale;
+        geojson.width = geojson.width_cm;
+        geojson.height = geojson.height_cm;
         this.svgs.push(_react2.default.createElement(_Floor2.default, { geojson: geojson }));
       }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { id: 'ArtBoard' },
+        _react2.default.createElement(
+          'svg',
+          { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height, style: { backgroundColor: this.backgroundColor, transform: this.getScale() } },
+          _react2.default.createElement(_Grid2.default, { width: this.width, height: this.height }),
+          this.svgs
+        ),
+        _react2.default.createElement(
+          'div',
+          { id: 'scaleUI' },
+          _react2.default.createElement(
+            'button',
+            { onClick: this.upScale.bind(this) },
+            '+'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.dowonScale.bind(this) },
+            '-'
+          )
+        )
+      );
     }
     // componentDidMount() {
     //   var akebiComponents = document.getElementsByClassName('akebiComponent');
@@ -21745,34 +21780,6 @@ var ArtBoard = function (_React$Component) {
     //   this.setState({});
     // }
 
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { id: 'ArtBoard' },
-        _react2.default.createElement(
-          'svg',
-          { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height, style: { backgroundColor: this.backgroundColor } },
-          _react2.default.createElement(_Grid2.default, { width: this.width, height: this.height }),
-          this.svgs
-        ),
-        _react2.default.createElement(
-          'div',
-          { id: 'scaleUI' },
-          _react2.default.createElement(
-            'button',
-            { onClick: this.upScale.bind(this) },
-            '+'
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: this.dowonScale.bind(this) },
-            '-'
-          )
-        )
-      );
-    }
   }]);
 
   return ArtBoard;

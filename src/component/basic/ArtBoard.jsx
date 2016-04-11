@@ -17,9 +17,9 @@ export default class ArtBoard extends React.Component {
     this.state = {};
     this.x = 500;
     this.y = 500;
-    this.scale = 0.1;
-    this.width = parseFloat(this.props.width);
-    this.height = parseFloat(this.props.height);
+    this.scale = 1;
+    this.width = 10000;
+    this.height = 10000;
     this.backgroundColor = this.props.backgroundColor || '#FFFFFF';
     // Todo: refactor
     // debug(this.props.geojson)
@@ -32,14 +32,19 @@ export default class ArtBoard extends React.Component {
   getViewBox() {
     return `0 0 ${this.width} ${this.height}`;
   }
+  getScale() {
+    return `scale(${this.scale}, ${this.scale})`;
+  }
   upScale() {
-    debug(this.upScale);
+    if(this.scale >= 10) return;
+    this.scale += 0.1;
+    this.setState({});
   }
   dowonScale() {
-    debug(this);
+    if(this.scale <= 0) return;
+    this.scale -= 0.1;
+    this.setState({});
   }
-
-
   createCompoenent(feature) {
     // Todo: data structure design
     let geojson = feature.properties;
@@ -50,28 +55,63 @@ export default class ArtBoard extends React.Component {
     // debug(this.width)
     geojson.x = parseFloat(geojson.left_cm) + this.width / 2;
     geojson.y = parseFloat(geojson.top_cm) + this.height / 2;
-    geojson.x = geojson.x * this.scale + this.x;
-    geojson.y = geojson.y * this.scale + this.y;
+    geojson.x = geojson.x + this.x;
+    geojson.y = geojson.y + this.y;
     if (geojson.type === 'shelf') {
       // debug(geojson.x)
       // debug(geojson.y)
-      geojson.eachWidth = geojson.eachWidth * this.scale;
-      geojson.eachHeight = geojson.eachHeight * this.scale;
       this.svgs.push(<Shelf geojson={geojson} fill="pink" color="red" drawPointFlag="false"></Shelf>);
     }
     if (geojson.type === 'beacon') {
       this.svgs.push(<Beacon geojson={geojson} fill="black" stroke="white"></Beacon>);
     }
     if (geojson.type === 'wall') {
-      geojson.width = parseFloat(geojson.width_scale) * 100 * this.scale;
-      geojson.height = parseFloat(geojson.height_scale) * 100 * this.scale;
+      geojson.width = parseFloat(geojson.width_scale) * 100;
+      geojson.height = parseFloat(geojson.height_scale) * 100;
       this.svgs.push(<Wall geojson={geojson} fill="black" stroke="black"></Wall>);
     }
     if (geojson.type === 'floor') {
-      geojson.width = geojson.width_cm * this.scale;
-      geojson.height = geojson.height_cm * this.scale;
+      geojson.width = geojson.width_cm;
+      geojson.height = geojson.height_cm;
       this.svgs.push(<Floor geojson={geojson}></Floor>);
     }
+  }
+  render() {
+    return (
+      <div id="ArtBoard">
+        <svg xmlns="http://www.w3.org/2000/svg" ref="svg" viewBox={this.getViewBox()} width={this.width} height={this.height} style={{backgroundColor: this.backgroundColor, transform: this.getScale()}}>
+          <Grid width={this.width} height={this.height}></Grid>
+          {this.svgs}
+          {/*
+          <Rect x={this.width/2} y={this.height/2} width="720" height="26" strokeTop="5" drawPointFlag="true"></Rect>
+          <Shelf geojson={{
+            "id": 4,
+            "type": "shelf",
+            "side": 2,
+            "count": 8,
+            "angle": 0,
+            x: this.width/2,
+            y: 200,
+            "eachHeight": 26,
+            "eachWidth": 90,
+            "label": "\u68da\u756a\u53f7\u3075"
+           }} fill="pink" color="red" drawPointFlag="true"></Shelf>
+          <Point x="10" y="10" fill="red"></Point>
+          <MultiPolygon x="500" y="700"></MultiPolygon>
+
+
+          <Beacon x="500" y="100"></Beacon>
+          <CurvedShelf></CurvedShelf>
+          <Wall></Wall>
+          <Floor></Floor>
+          */}
+        </svg>
+        <div id="scaleUI">
+          <button onClick={this.upScale.bind(this)}>+</button>
+          <button onClick={this.dowonScale.bind(this)}>-</button>
+        </div>
+      </div>
+    );
   }
   // componentDidMount() {
   //   var akebiComponents = document.getElementsByClassName('akebiComponent');
@@ -108,41 +148,4 @@ export default class ArtBoard extends React.Component {
   //   this.svgs.push(<rect x={x} y={y} width={width} height={height} strokeWidth="5" fill="transparent" stroke="red"></rect>);
   //   this.setState({});
   // }
-  render() {
-    return (
-      <div id="ArtBoard">
-        <svg xmlns="http://www.w3.org/2000/svg" ref="svg" viewBox={this.getViewBox()} width={this.width} height={this.height} style={{backgroundColor: this.backgroundColor}}>
-          <Grid width={this.width} height={this.height}></Grid>
-          {this.svgs}
-          {/*
-          <Rect x={this.width/2} y={this.height/2} width="720" height="26" strokeTop="5" drawPointFlag="true"></Rect>
-          <Shelf geojson={{
-            "id": 4,
-            "type": "shelf",
-            "side": 2,
-            "count": 8,
-            "angle": 0,
-            x: this.width/2,
-            y: 200,
-            "eachHeight": 26,
-            "eachWidth": 90,
-            "label": "\u68da\u756a\u53f7\u3075"
-           }} fill="pink" color="red" drawPointFlag="true"></Shelf>
-          <Point x="10" y="10" fill="red"></Point>
-          <MultiPolygon x="500" y="700"></MultiPolygon>
-
-
-          <Beacon x="500" y="100"></Beacon>
-          <CurvedShelf></CurvedShelf>
-          <Wall></Wall>
-          <Floor></Floor>
-          */}
-        </svg>
-        <div id="scaleUI">
-          <button onClick={this.upScale.bind(this)}>+</button>
-          <button onClick={this.dowonScale.bind(this)}>-</button>
-        </div>
-      </div>
-    );
-  }
 }

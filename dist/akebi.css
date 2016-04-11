@@ -67,6 +67,9 @@ body {
       background: #666; }
     body #ArtBoard::-webkit-scrollbar-corner {
       background: #444; }
+    body #ArtBoard > svg {
+      -webkit-transform-origin: center center;
+              transform-origin: center center; }
     body #ArtBoard #scaleUI {
       position: absolute;
       bottom: 50px;
