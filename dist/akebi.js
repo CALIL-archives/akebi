@@ -21170,7 +21170,7 @@ akebi.save = function () {
   }
 };
 
-},{"./index.jsx":191,"get-global":27,"react":171,"react-dom":29,"superagent":173}],179:[function(require,module,exports){
+},{"./index.jsx":190,"get-global":27,"react":171,"react-dom":29,"superagent":173}],179:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -21182,10 +21182,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
-
-var _CenterPoint = require('./basic/CenterPoint.jsx');
-
-var _CenterPoint2 = _interopRequireDefault(_CenterPoint);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21208,12 +21204,9 @@ var AkebiSVGComponent = function (_React$Component) {
   }
 
   _createClass(AkebiSVGComponent, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {}
-  }, {
     key: 'onClick',
     value: function onClick() {
-      debug('click');
+      // debug('click')
       // this.forceUpdate();
     }
   }, {
@@ -21238,7 +21231,7 @@ var AkebiSVGComponent = function (_React$Component) {
 
 exports.default = AkebiSVGComponent;
 
-},{"./basic/CenterPoint.jsx":187,"react":171}],180:[function(require,module,exports){
+},{"react":171}],180:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -21333,20 +21326,20 @@ var ArtBoard = function (_React$Component) {
       // debug(this.width)
       geojson.x = parseFloat(geojson.left_cm) + this.width / 2;
       geojson.y = parseFloat(geojson.top_cm) + this.height / 2;
-      if (geojson.type == 'shelf') {
+      if (geojson.type === 'shelf') {
         // debug(geojson.x)
         // debug(geojson.y)
         this.svgs.push(_react2.default.createElement(_Shelf2.default, { geojson: geojson, fill: 'pink', color: 'red', drawPointFlag: 'true' }));
       }
-      if (geojson.type == 'beacon') {
+      if (geojson.type === 'beacon') {
         this.svgs.push(_react2.default.createElement(_Beacon2.default, { geojson: geojson, fill: 'black', stroke: 'white' }));
       }
-      if (geojson.type == 'wall') {
+      if (geojson.type === 'wall') {
         geojson.width = parseFloat(geojson.width_scale) * 100;
         geojson.height = parseFloat(geojson.height_scale) * 100;
         this.svgs.push(_react2.default.createElement(_Wall2.default, { geojson: geojson, fill: 'black', stroke: 'black' }));
       }
-      if (geojson.type == 'floor') {
+      if (geojson.type === 'floor') {
         geojson.width = geojson.width_cm;
         geojson.height = geojson.height_cm;
         this.svgs.push(_react2.default.createElement(_Floor2.default, { geojson: geojson }));
@@ -21368,31 +21361,26 @@ var ArtBoard = function (_React$Component) {
     //   }
     //   debug(floorRange);
     // }
+    // componentDidMount() {
+    //   let svgElements = document.getElementsByClassName('akebiComponent');
+    //   let xs = [], x2s = [], ys = [], y2s = [];
+    //   for(let i = 0, l = svgElements.length; i < l; i++){
+    //     // debug(svgElements[i].getBBox(), true)
+    //     let bboxRect = svgElements[i].getBBox();
+    //     xs.push(bboxRect.x);
+    //     x2s.push(bboxRect.x + bboxRect.width);
+    //     ys.push(bboxRect.y);
+    //     y2s.push(bboxRect.y + bboxRect.height);
+    //     // this.svgs.push(<Point x={bboxRect.x} y={bboxRect.y} fill="red"></Point>);
+    //   }
+    //   let x = getMin(xs);
+    //   let y = getMin(ys);
+    //   let width = getMax(x2s) - x;
+    //   let height = getMax(y2s) - y;
+    //   this.svgs.push(<rect x={x} y={y} width={width} height={height} strokeWidth="5" fill="transparent" stroke="red"></rect>);
+    //   this.setState({});
+    // }
 
-  }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var svgElements = document.getElementsByClassName('akebiComponent');
-      var xs = [],
-          x2s = [],
-          ys = [],
-          y2s = [];
-      for (var i = 0, l = svgElements.length; i < l; i++) {
-        // debug(svgElements[i].getBBox(), true)
-        var bboxRect = svgElements[i].getBBox();
-        xs.push(bboxRect.x);
-        x2s.push(bboxRect.x + bboxRect.width);
-        ys.push(bboxRect.y);
-        y2s.push(bboxRect.y + bboxRect.height);
-        // this.svgs.push(<Point x={bboxRect.x} y={bboxRect.y} fill="red"></Point>);
-      };
-      var x = getMin(xs);
-      var y = getMin(ys);
-      var width = getMax(x2s) - x;
-      var height = getMax(y2s) - y;
-      this.svgs.push(_react2.default.createElement('rect', { x: x, y: y, width: width, height: height, strokeWidth: '5', fill: 'transparent', stroke: 'red' }));
-      this.setState({});
-    }
   }, {
     key: 'render',
     value: function render() {
@@ -21410,7 +21398,7 @@ var ArtBoard = function (_React$Component) {
 
 exports.default = ArtBoard;
 
-},{"./Beacon.jsx":181,"./CurvedShelf.jsx":182,"./Floor.jsx":183,"./Grid.jsx":184,"./Shelf.jsx":185,"./Wall.jsx":186,"./basic/MultiPolygon.jsx":188,"./basic/Point.jsx":189,"./basic/Rect.jsx":190,"react":171}],181:[function(require,module,exports){
+},{"./Beacon.jsx":181,"./CurvedShelf.jsx":182,"./Floor.jsx":183,"./Grid.jsx":184,"./Shelf.jsx":185,"./Wall.jsx":186,"./basic/MultiPolygon.jsx":187,"./basic/Point.jsx":188,"./basic/Rect.jsx":189,"react":171}],181:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -21471,7 +21459,7 @@ var Beacon = function (_AkebiSVGComponent) {
 
 exports.default = Beacon;
 
-},{"./AkebiSVGComponent.jsx":179,"./basic/Rect.jsx":190,"react":171}],182:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":179,"./basic/Rect.jsx":189,"react":171}],182:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -21558,7 +21546,7 @@ var Floor = function (_AkebiSVGComponent) {
     _this.y = parseFloat(_this.props.geojson.y) || 0;
     _this.width = parseFloat(_this.props.geojson.width) || 1;
     _this.height = parseFloat(_this.props.geojson.height) || 1;
-    _this.fill = _this.props.fill || '#FFB3B3';
+    _this.fill = _this.props.fill || 'transparent';
     _this.stroke = _this.props.stroke || '#FF0000';
     return _this;
   }
@@ -21575,7 +21563,7 @@ var Floor = function (_AkebiSVGComponent) {
 
 exports.default = Floor;
 
-},{"./AkebiSVGComponent.jsx":179,"./basic/Rect.jsx":190,"react":171}],184:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":179,"./basic/Rect.jsx":189,"react":171}],184:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -21726,7 +21714,7 @@ var Shelf = function (_AkebiSVGComponent) {
 
 exports.default = Shelf;
 
-},{"./AkebiSVGComponent.jsx":179,"./basic/Point.jsx":189,"./basic/Rect.jsx":190,"react":171}],186:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":179,"./basic/Point.jsx":188,"./basic/Rect.jsx":189,"react":171}],186:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -21784,61 +21772,7 @@ var Beacon = function (_AkebiSVGComponent) {
 
 exports.default = Beacon;
 
-},{"./AkebiSVGComponent.jsx":179,"./basic/Rect.jsx":190,"react":171}],187:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CenterPoint = function (_React$Component) {
-  _inherits(CenterPoint, _React$Component);
-
-  function CenterPoint(props) {
-    _classCallCheck(this, CenterPoint);
-
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CenterPoint).call(this, props));
-
-    _this.x = parseFloat(_this.props.x) || 1;
-    _this.y = parseFloat(_this.props.y) || 1;
-    _this.range = parseFloat(_this.props.range) || 5;
-    _this.stroke = '#666666';
-    _this.strokeWidth = parseFloat(_this.props.strokeWidth) || 1;
-    return _this;
-  }
-
-  _createClass(CenterPoint, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'g',
-        null,
-        _react2.default.createElement('line', { x1: this.x - this.range / 2, y1: this.y - this.range / 2, x2: this.x + this.range / 2, y2: this.y + this.range / 2, stroke: this.stroke, strokeWidth: this.strokeWidth }),
-        _react2.default.createElement('line', { x1: this.x + this.range / 2, y1: this.y - this.range / 2, x2: this.x - this.range / 2, y2: this.y + this.range / 2, stroke: this.stroke, strokeWidth: this.strokeWidth })
-      );
-    }
-  }]);
-
-  return CenterPoint;
-}(_react2.default.Component);
-
-exports.default = CenterPoint;
-
-},{"react":171}],188:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":179,"./basic/Rect.jsx":189,"react":171}],187:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -21963,7 +21897,7 @@ var MultiPolygon = function (_React$Component) {
 exports.default = MultiPolygon;
 ;
 
-},{"./Point.jsx":189,"react":171}],189:[function(require,module,exports){
+},{"./Point.jsx":188,"react":171}],188:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -22012,7 +21946,7 @@ var Point = function (_React$Component) {
 
 exports.default = Point;
 
-},{"react":171}],190:[function(require,module,exports){
+},{"react":171}],189:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -22102,7 +22036,7 @@ var Rect = function (_React$Component) {
 
 exports.default = Rect;
 
-},{"./Point.jsx":189,"react":171}],191:[function(require,module,exports){
+},{"./Point.jsx":188,"react":171}],190:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

@@ -1,17 +1,14 @@
 'use strict';
 
-import React from 'react'
-import CenterPoint from './basic/CenterPoint.jsx'
+import React from 'react';
 
 export default class AkebiSVGComponent extends React.Component {
   constructor(props) {
     super(props);
     this.svgs = [];
   }
-  componentDidMount(){
-  }
   onClick() {
-    debug('click')
+    // debug('click')
     // this.forceUpdate();
   }
   render() {
@@ -25,6 +22,6 @@ export default class AkebiSVGComponent extends React.Component {
       <g color="#D72541" onClick={this.onClick.bind(this)} ref="g" className="akebiComponent">
         {this.svgs}
       </g>
-    )
+    );
   }
 }
