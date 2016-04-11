@@ -15,7 +15,7 @@ export default class ArtBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.scale = 0.1;
+    this.scale = 0.5;
     this.width = parseFloat(this.props.width) || 900;
     this.height = parseFloat(this.props.height) || 500;
     this.backgroundColor = this.props.backgroundColor || '#FFFFFF';
@@ -46,19 +46,21 @@ export default class ArtBoard extends React.Component {
     if (geojson.type === 'shelf') {
       // debug(geojson.x)
       // debug(geojson.y)
+      geojson.eachWidth = geojson.eachWidth * this.scale;
+      geojson.eachHeight = geojson.eachHeight * this.scale;
       this.svgs.push(<Shelf geojson={geojson} fill="pink" color="red" drawPointFlag="true"></Shelf>);
     }
     if (geojson.type === 'beacon') {
       this.svgs.push(<Beacon geojson={geojson} fill="black" stroke="white"></Beacon>);
     }
     if (geojson.type === 'wall') {
-      geojson.width = parseFloat(geojson.width_scale) * 100;
-      geojson.height = parseFloat(geojson.height_scale) * 100;
+      geojson.width = parseFloat(geojson.width_scale) * 100 * this.scale;
+      geojson.height = parseFloat(geojson.height_scale) * 100 * this.scale;
       this.svgs.push(<Wall geojson={geojson} fill="black" stroke="black"></Wall>);
     }
     if (geojson.type === 'floor') {
-      geojson.width = geojson.width_cm;
-      geojson.height = geojson.height_cm;
+      geojson.width = geojson.width_cm * this.scale;
+      geojson.height = geojson.height_cm * this.scale;
       this.svgs.push(<Floor geojson={geojson}></Floor>);
     }
   }
