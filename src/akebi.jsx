@@ -95,13 +95,13 @@ getGlobal().akebi = class {
   constructor(divId, akebiOption) {
     this.geojson = null;
     this.react = null;
-    var akebiOptions = {
+    let akebiOptions = {
       open: false,
       akebi: this,
       width: 800,
       height: 600
     };
-    var options = {
+    let options = {
       save: true
     };
     // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
@@ -113,8 +113,8 @@ getGlobal().akebi = class {
       .get('/example/sample.json')
       .send({})
       .set('Accept', 'application/json')
-      .end(function(error, res){
-        if(!error){
+      .end(function(error, res) {
+        if(!error) {
           // res.body.data.haika
           // res.body.data.features
           // debug(res.body.data.haika, true);

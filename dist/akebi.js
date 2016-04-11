@@ -21647,8 +21647,8 @@ var ArtBoard = function (_React$Component) {
     _this.x = 500;
     _this.y = 500;
     _this.scale = 0.1;
-    _this.width = parseFloat(_this.props.width) || 900;
-    _this.height = parseFloat(_this.props.height) || 500;
+    _this.width = parseFloat(_this.props.width);
+    _this.height = parseFloat(_this.props.height);
     _this.backgroundColor = _this.props.backgroundColor || '#FFFFFF';
     // Todo: refactor
     // debug(this.props.geojson)
@@ -21663,6 +21663,16 @@ var ArtBoard = function (_React$Component) {
     key: 'getViewBox',
     value: function getViewBox() {
       return '0 0 ' + this.width + ' ' + this.height;
+    }
+  }, {
+    key: 'upScale',
+    value: function upScale() {
+      debug(this.upScale);
+    }
+  }, {
+    key: 'dowonScale',
+    value: function dowonScale() {
+      debug(this);
     }
   }, {
     key: 'createCompoenent',
@@ -21746,6 +21756,20 @@ var ArtBoard = function (_React$Component) {
           { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height, style: { backgroundColor: this.backgroundColor } },
           _react2.default.createElement(_Grid2.default, { width: this.width, height: this.height }),
           this.svgs
+        ),
+        _react2.default.createElement(
+          'div',
+          { id: 'scaleUI' },
+          _react2.default.createElement(
+            'button',
+            { onClick: this.upScale.bind(this) },
+            '+'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.dowonScale.bind(this) },
+            '-'
+          )
         )
       );
     }

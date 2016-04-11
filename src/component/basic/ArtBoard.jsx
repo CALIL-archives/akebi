@@ -18,8 +18,8 @@ export default class ArtBoard extends React.Component {
     this.x = 500;
     this.y = 500;
     this.scale = 0.1;
-    this.width = parseFloat(this.props.width) || 900;
-    this.height = parseFloat(this.props.height) || 500;
+    this.width = parseFloat(this.props.width);
+    this.height = parseFloat(this.props.height);
     this.backgroundColor = this.props.backgroundColor || '#FFFFFF';
     // Todo: refactor
     // debug(this.props.geojson)
@@ -32,6 +32,13 @@ export default class ArtBoard extends React.Component {
   getViewBox() {
     return `0 0 ${this.width} ${this.height}`;
   }
+  upScale() {
+    debug(this.upScale);
+  }
+  dowonScale() {
+    debug(this);
+  }
+
 
   createCompoenent(feature) {
     // Todo: data structure design
@@ -131,6 +138,10 @@ export default class ArtBoard extends React.Component {
           <Floor></Floor>
           */}
         </svg>
+        <div id="scaleUI">
+          <button onClick={this.upScale.bind(this)}>+</button>
+          <button onClick={this.dowonScale.bind(this)}>-</button>
+        </div>
       </div>
     );
   }
