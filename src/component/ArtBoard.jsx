@@ -15,6 +15,7 @@ export default class ArtBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.scale = 1;
     this.width = parseFloat(this.props.width) || 900;
     this.height = parseFloat(this.props.height) || 500;
     this.backgroundColor = this.props.backgroundColor || '#FFFFFF';
@@ -40,6 +41,8 @@ export default class ArtBoard extends React.Component {
     // debug(this.width)
     geojson.x = parseFloat(geojson.left_cm) + this.width / 2;
     geojson.y = parseFloat(geojson.top_cm) + this.height / 2;
+    geojson.x = geojson.x * this.scale;
+    geojson.y = geojson.y * this.scale;
     if (geojson.type === 'shelf') {
       // debug(geojson.x)
       // debug(geojson.y)

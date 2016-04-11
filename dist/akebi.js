@@ -21302,6 +21302,7 @@ var ArtBoard = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ArtBoard).call(this, props));
 
     _this.state = {};
+    _this.scale = 1;
     _this.width = parseFloat(_this.props.width) || 900;
     _this.height = parseFloat(_this.props.height) || 500;
     _this.backgroundColor = _this.props.backgroundColor || '#FFFFFF';
@@ -21331,6 +21332,8 @@ var ArtBoard = function (_React$Component) {
       // debug(this.width)
       geojson.x = parseFloat(geojson.left_cm) + this.width / 2;
       geojson.y = parseFloat(geojson.top_cm) + this.height / 2;
+      geojson.x = geojson.x * this.scale;
+      geojson.y = geojson.y * this.scale;
       if (geojson.type === 'shelf') {
         // debug(geojson.x)
         // debug(geojson.y)
@@ -21393,7 +21396,7 @@ var ArtBoard = function (_React$Component) {
         'svg',
         { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', id: 'ArtBoard', viewBox: this.getViewBox(), width: this.width, height: this.height, style: { backgroundColor: this.backgroundColor } },
         _react2.default.createElement(_Grid2.default, { width: this.width, height: this.height }),
-        _react2.default.createElement(_MultiPolygon2.default, { x: '500', y: '700' })
+        this.svgs
       );
     }
   }]);
