@@ -21680,32 +21680,30 @@ var Shelf = function (_AkebiSVGComponent) {
     _this.y = parseFloat(_this.props.geojson.y) || 0;
     _this.count = parseFloat(_this.props.geojson.count);
     _this.side = parseFloat(_this.props.geojson.side);
-    _this.count = 8;
-    _this.side = 2;
     _this.eachWidth = parseFloat(_this.state.eachWidth);
     _this.eachHeight = parseFloat(_this.state.eachHeight);
     _this.fill = _this.props.fill || 'transparent';
 
-    _this.drawPointFlag = _this.props.drawPointFlag == 'true';
+    _this.drawPointFlag = _this.props.drawPointFlag === 'true';
     _this.width = _this.count * _this.eachWidth;
     _this.height = _this.side * _this.eachHeight;
     _this.startX = _this.x + _this.eachWidth / 2 - _this.width / 2;
-    _this.startY = _this.y - _this.eachHeight / 2;
+    _this.startY = _this.y + _this.eachHeight / 2 - _this.height / 2;
     return _this;
   }
 
   _createClass(Shelf, [{
     key: 'renderSVG',
     value: function renderSVG() {
-      this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.x, y: this.y, fill: 'red' }));
-      this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.x, y: this.y, width: this.width, height: this.height, stroke: '#CCCCCC' }));
+      // this.svgs.push(<Rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="#CCCCCC"></Rect>)
       for (var i = 0, l = this.count; i < l; i++) {
         this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.startX + this.eachWidth * i, y: this.startY, width: this.eachWidth, height: this.eachHeight, stroke: this.stroke, fill: this.fill }));
-        if (this.side == 2) {
+        if (this.side === 2) {
           this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.startX + this.eachWidth * i, y: this.startY + this.eachHeight, width: this.eachWidth, height: this.eachHeight, stroke: this.stroke, fill: this.fill }));
         }
       }
       if (this.drawPointFlag) {
+        this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.x, y: this.y, fill: 'red' }));
         this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.x - this.width / 2, y: this.y - this.height / 2 }));
         this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.x + this.width / 2, y: this.y - this.height / 2 }));
         this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.x + this.width / 2, y: this.y + this.height / 2 }));

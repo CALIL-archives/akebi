@@ -1,9 +1,9 @@
 'use strict';
 
-import React from 'react'
-import AkebiSVGComponent from './AkebiSVGComponent.jsx'
-import Point from './basic/Point.jsx'
-import Rect from './basic/Rect.jsx'
+import React from 'react';
+import AkebiSVGComponent from './AkebiSVGComponent.jsx';
+import Point from './basic/Point.jsx';
+import Rect from './basic/Rect.jsx';
 
 
 export default class Shelf extends AkebiSVGComponent {
@@ -24,32 +24,30 @@ export default class Shelf extends AkebiSVGComponent {
     this.y = parseFloat(this.props.geojson.y) || 0;
     this.count = parseFloat(this.props.geojson.count);
     this.side = parseFloat(this.props.geojson.side);
-    this.count = 8;
-    this.side = 2;
     this.eachWidth = parseFloat(this.state.eachWidth);
     this.eachHeight = parseFloat(this.state.eachHeight);
     this.fill = this.props.fill || 'transparent';
 
-    this.drawPointFlag = this.props.drawPointFlag=='true';
+    this.drawPointFlag = this.props.drawPointFlag === 'true';
     this.width = this.count * this.eachWidth;
     this.height = this.side * this.eachHeight;
-    this.startX = this.x+this.eachWidth/2-this.width/2;
-    this.startY = this.y-this.eachHeight/2;
+    this.startX = this.x + this.eachWidth / 2 - this.width / 2;
+    this.startY = this.y + this.eachHeight / 2 - this.height / 2;
   }
   renderSVG() {
-    this.svgs.push(<Point x={this.x} y={this.y} fill="red"></Point>);
-    this.svgs.push(<Rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="#CCCCCC"></Rect>)
-    for(var i=0,l=this.count;i<l;i++){
-      this.svgs.push(<Rect x={this.startX+this.eachWidth*i} y={this.startY} width={this.eachWidth} height={this.eachHeight} stroke={this.stroke} fill={this.fill}></Rect>)
-      if(this.side==2){
-       this.svgs.push(<Rect x={this.startX+this.eachWidth*i} y={this.startY+this.eachHeight} width={this.eachWidth} height={this.eachHeight} stroke={this.stroke} fill={this.fill}></Rect>)
+    // this.svgs.push(<Rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="#CCCCCC"></Rect>)
+    for(let i = 0, l = this.count; i < l; i++) {
+      this.svgs.push(<Rect x={this.startX + this.eachWidth * i} y={this.startY} width={this.eachWidth} height={this.eachHeight} stroke={this.stroke} fill={this.fill}></Rect>)
+      if(this.side === 2) {
+        this.svgs.push(<Rect x={this.startX + this.eachWidth * i} y={this.startY + this.eachHeight} width={this.eachWidth} height={this.eachHeight} stroke={this.stroke} fill={this.fill}></Rect>)
       }
     }
-    if(this.drawPointFlag){
-      this.svgs.push(<Point x={this.x-this.width/2} y={this.y-this.height/2}></Point>);
-      this.svgs.push(<Point x={this.x+this.width/2} y={this.y-this.height/2}></Point>);
-      this.svgs.push(<Point x={this.x+this.width/2} y={this.y+this.height/2}></Point>);
-      this.svgs.push(<Point x={this.x-this.width/2} y={this.y+this.height/2}></Point>);
+    if(this.drawPointFlag) {
+      this.svgs.push(<Point x={this.x} y={this.y} fill="red"></Point>);
+      this.svgs.push(<Point x={this.x - this.width / 2} y={this.y - this.height / 2}></Point>);
+      this.svgs.push(<Point x={this.x + this.width / 2} y={this.y - this.height / 2}></Point>);
+      this.svgs.push(<Point x={this.x + this.width / 2} y={this.y + this.height / 2}></Point>);
+      this.svgs.push(<Point x={this.x - this.width / 2} y={this.y + this.height / 2}></Point>);
     }
   }
 }
