@@ -10,7 +10,7 @@
 
 'use strict';
 
-var getGlobal = require('get-global');
+let getGlobal = require('get-global');
 
 class AkebiUtil {
   static getValName(val) {
@@ -22,7 +22,7 @@ class AkebiUtil {
   static debug(data, keylist = false, divID = '#debug') {
     let debugDIV = document.querySelector(divID);
     debugDIV.style.display = 'block';
-    let name = this.getValName(data)
+    let name = AkebiUtil.getValName(data)
     if(name) {
       debugDIV.innerText += `${name}:`;
     }

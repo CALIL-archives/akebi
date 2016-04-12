@@ -21033,7 +21033,7 @@ var AkebiUtil = function () {
 
       var debugDIV = document.querySelector(divID);
       debugDIV.style.display = 'block';
-      var name = this.getValName(data);
+      var name = AkebiUtil.getValName(data);
       if (name) {
         debugDIV.innerText += name + ':';
       }
