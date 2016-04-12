@@ -24,7 +24,9 @@ class AkebiUtil {
     debugDIV.style.display = 'block';
     let name = AkebiUtil.getValName(data)
     if(name) {
-      debugDIV.innerText += `${name}:`;
+      debugDIV.innerText += `${name}: `;
+    }else{
+      debugDIV.innerText += `${typeof data}: `;
     }
     if (typeof data === 'undefined') {
       debugDIV.innerText += 'undefined';

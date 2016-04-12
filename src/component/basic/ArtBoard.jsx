@@ -1,6 +1,7 @@
 'use strict';
 
 let Decimal = require('decimal.js');
+// debug(new Decimal(1).minus(0.000000000001).toFixed())
 
 import React from 'react';
 import Point from './Point.jsx';
@@ -19,7 +20,7 @@ export default class ArtBoard extends React.Component {
     this.state = {};
     this.x = 500;
     this.y = 500;
-    this.scale = 1;
+    this.scale = 10;
     this.width = 10000;
     this.height = 10000;
     this.backgroundColor = this.props.backgroundColor || '#FFFFFF';
@@ -59,10 +60,12 @@ export default class ArtBoard extends React.Component {
     // debug(geojson.top_cm)
     // debug(geojson, true)
     // debug(this.width)
-    geojson.x = parseFloat(geojson.left_cm) + this.width / 2;
-    geojson.y = parseFloat(geojson.top_cm) + this.height / 2;
-    geojson.x = geojson.x + this.x;
-    geojson.y = geojson.y + this.y;
+    // geojson.x = parseFloat(geojson.left_cm) + this.width / 2;
+    // geojson.y = parseFloat(geojson.top_cm) + this.height / 2;
+    geojson.x = new Decimal(geojson.left_cm).plus(new Decimal(this.width).div(2)).toFixed();
+    geojson.y = new Decimal(geojson.top_cm).plus(new Decimal(this.height).div(2)).toFixed();
+    geojson.x = new Decimal(geojson.x).plus(this.x).toFixed();
+    geojson.y = new Decimal(geojson.y).plus(this.y).toFixed();
     if (geojson.type === 'shelf') {
       // debug(geojson.x)
       // debug(geojson.y)
@@ -72,8 +75,8 @@ export default class ArtBoard extends React.Component {
       this.svgs.push(<Beacon geojson={geojson} fill="black" stroke="white"></Beacon>);
     }
     if (geojson.type === 'wall') {
-      geojson.width = parseFloat(geojson.width_scale) * 100;
-      geojson.height = parseFloat(geojson.height_scale) * 100;
+      geojson.width = new Decimal(geojson.width_scale).times(100);
+      geojson.height = new Decimal(geojson.height_scale).times(100);
       this.svgs.push(<Wall geojson={geojson} fill="black" stroke="black"></Wall>);
     }
     if (geojson.type === 'floor') {
@@ -87,9 +90,9 @@ export default class ArtBoard extends React.Component {
       <div id="ArtBoard">
         <svg xmlns="http://www.w3.org/2000/svg" ref="svg" viewBox={this.getViewBox()} width={this.width} height={this.height} style={{backgroundColor: this.backgroundColor, transform: this.getScale()}}>
           <Grid width={this.width} height={this.height}></Grid>
-          {this.svgs}
-          {/*
           <Rect x={this.width/2} y={this.height/2} width="720" height="26" strokeTop="5" drawPointFlag="true"></Rect>
+          {/*
+          {this.svgs}
           <Shelf geojson={{
             "id": 4,
             "type": "shelf",

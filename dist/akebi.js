@@ -26058,7 +26058,9 @@ var AkebiUtil = function () {
       debugDIV.style.display = 'block';
       var name = AkebiUtil.getValName(data);
       if (name) {
-        debugDIV.innerText += name + ':';
+        debugDIV.innerText += name + ': ';
+      } else {
+        debugDIV.innerText += (typeof data === 'undefined' ? 'undefined' : _typeof(data)) + ': ';
       }
       if (typeof data === 'undefined') {
         debugDIV.innerText += 'undefined';
@@ -26668,6 +26670,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Decimal = require('decimal.js');
+// debug(new Decimal(1).minus(0.000000000001).toFixed())
 
 var ArtBoard = function (_React$Component) {
   _inherits(ArtBoard, _React$Component);
@@ -26680,7 +26683,7 @@ var ArtBoard = function (_React$Component) {
     _this.state = {};
     _this.x = 500;
     _this.y = 500;
-    _this.scale = 1;
+    _this.scale = 10;
     _this.width = 10000;
     _this.height = 10000;
     _this.backgroundColor = _this.props.backgroundColor || '#FFFFFF';
@@ -26731,10 +26734,12 @@ var ArtBoard = function (_React$Component) {
       // debug(geojson.top_cm)
       // debug(geojson, true)
       // debug(this.width)
-      geojson.x = parseFloat(geojson.left_cm) + this.width / 2;
-      geojson.y = parseFloat(geojson.top_cm) + this.height / 2;
-      geojson.x = geojson.x + this.x;
-      geojson.y = geojson.y + this.y;
+      // geojson.x = parseFloat(geojson.left_cm) + this.width / 2;
+      // geojson.y = parseFloat(geojson.top_cm) + this.height / 2;
+      geojson.x = new Decimal(geojson.left_cm).plus(new Decimal(this.width).div(2)).toFixed();
+      geojson.y = new Decimal(geojson.top_cm).plus(new Decimal(this.height).div(2)).toFixed();
+      geojson.x = new Decimal(geojson.x).plus(this.x).toFixed();
+      geojson.y = new Decimal(geojson.y).plus(this.y).toFixed();
       if (geojson.type === 'shelf') {
         // debug(geojson.x)
         // debug(geojson.y)
@@ -26744,8 +26749,8 @@ var ArtBoard = function (_React$Component) {
         this.svgs.push(_react2.default.createElement(_Beacon2.default, { geojson: geojson, fill: 'black', stroke: 'white' }));
       }
       if (geojson.type === 'wall') {
-        geojson.width = parseFloat(geojson.width_scale) * 100;
-        geojson.height = parseFloat(geojson.height_scale) * 100;
+        geojson.width = new Decimal(geojson.width_scale).times(100);
+        geojson.height = new Decimal(geojson.height_scale).times(100);
         this.svgs.push(_react2.default.createElement(_Wall2.default, { geojson: geojson, fill: 'black', stroke: 'black' }));
       }
       if (geojson.type === 'floor') {
@@ -26764,7 +26769,7 @@ var ArtBoard = function (_React$Component) {
           'svg',
           { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height, style: { backgroundColor: this.backgroundColor, transform: this.getScale() } },
           _react2.default.createElement(_Grid2.default, { width: this.width, height: this.height }),
-          this.svgs
+          _react2.default.createElement(_Rect2.default, { x: this.width / 2, y: this.height / 2, width: '720', height: '26', strokeTop: '5', drawPointFlag: 'true' })
         ),
         _react2.default.createElement(
           'div',
@@ -27075,6 +27080,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var Decimal = require('decimal.js');
+
 var Rect = function (_React$Component) {
   _inherits(Rect, _React$Component);
 
@@ -27091,7 +27098,7 @@ var Rect = function (_React$Component) {
     _this.height = parseFloat(_this.props.height) || 100;
 
     _this.fill = _this.props.fill || 'transparent';
-    _this.drawPointFlag = _this.props.drawPointFlag == 'true';
+    _this.drawPointFlag = _this.props.drawPointFlag === 'true';
 
     _this.stroke = _this.props.stroke || 'red';
     _this.strokeWidth = parseFloat(_this.props.strokeWidth) || 1;
@@ -27106,17 +27113,21 @@ var Rect = function (_React$Component) {
   _createClass(Rect, [{
     key: 'render',
     value: function render() {
-      var x = this.x - this.width / 2;
-      var y = this.y - this.height / 2;
+      // var x = this.x - this.width/2;
+      // var y = this.y - this.height/2;
+      var x = new Decimal(this.x).minus(new Decimal(this.width).div(2)).toNumber();
+      var y = new Decimal(this.y).minus(new Decimal(this.height).div(2)).toNumber();
       this.svgs.push(_react2.default.createElement('rect', { x: x, y: y, width: this.width, height: this.height, stroke: 'currentColor', strokeWidth: '0', fill: this.fill || 'transparent' }));
+      var y2 = new Decimal(y).plus(this.height).toNumber();
+      var x2 = new Decimal(x).plus(this.width).toNumber();
       // left line
-      this.drawLine(x, y + this.height, x, y, this.leftStrokeDashArray);
+      this.drawLine(x, y2, x, y, this.leftStrokeDashArray);
       // top line
-      this.drawLine(x, y, x + this.width, y, this.topStrokeDashArray);
+      this.drawLine(x, y, x2, y, this.topStrokeDashArray);
       // right line
-      this.drawLine(x + this.width, y, x + this.width, y + this.height, this.rightStrokeDashArray);
+      this.drawLine(x2, y, x2, y2, this.rightStrokeDashArray);
       // bottom line
-      this.drawLine(x + this.width, y + this.height, x, y + this.height, this.bottomStrokeDashArray);
+      this.drawLine(x2, y2, x, y2, this.bottomStrokeDashArray);
       return _react2.default.createElement(
         'g',
         { color: 'currentColor' },
@@ -27140,7 +27151,7 @@ var Rect = function (_React$Component) {
 
 exports.default = Rect;
 
-},{"./Point.jsx":189,"react":172}],191:[function(require,module,exports){
+},{"./Point.jsx":189,"decimal.js":1,"react":172}],191:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
