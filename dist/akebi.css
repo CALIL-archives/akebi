@@ -86,6 +86,12 @@ body {
         border: 1px solid #CCCCCC; }
         body #ArtBoard #scaleUI button:hover {
           background: #fffec1; }
+      body #ArtBoard #scaleUI #scalePercent {
+        display: inline-block;
+        color: #000000;
+        background: #ffffff;
+        padding: 15px 20px;
+        border: 1px solid #CCCCCC; }
 
 #debug {
   display: none;

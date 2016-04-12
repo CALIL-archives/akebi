@@ -52,7 +52,9 @@ export default class ArtBoard extends React.Component {
   }
   setScale(scaleIndex) {
     this.scaleIndex = scaleIndex;
-    this.scale = new Decimal(this.scaleStep[scaleIndex]).div(100).toNumber();
+    let percent = this.scaleStep[scaleIndex];
+    this.refs.scalePercent.innerText = percent + '%';
+    this.scale = new Decimal(percent).div(100).toNumber();
     this.setState({});
   }
   createCompoenent(feature) {
@@ -120,6 +122,7 @@ export default class ArtBoard extends React.Component {
         </svg>
         <div id="scaleUI">
           <button onClick={this.upScale.bind(this)}>+</button>
+          <div id="scalePercent" ref="scalePercent"></div>
           <button onClick={this.dowonScale.bind(this)}>-</button>
         </div>
       </div>
