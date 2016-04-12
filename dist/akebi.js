@@ -26686,6 +26686,7 @@ var ArtBoard = function (_React$Component) {
     _this.scale = 1;
     _this.scaleStep = [6, 12, 16, 25, 50, 75, 100, 150, 200, 300, 400, 600, 800, 1600];
     _this.scaleIndex = 6;
+
     _this.width = 10000;
     _this.height = 10000;
     _this.backgroundColor = _this.props.backgroundColor || '#FFFFFF';
@@ -26726,9 +26727,7 @@ var ArtBoard = function (_React$Component) {
     key: 'setScale',
     value: function setScale(scaleIndex) {
       this.scaleIndex = scaleIndex;
-      var percent = this.scaleStep[scaleIndex];
-      this.refs.scalePercent.innerText = percent + '%';
-      this.scale = new Decimal(percent).div(100).toNumber();
+      this.scale = new Decimal(this.scaleStep[scaleIndex]).div(100).toNumber();
       this.setState({});
     }
   }, {
@@ -26786,7 +26785,11 @@ var ArtBoard = function (_React$Component) {
             { onClick: this.upScale.bind(this) },
             '+'
           ),
-          _react2.default.createElement('div', { id: 'scalePercent', ref: 'scalePercent' }),
+          _react2.default.createElement(
+            'div',
+            { id: 'scalePercent', ref: 'scalePercent' },
+            this.scaleStep[this.scaleIndex] + '%'
+          ),
           _react2.default.createElement(
             'button',
             { onClick: this.dowonScale.bind(this) },
