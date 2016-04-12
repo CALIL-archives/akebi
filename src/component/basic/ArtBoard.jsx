@@ -1,5 +1,7 @@
 'use strict';
 
+let Decimal = require('decimal.js');
+
 import React from 'react';
 import Point from './Point.jsx';
 import Rect from './Rect.jsx';
@@ -36,13 +38,17 @@ export default class ArtBoard extends React.Component {
     return `scale(${this.scale}, ${this.scale})`;
   }
   upScale() {
-    if(this.scale >= 10) return;
-    this.scale += 0.1;
+    let step = new Decimal(0.1);
+    let scale = new Decimal(this.scale).plus(step);
+    if(scale >= 10) return;
+    this.scale = scale;
     this.setState({});
   }
   dowonScale() {
-    if(this.scale <= 0) return;
-    this.scale -= 0.1;
+    let step = new Decimal(0.1);
+    let scale = new Decimal(this.scale).minus(step);
+    if(scale <= 0) return;
+    this.scale = scale;
     this.setState({});
   }
   createCompoenent(feature) {
