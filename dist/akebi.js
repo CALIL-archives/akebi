@@ -26670,7 +26670,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Decimal = require('decimal.js');
-// debug(new Decimal(1).minus(0.000000000001).toFixed())
+// debug(new Decimal(1).minus(0.000000000001).toNumber())
 
 var ArtBoard = function (_React$Component) {
   _inherits(ArtBoard, _React$Component);
@@ -26683,7 +26683,9 @@ var ArtBoard = function (_React$Component) {
     _this.state = {};
     _this.x = 500;
     _this.y = 500;
-    _this.scale = 10;
+    _this.scale = 1;
+    _this.scaleStep = [6, 12, 16, 25, 50, 75, 100, 150, 200, 300, 400, 600, 800, 1600];
+    _this.scaleIndex = 6;
     _this.width = 10000;
     _this.height = 10000;
     _this.backgroundColor = _this.props.backgroundColor || '#FFFFFF';
@@ -26709,19 +26711,22 @@ var ArtBoard = function (_React$Component) {
   }, {
     key: 'upScale',
     value: function upScale() {
-      var step = new Decimal(0.1);
-      var scale = new Decimal(this.scale).plus(step);
-      if (scale >= 10) return;
-      this.scale = scale;
-      this.setState({});
+      var scaleIndex = this.scaleIndex + 1;
+      if (this.scaleIndex >= this.scaleStep.length) return;
+      this.setScale(scaleIndex);
     }
   }, {
     key: 'dowonScale',
     value: function dowonScale() {
-      var step = new Decimal(0.1);
-      var scale = new Decimal(this.scale).minus(step);
-      if (scale <= 0) return;
-      this.scale = scale;
+      var scaleIndex = this.scaleIndex - 1;
+      if (scaleIndex <= 0) return;
+      this.setScale(scaleIndex);
+    }
+  }, {
+    key: 'setScale',
+    value: function setScale(scaleIndex) {
+      this.scaleIndex = scaleIndex;
+      this.scale = new Decimal(this.scaleStep[scaleIndex]).div(100).toNumber();
       this.setState({});
     }
   }, {
@@ -26769,7 +26774,7 @@ var ArtBoard = function (_React$Component) {
           'svg',
           { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height, style: { backgroundColor: this.backgroundColor, transform: this.getScale() } },
           _react2.default.createElement(_Grid2.default, { width: this.width, height: this.height }),
-          _react2.default.createElement(_Rect2.default, { x: this.width / 2, y: this.height / 2, width: '720', height: '26', strokeTop: '5', drawPointFlag: 'true' })
+          this.svgs
         ),
         _react2.default.createElement(
           'div',

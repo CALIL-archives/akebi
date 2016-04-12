@@ -1,7 +1,7 @@
 'use strict';
 
 let Decimal = require('decimal.js');
-// debug(new Decimal(1).minus(0.000000000001).toFixed())
+// debug(new Decimal(1).minus(0.000000000001).toNumber())
 
 import React from 'react';
 import Point from './Point.jsx';
@@ -20,7 +20,9 @@ export default class ArtBoard extends React.Component {
     this.state = {};
     this.x = 500;
     this.y = 500;
-    this.scale = 10;
+    this.scale = 1;
+    this.scaleStep = [6, 12, 16, 25, 50, 75, 100, 150, 200, 300, 400, 600, 800, 1600];
+    this.scaleIndex = 6;
     this.width = 10000;
     this.height = 10000;
     this.backgroundColor = this.props.backgroundColor || '#FFFFFF';
@@ -39,17 +41,18 @@ export default class ArtBoard extends React.Component {
     return `scale(${this.scale}, ${this.scale})`;
   }
   upScale() {
-    let step = new Decimal(0.1);
-    let scale = new Decimal(this.scale).plus(step);
-    if(scale >= 10) return;
-    this.scale = scale;
-    this.setState({});
+    let scaleIndex = this.scaleIndex + 1;
+    if(this.scaleIndex >= this.scaleStep.length) return;
+    this.setScale(scaleIndex);
   }
   dowonScale() {
-    let step = new Decimal(0.1);
-    let scale = new Decimal(this.scale).minus(step);
-    if(scale <= 0) return;
-    this.scale = scale;
+    let scaleIndex = this.scaleIndex - 1;
+    if(scaleIndex <= 0) return;
+    this.setScale(scaleIndex);
+  }
+  setScale(scaleIndex) {
+    this.scaleIndex = scaleIndex;
+    this.scale = new Decimal(this.scaleStep[scaleIndex]).div(100).toNumber();
     this.setState({});
   }
   createCompoenent(feature) {
@@ -90,9 +93,9 @@ export default class ArtBoard extends React.Component {
       <div id="ArtBoard">
         <svg xmlns="http://www.w3.org/2000/svg" ref="svg" viewBox={this.getViewBox()} width={this.width} height={this.height} style={{backgroundColor: this.backgroundColor, transform: this.getScale()}}>
           <Grid width={this.width} height={this.height}></Grid>
-          <Rect x={this.width/2} y={this.height/2} width="720" height="26" strokeTop="5" drawPointFlag="true"></Rect>
-          {/*
           {this.svgs}
+          {/*
+          <Rect x={this.width/2} y={this.height/2} width="720" height="26" strokeTop="5" drawPointFlag="true"></Rect>
           <Shelf geojson={{
             "id": 4,
             "type": "shelf",
