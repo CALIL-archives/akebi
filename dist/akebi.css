@@ -56,7 +56,7 @@ body {
         -ms-flex-align: center;
             align-items: center; }
     body #ArtBoard::-webkit-scrollbar {
-      width: 5px;
+      width: 7px;
       height: 5px;
       background: #444; }
     body #ArtBoard::-webkit-scrollbar-track {
@@ -69,7 +69,11 @@ body {
       background: #444; }
     body #ArtBoard > svg {
       -webkit-transform-origin: center center;
-              transform-origin: center center; }
+              transform-origin: center center;
+      -webkit-transition: -webkit-transform 0.2s ease-in-out;
+      transition: -webkit-transform 0.2s ease-in-out;
+      transition: transform 0.2s ease-in-out;
+      transition: transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out; }
     body #ArtBoard #scaleUI {
       position: absolute;
       bottom: 50px;
