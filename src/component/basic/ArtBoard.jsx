@@ -43,12 +43,12 @@ export default class ArtBoard extends React.Component {
   }
   upScale() {
     let scaleIndex = this.scaleIndex + 1;
-    if(this.scaleIndex >= this.scaleStep.length) return;
+    if(this.scaleIndex >= this.scaleStep.length - 1) return;
     this.setScale(scaleIndex);
   }
   dowonScale() {
     let scaleIndex = this.scaleIndex - 1;
-    if(scaleIndex <= 0) return;
+    if(scaleIndex < 0) return;
     this.setScale(scaleIndex);
   }
   setScale(scaleIndex) {

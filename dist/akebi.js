@@ -26713,14 +26713,14 @@ var ArtBoard = function (_React$Component) {
     key: 'upScale',
     value: function upScale() {
       var scaleIndex = this.scaleIndex + 1;
-      if (this.scaleIndex >= this.scaleStep.length) return;
+      if (this.scaleIndex >= this.scaleStep.length - 1) return;
       this.setScale(scaleIndex);
     }
   }, {
     key: 'dowonScale',
     value: function dowonScale() {
       var scaleIndex = this.scaleIndex - 1;
-      if (scaleIndex <= 0) return;
+      if (scaleIndex < 0) return;
       this.setScale(scaleIndex);
     }
   }, {
