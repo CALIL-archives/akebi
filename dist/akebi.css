@@ -42,19 +42,7 @@ body {
   body #ArtBoard {
     background: #3F3F3C;
     height: 100%;
-    overflow: scroll;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center; }
+    overflow: scroll; }
     body #ArtBoard::-webkit-scrollbar {
       width: 7px;
       height: 5px;
@@ -95,10 +83,11 @@ body {
         display: inline-block;
         color: #000000;
         background: #ffffff;
-        width: 5rem;
+        width: 6rem;
         text-align: center;
         padding: 15px 20px;
-        border: 1px solid #CCCCCC; }
+        border-top: 1px solid #CCCCCC;
+        border-bottom: 1px solid #CCCCCC; }
 
 #debug {
   display: none;

@@ -23,14 +23,14 @@ export default class ArtBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.x = 500;
-    this.y = 500;
+    this.x = 0;
+    this.y = 0;
     this.scale = 1;
     this.scaleStep = [6, 12, 16, 25, 50, 75, 100, 150, 200, 300, 400, 600, 800, 1600];
-    this.scaleIndex = 6;
+    this.scaleIndex = 1;
 
-    this.width = 10000;
-    this.height = 10000;
+    this.width = parseFloat(this.props.width) || 10000;
+    this.height = parseFloat(this.props.height) || 10000;
     this.backgroundColor = this.props.backgroundColor || '#FFFFFF';
     // Todo: refactor
     // debug(this.props.geojson)
@@ -39,7 +39,12 @@ export default class ArtBoard extends React.Component {
       this.createCompoenent(feature);
     });
   }
-
+  componentDidMount() {
+    // debug(this.refs.ArtBoard.clientHeight)
+    this.refs.ArtBoard.scrollTop = (this.height - this.refs.ArtBoard.clientHeight) / 2  * this.scale;
+    this.refs.ArtBoard.scrollLeft = (this.width - this.refs.ArtBoard.clientWidth) / 2 * this.scale;
+    this.setScale(this.scaleIndex);
+  }
   getViewBox() {
     return `0 0 ${this.width} ${this.height}`;
   }
@@ -96,7 +101,7 @@ export default class ArtBoard extends React.Component {
   }
   render() {
     return (
-      <div id="ArtBoard">
+      <div id="ArtBoard" ref="ArtBoard">
         <ScaleUI upScale={this.upScale.bind(this)} downScale={this.downScale.bind(this)} scalePercent={this.scaleStep[this.scaleIndex]}></ScaleUI>
         <svg xmlns="http://www.w3.org/2000/svg" ref="svg" viewBox={this.getViewBox()} width={this.width} height={this.height} style={{backgroundColor: this.backgroundColor, transform: this.getScale()}}>
           <Grid width={this.width} height={this.height}></Grid>
