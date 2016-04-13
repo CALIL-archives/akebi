@@ -1,14 +1,14 @@
 'use strict';
 
 import React from 'react';
-import ArtBoard from './component/parts/ArtBoard.jsx';
+import ArtBoard from './ArtBoard.jsx';
 
-export default class Index extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.width = parseFloat(this.props.width) || 900;
-    this.height = parseFloat(this.props.height) || 900;
+    this.width = parseFloat(this.props.width) || undefined;
+    this.height = parseFloat(this.props.height) || undefined;
   }
   open(event) {
     akebi.open(event);
