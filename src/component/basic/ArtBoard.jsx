@@ -66,10 +66,10 @@ export default class ArtBoard extends React.Component {
     // debug(this.width)
     // geojson.x = parseFloat(geojson.left_cm) + this.width / 2;
     // geojson.y = parseFloat(geojson.top_cm) + this.height / 2;
-    geojson.x = new Decimal(geojson.left_cm).plus(new Decimal(this.width).div(2)).toFixed();
-    geojson.y = new Decimal(geojson.top_cm).plus(new Decimal(this.height).div(2)).toFixed();
-    geojson.x = new Decimal(geojson.x).plus(this.x).toFixed();
-    geojson.y = new Decimal(geojson.y).plus(this.y).toFixed();
+    geojson.x = new Decimal(geojson.left_cm).plus(new Decimal(this.width).div(2)).toNumber();
+    geojson.y = new Decimal(geojson.top_cm).plus(new Decimal(this.height).div(2)).toNumber();
+    geojson.x = new Decimal(geojson.x).plus(this.x).toNumber();
+    geojson.y = new Decimal(geojson.y).plus(this.y).toNumber();
     if (geojson.type === 'shelf') {
       // debug(geojson.x)
       // debug(geojson.y)
