@@ -4,15 +4,20 @@ let Decimal = require('decimal.js');
 // debug(new Decimal(1).minus(0.000000000001).toNumber())
 
 import React from 'react';
-import Point from './Point.jsx';
-import Rect from './Rect.jsx';
+
+import Point from './../basic/Point.jsx';
+import Rect from './../basic/Rect.jsx';
 import Grid from './Grid.jsx';
+import MultiPolygon from './../basic/MultiPolygon.jsx';
+
 import Shelf from './../Shelf.jsx';
-import MultiPolygon from './MultiPolygon.jsx';
 import CurvedShelf from './../CurvedShelf.jsx';
 import Beacon from './../Beacon.jsx';
 import Wall from './../Wall.jsx';
 import Floor from './../Floor.jsx';
+
+import ScaleUI from './ScaleUI.jsx';
+
 
 export default class ArtBoard extends React.Component {
   constructor(props) {
@@ -92,6 +97,7 @@ export default class ArtBoard extends React.Component {
   render() {
     return (
       <div id="ArtBoard">
+        <ScaleUI upScale={this.upScale.bind(this)} downScale={this.downScale.bind(this)}></ScaleUI>
         <svg xmlns="http://www.w3.org/2000/svg" ref="svg" viewBox={this.getViewBox()} width={this.width} height={this.height} style={{backgroundColor: this.backgroundColor, transform: this.getScale()}}>
           <Grid width={this.width} height={this.height}></Grid>
           {this.svgs}
@@ -119,11 +125,6 @@ export default class ArtBoard extends React.Component {
           <Floor></Floor>
           */}
         </svg>
-        <div id="scaleUI">
-          <button onClick={this.upScale.bind(this)}>+</button>
-          <div id="scalePercent" ref="scalePercent">{this.scaleStep[this.scaleIndex] + '%'}</div>
-          <button onClick={this.dowonScale.bind(this)}>-</button>
-        </div>
       </div>
     );
   }
