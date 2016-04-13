@@ -26132,7 +26132,7 @@ akebi.save = function () {
   }
 };
 
-},{"./index.jsx":186,"get-global":28,"react":167,"react-dom":31,"superagent":169}],175:[function(require,module,exports){
+},{"./index.jsx":187,"get-global":28,"react":167,"react-dom":31,"superagent":169}],175:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -26821,13 +26821,13 @@ var _Grid = require('./Grid.jsx');
 
 var _Grid2 = _interopRequireDefault(_Grid);
 
-var _Shelf = require('./../Shelf.jsx');
-
-var _Shelf2 = _interopRequireDefault(_Shelf);
-
 var _MultiPolygon = require('./../basic/MultiPolygon.jsx');
 
 var _MultiPolygon2 = _interopRequireDefault(_MultiPolygon);
+
+var _Shelf = require('./../Shelf.jsx');
+
+var _Shelf2 = _interopRequireDefault(_Shelf);
 
 var _CurvedShelf = require('./../CurvedShelf.jsx');
 
@@ -26844,6 +26844,10 @@ var _Wall2 = _interopRequireDefault(_Wall);
 var _Floor = require('./../Floor.jsx');
 
 var _Floor2 = _interopRequireDefault(_Floor);
+
+var _ScaleUI = require('./ScaleUI.jsx');
+
+var _ScaleUI2 = _interopRequireDefault(_ScaleUI);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26901,8 +26905,8 @@ var ArtBoard = function (_React$Component) {
       this.setScale(scaleIndex);
     }
   }, {
-    key: 'dowonScale',
-    value: function dowonScale() {
+    key: 'downScale',
+    value: function downScale() {
       var scaleIndex = this.scaleIndex - 1;
       if (scaleIndex < 0) return;
       this.setScale(scaleIndex);
@@ -26955,30 +26959,12 @@ var ArtBoard = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { id: 'ArtBoard' },
+        _react2.default.createElement(_ScaleUI2.default, { upScale: this.upScale.bind(this), downScale: this.downScale.bind(this), scalePercent: this.scaleStep[this.scaleIndex] }),
         _react2.default.createElement(
           'svg',
           { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height, style: { backgroundColor: this.backgroundColor, transform: this.getScale() } },
           _react2.default.createElement(_Grid2.default, { width: this.width, height: this.height }),
           this.svgs
-        ),
-        _react2.default.createElement(
-          'div',
-          { id: 'scaleUI' },
-          _react2.default.createElement(
-            'button',
-            { onClick: this.upScale.bind(this) },
-            '+'
-          ),
-          _react2.default.createElement(
-            'div',
-            { id: 'scalePercent', ref: 'scalePercent' },
-            this.scaleStep[this.scaleIndex] + '%'
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: this.dowonScale.bind(this) },
-            '-'
-          )
         )
       );
     }
@@ -27025,7 +27011,7 @@ var ArtBoard = function (_React$Component) {
 
 exports.default = ArtBoard;
 
-},{"./../Beacon.jsx":176,"./../CurvedShelf.jsx":177,"./../Floor.jsx":178,"./../Shelf.jsx":179,"./../Wall.jsx":180,"./../basic/MultiPolygon.jsx":181,"./../basic/Point.jsx":182,"./../basic/Rect.jsx":183,"./Grid.jsx":185,"decimal.js":1,"react":167}],185:[function(require,module,exports){
+},{"./../Beacon.jsx":176,"./../CurvedShelf.jsx":177,"./../Floor.jsx":178,"./../Shelf.jsx":179,"./../Wall.jsx":180,"./../basic/MultiPolygon.jsx":181,"./../basic/Point.jsx":182,"./../basic/Rect.jsx":183,"./Grid.jsx":185,"./ScaleUI.jsx":186,"decimal.js":1,"react":167}],185:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27080,6 +27066,78 @@ var Grid = function (_React$Component) {
 exports.default = Grid;
 
 },{"decimal.js":1,"react":167}],186:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ScaleUI = function (_React$Component) {
+  _inherits(ScaleUI, _React$Component);
+
+  function ScaleUI(props) {
+    _classCallCheck(this, ScaleUI);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(ScaleUI).call(this, props));
+  }
+
+  _createClass(ScaleUI, [{
+    key: 'upScale',
+    value: function upScale() {
+      this.props.upScale();
+      this.refs.upScale.blur();
+    }
+  }, {
+    key: 'downScale',
+    value: function downScale() {
+      this.props.downScale();
+      this.refs.downScale.blur();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { id: 'scaleUI' },
+        _react2.default.createElement(
+          'button',
+          { ref: 'upScale', onClick: this.upScale.bind(this) },
+          '+'
+        ),
+        _react2.default.createElement(
+          'div',
+          { id: 'scalePercent', ref: 'scalePercent' },
+          this.props.scalePercent + '%'
+        ),
+        _react2.default.createElement(
+          'button',
+          { ref: 'downScale', onClick: this.downScale.bind(this) },
+          '-'
+        )
+      );
+    }
+  }]);
+
+  return ScaleUI;
+}(_react2.default.Component);
+
+exports.default = ScaleUI;
+
+},{"react":167}],187:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

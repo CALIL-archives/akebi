@@ -51,7 +51,7 @@ export default class ArtBoard extends React.Component {
     if(this.scaleIndex >= this.scaleStep.length - 1) return;
     this.setScale(scaleIndex);
   }
-  dowonScale() {
+  downScale() {
     let scaleIndex = this.scaleIndex - 1;
     if(scaleIndex < 0) return;
     this.setScale(scaleIndex);
@@ -97,7 +97,7 @@ export default class ArtBoard extends React.Component {
   render() {
     return (
       <div id="ArtBoard">
-        <ScaleUI upScale={this.upScale.bind(this)} downScale={this.downScale.bind(this)}></ScaleUI>
+        <ScaleUI upScale={this.upScale.bind(this)} downScale={this.downScale.bind(this)} scalePercent={this.scaleStep[this.scaleIndex]}></ScaleUI>
         <svg xmlns="http://www.w3.org/2000/svg" ref="svg" viewBox={this.getViewBox()} width={this.width} height={this.height} style={{backgroundColor: this.backgroundColor, transform: this.getScale()}}>
           <Grid width={this.width} height={this.height}></Grid>
           {this.svgs}

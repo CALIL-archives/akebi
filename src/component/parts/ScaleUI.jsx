@@ -1,20 +1,25 @@
 'use strict';
 
-let Decimal = require('decimal.js');
-// debug(new Decimal(1).minus(0.000000000001).toNumber())
-
 import React from 'react';
 
 export default class ScaleUI extends React.Component {
   constructor(props) {
     super(props);
   }
+  upScale() {
+    this.props.upScale();
+    this.refs.upScale.blur();
+  }
+  downScale() {
+    this.props.downScale();
+    this.refs.downScale.blur();
+  }
   render() {
     return (
       <div id="scaleUI">
-        <button onClick={this.props.upScale}>+</button>
-        <div id="scalePercent" ref="scalePercent">{this.scaleStep[this.scaleIndex] + '%'}</div>
-        <button onClick={this.props.dowonScale}>-</button>
+        <button ref="upScale" onClick={this.upScale.bind(this)}>+</button>
+        <div id="scalePercent" ref="scalePercent">{this.props.scalePercent + '%'}</div>
+        <button ref="downScale" onClick={this.downScale.bind(this)}>-</button>
       </div>
     );
   }
