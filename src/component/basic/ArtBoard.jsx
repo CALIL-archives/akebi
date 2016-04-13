@@ -73,20 +73,20 @@ export default class ArtBoard extends React.Component {
     if (geojson.type === 'shelf') {
       // debug(geojson.x)
       // debug(geojson.y)
-      this.svgs.push(<Shelf geojson={geojson} fill="pink" color="red" drawPointFlag="false"></Shelf>);
+      this.svgs.push(<Shelf key={geojson.id} geojson={geojson} fill="pink" color="red" drawPointFlag="false"></Shelf>);
     }
     if (geojson.type === 'beacon') {
-      this.svgs.push(<Beacon geojson={geojson} fill="black" stroke="white"></Beacon>);
+      this.svgs.push(<Beacon key={geojson.id} geojson={geojson} fill="black" stroke="white"></Beacon>);
     }
     if (geojson.type === 'wall') {
       geojson.width = new Decimal(geojson.width_scale).times(100);
       geojson.height = new Decimal(geojson.height_scale).times(100);
-      this.svgs.push(<Wall geojson={geojson} fill="black" stroke="black"></Wall>);
+      this.svgs.push(<Wall key={geojson.id} geojson={geojson} fill="black" stroke="black"></Wall>);
     }
     if (geojson.type === 'floor') {
       geojson.width = geojson.width_cm;
       geojson.height = geojson.height_cm;
-      this.svgs.push(<Floor geojson={geojson}></Floor>);
+      this.svgs.push(<Floor key={geojson.id} geojson={geojson}></Floor>);
     }
   }
   render() {

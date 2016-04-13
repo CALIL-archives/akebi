@@ -26344,11 +26344,7 @@ var Beacon = function (_AkebiSVGComponent) {
   _createClass(Beacon, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(
-        'g',
-        null,
-        _react2.default.createElement(_Rect2.default, { x: this.x, y: this.y, width: this.range, height: this.range, fill: this.fill, strokeWidth: '1', stroke: this.stroke })
-      );
+      return _react2.default.createElement(_Rect2.default, { key: this.props.geojson.id, x: this.x, y: this.y, width: this.range, height: this.range, fill: this.fill, strokeWidth: '1', stroke: this.stroke });
     }
   }]);
 
@@ -26452,7 +26448,7 @@ var Floor = function (_AkebiSVGComponent) {
   _createClass(Floor, [{
     key: 'renderSVG',
     value: function renderSVG() {
-      this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.x, y: this.y, width: this.width, height: this.height, stroke: this.stroke, leftStrokeDashArray: '5', topStrokeDashArray: '5', rightStrokeDashArray: '5', bottomStrokeDashArray: '5', fill: this.fill }));
+      this.svgs.push(_react2.default.createElement(_Rect2.default, { key: this.props.geojson.id, x: this.x, y: this.y, width: this.width, height: this.height, stroke: this.stroke, leftStrokeDashArray: '5', topStrokeDashArray: '5', rightStrokeDashArray: '5', bottomStrokeDashArray: '5', fill: this.fill }));
     }
   }]);
 
@@ -26534,17 +26530,17 @@ var Shelf = function (_AkebiSVGComponent) {
     value: function renderSVG() {
       // this.svgs.push(<Rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="#CCCCCC"></Rect>)
       for (var i = 0, l = this.count; i < l; i++) {
-        this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.startX + this.eachWidth * i, y: this.startY, width: this.eachWidth, height: this.eachHeight, stroke: this.stroke, fill: this.fill }));
+        this.svgs.push(_react2.default.createElement(_Rect2.default, { key: this.props.geojson.id + '_1_' + i, id: this.props.geojson.id + '_1_' + i, x: this.startX + this.eachWidth * i, y: this.startY, width: this.eachWidth, height: this.eachHeight, stroke: this.stroke, fill: this.fill }));
         if (this.side === 2) {
-          this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.startX + this.eachWidth * i, y: this.startY + this.eachHeight, width: this.eachWidth, height: this.eachHeight, stroke: this.stroke, fill: this.fill }));
+          this.svgs.push(_react2.default.createElement(_Rect2.default, { key: this.props.geojson.id + '_2_' + i, id: this.props.geojson.id + '_1_' + i, x: this.startX + this.eachWidth * i, y: this.startY + this.eachHeight, width: this.eachWidth, height: this.eachHeight, stroke: this.stroke, fill: this.fill }));
         }
       }
       if (this.drawPointFlag) {
-        this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.x, y: this.y, fill: 'red' }));
-        this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.x - this.width / 2, y: this.y - this.height / 2 }));
-        this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.x + this.width / 2, y: this.y - this.height / 2 }));
-        this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.x + this.width / 2, y: this.y + this.height / 2 }));
-        this.svgs.push(_react2.default.createElement(_Point2.default, { x: this.x - this.width / 2, y: this.y + this.height / 2 }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { key: this.props.geojson.id + '_p_center', x: this.x, y: this.y, fill: 'red' }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { key: this.props.geojson.id + '_p_1', x: this.x - this.width / 2, y: this.y - this.height / 2 }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { key: this.props.geojson.id + '_p_2', x: this.x + this.width / 2, y: this.y - this.height / 2 }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { key: this.props.geojson.id + '_p_3', x: this.x + this.width / 2, y: this.y + this.height / 2 }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { key: this.props.geojson.id + '_p_4', x: this.x - this.width / 2, y: this.y + this.height / 2 }));
       }
     }
   }]);
@@ -26603,7 +26599,7 @@ var Beacon = function (_AkebiSVGComponent) {
   _createClass(Beacon, [{
     key: 'renderSVG',
     value: function renderSVG() {
-      this.svgs.push(_react2.default.createElement(_Rect2.default, { x: this.x, y: this.y, width: this.width, height: this.height, fill: this.fill, strokeWidth: '0', stroke: this.stroke }));
+      this.svgs.push(_react2.default.createElement(_Rect2.default, { key: this.props.geojson.id, x: this.x, y: this.y, width: this.width, height: this.height, fill: this.fill, strokeWidth: '0', stroke: this.stroke }));
     }
   }]);
 
@@ -26749,20 +26745,20 @@ var ArtBoard = function (_React$Component) {
       if (geojson.type === 'shelf') {
         // debug(geojson.x)
         // debug(geojson.y)
-        this.svgs.push(_react2.default.createElement(_Shelf2.default, { geojson: geojson, fill: 'pink', color: 'red', drawPointFlag: 'false' }));
+        this.svgs.push(_react2.default.createElement(_Shelf2.default, { key: geojson.id, geojson: geojson, fill: 'pink', color: 'red', drawPointFlag: 'false' }));
       }
       if (geojson.type === 'beacon') {
-        this.svgs.push(_react2.default.createElement(_Beacon2.default, { geojson: geojson, fill: 'black', stroke: 'white' }));
+        this.svgs.push(_react2.default.createElement(_Beacon2.default, { key: geojson.id, geojson: geojson, fill: 'black', stroke: 'white' }));
       }
       if (geojson.type === 'wall') {
         geojson.width = new Decimal(geojson.width_scale).times(100);
         geojson.height = new Decimal(geojson.height_scale).times(100);
-        this.svgs.push(_react2.default.createElement(_Wall2.default, { geojson: geojson, fill: 'black', stroke: 'black' }));
+        this.svgs.push(_react2.default.createElement(_Wall2.default, { key: geojson.id, geojson: geojson, fill: 'black', stroke: 'black' }));
       }
       if (geojson.type === 'floor') {
         geojson.width = geojson.width_cm;
         geojson.height = geojson.height_cm;
-        this.svgs.push(_react2.default.createElement(_Floor2.default, { geojson: geojson }));
+        this.svgs.push(_react2.default.createElement(_Floor2.default, { key: geojson.id, geojson: geojson }));
       }
     }
   }, {
@@ -27128,7 +27124,7 @@ var Rect = function (_React$Component) {
       // var y = this.y - this.height/2;
       var x = new Decimal(this.x).minus(new Decimal(this.width).div(2)).toNumber();
       var y = new Decimal(this.y).minus(new Decimal(this.height).div(2)).toNumber();
-      this.svgs.push(_react2.default.createElement('rect', { x: x, y: y, width: this.width, height: this.height, stroke: 'currentColor', strokeWidth: '0', fill: this.fill || 'transparent' }));
+      this.svgs.push(_react2.default.createElement('rect', { key: this.props.id, x: x, y: y, width: this.width, height: this.height, stroke: 'currentColor', strokeWidth: '0', fill: this.fill || 'transparent' }));
       var y2 = new Decimal(y).plus(this.height).toNumber();
       var x2 = new Decimal(x).plus(this.width).toNumber();
       // left line
@@ -27151,9 +27147,9 @@ var Rect = function (_React$Component) {
       var strokeDasharray = arguments.length <= 4 || arguments[4] === undefined ? 0 : arguments[4];
 
       if (this.drawPointFlag) {
-        this.svgs.push(_react2.default.createElement(_Point2.default, { x: x1, y: y1, fill: this.stroke }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { key: this.props.id + '_p_' + x1 + '_' + y1, x: x1, y: y1, fill: this.stroke }));
       }
-      this.svgs.push(_react2.default.createElement('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: this.stroke, strokeWidth: this.strokeWidth, strokeDasharray: strokeDasharray }));
+      this.svgs.push(_react2.default.createElement('line', { key: this.props.id + '_l_' + x1 + '_' + y1, x1: x1, y1: y1, x2: x2, y2: y2, stroke: this.stroke, strokeWidth: this.strokeWidth, strokeDasharray: strokeDasharray }));
     }
   }]);
 

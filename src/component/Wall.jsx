@@ -15,6 +15,6 @@ export default class Beacon extends AkebiSVGComponent {
     this.stroke = this.props.stroke || 'black';
   }
   renderSVG(){
-    this.svgs.push(<Rect x={this.x} y={this.y} width={this.width} height={this.height} fill={this.fill} strokeWidth="0" stroke={this.stroke}></Rect>);
+    this.svgs.push(<Rect key={this.props.geojson.id} x={this.x} y={this.y} width={this.width} height={this.height} fill={this.fill} strokeWidth="0" stroke={this.stroke}></Rect>);
   }
 }

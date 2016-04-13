@@ -1,8 +1,8 @@
 'use strict';
 
 import React from 'react';
-import AkebiSVGComponent from './AkebiSVGComponent.jsx'
-import Rect from './basic/Rect.jsx'
+import AkebiSVGComponent from './AkebiSVGComponent.jsx';
+import Rect from './basic/Rect.jsx';
 
 export default class Beacon extends AkebiSVGComponent {
   constructor(props) {
@@ -13,11 +13,7 @@ export default class Beacon extends AkebiSVGComponent {
     this.fill = this.props.fill || 'black';
     this.stroke = this.props.stroke || 'black';
   }
-  render(){
-    return (
-      <g>
-        <Rect x={this.x} y={this.y} width={this.range} height={this.range} fill={this.fill} strokeWidth="1" stroke={this.stroke}></Rect>
-      </g>
-    )
+  render() {
+    return <Rect key={this.props.geojson.id} x={this.x} y={this.y} width={this.range} height={this.range} fill={this.fill} strokeWidth="1" stroke={this.stroke}></Rect>
   }
 }

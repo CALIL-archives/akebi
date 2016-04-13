@@ -31,7 +31,7 @@ export default class Rect extends React.Component {
     // var y = this.y - this.height/2;
     let x = new Decimal(this.x).minus(new Decimal(this.width).div(2)).toNumber();
     let y = new Decimal(this.y).minus(new Decimal(this.height).div(2)).toNumber();
-    this.svgs.push(<rect x={x} y={y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="0" fill={this.fill||'transparent'} />);
+    this.svgs.push(<rect key={this.props.id} x={x} y={y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="0" fill={this.fill||'transparent'} />);
     let y2 = new Decimal(y).plus(this.height).toNumber();
     let x2 = new Decimal(x).plus(this.width).toNumber();
     // left line
@@ -50,8 +50,8 @@ export default class Rect extends React.Component {
   }
   drawLine(x1, y1, x2, y2, strokeDasharray = 0) {
     if(this.drawPointFlag) {
-      this.svgs.push(<Point x={x1} y={y1} fill={this.stroke}></Point>);
+      this.svgs.push(<Point key={`${this.props.id}_p_${x1}_${y1}`} x={x1} y={y1} fill={this.stroke}></Point>);
     }
-    this.svgs.push(<line x1={x1} y1={y1} x2={x2} y2={y2} stroke={this.stroke} strokeWidth={this.strokeWidth} strokeDasharray={strokeDasharray}/>);
+    this.svgs.push(<line key={`${this.props.id}_l_${x1}_${y1}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke={this.stroke} strokeWidth={this.strokeWidth} strokeDasharray={strokeDasharray}/>);
   }
 }

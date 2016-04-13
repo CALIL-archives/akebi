@@ -37,17 +37,17 @@ export default class Shelf extends AkebiSVGComponent {
   renderSVG() {
     // this.svgs.push(<Rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="#CCCCCC"></Rect>)
     for(let i = 0, l = this.count; i < l; i++) {
-      this.svgs.push(<Rect x={this.startX + this.eachWidth * i} y={this.startY} width={this.eachWidth} height={this.eachHeight} stroke={this.stroke} fill={this.fill}></Rect>)
+      this.svgs.push(<Rect key={`${this.props.geojson.id}_1_${i}`} id={`${this.props.geojson.id}_1_${i}`} x={this.startX + this.eachWidth * i} y={this.startY} width={this.eachWidth} height={this.eachHeight} stroke={this.stroke} fill={this.fill}></Rect>);
       if(this.side === 2) {
-        this.svgs.push(<Rect x={this.startX + this.eachWidth * i} y={this.startY + this.eachHeight} width={this.eachWidth} height={this.eachHeight} stroke={this.stroke} fill={this.fill}></Rect>)
+        this.svgs.push(<Rect key={`${this.props.geojson.id}_2_${i}`} id={`${this.props.geojson.id}_1_${i}`} x={this.startX + this.eachWidth * i} y={this.startY + this.eachHeight} width={this.eachWidth} height={this.eachHeight} stroke={this.stroke} fill={this.fill}></Rect>);
       }
     }
     if(this.drawPointFlag) {
-      this.svgs.push(<Point x={this.x} y={this.y} fill="red"></Point>);
-      this.svgs.push(<Point x={this.x - this.width / 2} y={this.y - this.height / 2}></Point>);
-      this.svgs.push(<Point x={this.x + this.width / 2} y={this.y - this.height / 2}></Point>);
-      this.svgs.push(<Point x={this.x + this.width / 2} y={this.y + this.height / 2}></Point>);
-      this.svgs.push(<Point x={this.x - this.width / 2} y={this.y + this.height / 2}></Point>);
+      this.svgs.push(<Point key={`${this.props.geojson.id}_p_center`} x={this.x} y={this.y} fill="red"></Point>);
+      this.svgs.push(<Point key={`${this.props.geojson.id}_p_1`} x={this.x - this.width / 2} y={this.y - this.height / 2}></Point>);
+      this.svgs.push(<Point key={`${this.props.geojson.id}_p_2`} x={this.x + this.width / 2} y={this.y - this.height / 2}></Point>);
+      this.svgs.push(<Point key={`${this.props.geojson.id}_p_3`} x={this.x + this.width / 2} y={this.y + this.height / 2}></Point>);
+      this.svgs.push(<Point key={`${this.props.geojson.id}_p_4`} x={this.x - this.width / 2} y={this.y + this.height / 2}></Point>);
     }
   }
 }

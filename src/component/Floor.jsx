@@ -15,6 +15,6 @@ export default class Floor extends AkebiSVGComponent {
     this.stroke = this.props.stroke || '#FF0000';
   }
   renderSVG() {
-    this.svgs.push(<Rect x={this.x} y={this.y} width={this.width} height={this.height} stroke={this.stroke} leftStrokeDashArray="5" topStrokeDashArray="5" rightStrokeDashArray="5" bottomStrokeDashArray="5" fill={this.fill}></Rect>);
+    this.svgs.push(<Rect key={this.props.geojson.id} x={this.x} y={this.y} width={this.width} height={this.height} stroke={this.stroke} leftStrokeDashArray="5" topStrokeDashArray="5" rightStrokeDashArray="5" bottomStrokeDashArray="5" fill={this.fill}></Rect>);
   }
 }
