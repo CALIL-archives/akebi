@@ -27212,7 +27212,7 @@ var Index = function (_React$Component) {
 
     _this.state = {};
     _this.width = parseFloat(_this.props.width) || 900;
-    _this.height = parseFloat(_this.props.height) || 100;
+    _this.height = parseFloat(_this.props.height) || 900;
     return _this;
   }
 
