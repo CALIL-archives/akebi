@@ -26530,9 +26530,11 @@ var Shelf = function (_AkebiSVGComponent) {
     value: function renderSVG() {
       // this.svgs.push(<Rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="#CCCCCC"></Rect>)
       for (var i = 0, l = this.count; i < l; i++) {
-        this.svgs.push(_react2.default.createElement(_Rect2.default, { key: this.props.geojson.id + '_1_' + i, id: this.props.geojson.id + '_1_' + i, x: this.startX + this.eachWidth * i, y: this.startY, width: this.eachWidth, height: this.eachHeight, stroke: this.stroke, fill: this.fill }));
+        var key = this.props.geojson.id + '_1_' + i;
+        this.svgs.push(_react2.default.createElement(_Rect2.default, { key: key, id: key, x: this.startX + this.eachWidth * i, y: this.startY, width: this.eachWidth, height: this.eachHeight, stroke: this.stroke, fill: this.fill }));
         if (this.side === 2) {
-          this.svgs.push(_react2.default.createElement(_Rect2.default, { key: this.props.geojson.id + '_2_' + i, id: this.props.geojson.id + '_1_' + i, x: this.startX + this.eachWidth * i, y: this.startY + this.eachHeight, width: this.eachWidth, height: this.eachHeight, stroke: this.stroke, fill: this.fill }));
+          var _key = this.props.geojson.id + '_2_' + i;
+          this.svgs.push(_react2.default.createElement(_Rect2.default, { key: _key, id: _key, x: this.startX + this.eachWidth * i, y: this.startY + this.eachHeight, width: this.eachWidth, height: this.eachHeight, stroke: this.stroke, fill: this.fill }));
         }
       }
       if (this.drawPointFlag) {
@@ -27124,9 +27126,11 @@ var Rect = function (_React$Component) {
       // var y = this.y - this.height/2;
       var x = new Decimal(this.x).minus(new Decimal(this.width).div(2)).toNumber();
       var y = new Decimal(this.y).minus(new Decimal(this.height).div(2)).toNumber();
-      this.svgs.push(_react2.default.createElement('rect', { key: this.props.id, x: x, y: y, width: this.width, height: this.height, stroke: 'currentColor', strokeWidth: '0', fill: this.fill || 'transparent' }));
       var y2 = new Decimal(y).plus(this.height).toNumber();
       var x2 = new Decimal(x).plus(this.width).toNumber();
+
+      this.svgs.push(_react2.default.createElement('rect', { key: this.props.id, x: x, y: y, width: this.width, height: this.height, stroke: 'currentColor', strokeWidth: '0', fill: this.fill || 'transparent' }));
+
       // left line
       this.drawLine(x, y2, x, y, this.leftStrokeDashArray);
       // top line

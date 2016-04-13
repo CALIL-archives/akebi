@@ -37,9 +37,11 @@ export default class Shelf extends AkebiSVGComponent {
   renderSVG() {
     // this.svgs.push(<Rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="#CCCCCC"></Rect>)
     for(let i = 0, l = this.count; i < l; i++) {
-      this.svgs.push(<Rect key={`${this.props.geojson.id}_1_${i}`} id={`${this.props.geojson.id}_1_${i}`} x={this.startX + this.eachWidth * i} y={this.startY} width={this.eachWidth} height={this.eachHeight} stroke={this.stroke} fill={this.fill}></Rect>);
+      let key = `${this.props.geojson.id}_1_${i}`;
+      this.svgs.push(<Rect key={key} id={key} x={this.startX + this.eachWidth * i} y={this.startY} width={this.eachWidth} height={this.eachHeight} stroke={this.stroke} fill={this.fill}></Rect>);
       if(this.side === 2) {
-        this.svgs.push(<Rect key={`${this.props.geojson.id}_2_${i}`} id={`${this.props.geojson.id}_1_${i}`} x={this.startX + this.eachWidth * i} y={this.startY + this.eachHeight} width={this.eachWidth} height={this.eachHeight} stroke={this.stroke} fill={this.fill}></Rect>);
+        let key = `${this.props.geojson.id}_2_${i}`;
+        this.svgs.push(<Rect key={key} id={key} x={this.startX + this.eachWidth * i} y={this.startY + this.eachHeight} width={this.eachWidth} height={this.eachHeight} stroke={this.stroke} fill={this.fill}></Rect>);
       }
     }
     if(this.drawPointFlag) {
