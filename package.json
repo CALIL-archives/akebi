@@ -51,8 +51,8 @@
   "dependencies": {
     "decimal.js": "^5.0.8",
     "get-global": "0.0.1",
-    "react": "^15.0.0-rc.2",
-    "react-dom": "^15.0.0-rc.2",
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1",
     "superagent": "^1.8.3"
   }
 }
