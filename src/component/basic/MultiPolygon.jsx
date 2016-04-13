@@ -1,5 +1,7 @@
 'use strict';
 
+let Decimal = require('decimal.js');
+
 import React from 'react';
 import Point from './Point.jsx';
 
@@ -52,9 +54,9 @@ export default class MultiPolygon extends React.Component {
     if(this.close) {
       this.d.push('Z');
     }
-    this.svgs.push(<path stroke={this.stroke} strokeWidth="1" fill={this.fill||'transparent'} d={this.d.join(' ')}/>);
+    this.svgs.push(<path stroke={this.stroke} strokeWidth="1" fill={this.fill || 'transparent'} d={this.d.join(' ')}/>);
     return (
-      <g transform={`translate(${this.x / 2},${this.y / 2})`}>
+      <g transform={`translate(${new Decimal(this.x).div(2).toNumber()},${new Decimal(this.y).div(2).toNumber()})`}>
         {this.svgs}
       </g>
     );

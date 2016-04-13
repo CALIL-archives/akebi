@@ -34,7 +34,7 @@ export default class Rect extends React.Component {
     let y2 = new Decimal(y).plus(this.height).toNumber();
     let x2 = new Decimal(x).plus(this.width).toNumber();
 
-    this.svgs.push(<rect key={this.props.id} x={x} y={y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="0" fill={this.fill||'transparent'} />);
+    this.svgs.push(<rect key={this.props.id} x={x} y={y} width={this.width} height={this.height} stroke="currentColor" strokeWidth="0" fill={this.fill || 'transparent'} />);
 
     // left line
     this.drawLine(x, y2, x, y, this.leftStrokeDashArray);

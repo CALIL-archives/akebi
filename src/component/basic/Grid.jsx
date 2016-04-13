@@ -1,5 +1,6 @@
 'use strict';
 
+let Decimal = require('decimal.js');
 import React from 'react';
 
 export default class Grid extends React.Component {
@@ -12,8 +13,8 @@ export default class Grid extends React.Component {
   render() {
     return (
       <g>
-        <line x1={this.width / 2} y1={0} x2={this.width / 2} y2={this.height} stroke="#999999" strokeWidth="1" />
-        <line x1={0} y1={this.height / 2} x2={this.width} y2={this.height / 2} stroke="#999999" strokeWidth="1" />
+        <line x1={new Decimal(this.width).div(2).toNumber()} y1={0} x2={new Decimal(this.width).div(2).toNumber()} y2={this.height} stroke="#999999" strokeWidth="1" />
+        <line x1={0} y1={new Decimal(this.height).div(2).toNumber()} x2={this.width} y2={new Decimal(this.height).div(2).toNumber()} stroke="#999999" strokeWidth="1" />
       </g>
     );
   }

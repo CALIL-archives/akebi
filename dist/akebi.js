@@ -26871,6 +26871,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var Decimal = require('decimal.js');
+
 var Grid = function (_React$Component) {
   _inherits(Grid, _React$Component);
 
@@ -26891,8 +26893,8 @@ var Grid = function (_React$Component) {
       return _react2.default.createElement(
         'g',
         null,
-        _react2.default.createElement('line', { x1: this.width / 2, y1: 0, x2: this.width / 2, y2: this.height, stroke: '#999999', strokeWidth: '1' }),
-        _react2.default.createElement('line', { x1: 0, y1: this.height / 2, x2: this.width, y2: this.height / 2, stroke: '#999999', strokeWidth: '1' })
+        _react2.default.createElement('line', { x1: new Decimal(this.width).div(2).toNumber(), y1: 0, x2: new Decimal(this.width).div(2).toNumber(), y2: this.height, stroke: '#999999', strokeWidth: '1' }),
+        _react2.default.createElement('line', { x1: 0, y1: new Decimal(this.height).div(2).toNumber(), x2: this.width, y2: new Decimal(this.height).div(2).toNumber(), stroke: '#999999', strokeWidth: '1' })
       );
     }
   }]);
@@ -26902,7 +26904,7 @@ var Grid = function (_React$Component) {
 
 exports.default = Grid;
 
-},{"react":172}],188:[function(require,module,exports){
+},{"decimal.js":1,"react":172}],188:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -26926,6 +26928,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Decimal = require('decimal.js');
 
 var MultiPolygon = function (_React$Component) {
   _inherits(MultiPolygon, _React$Component);
@@ -26980,7 +26984,7 @@ var MultiPolygon = function (_React$Component) {
       this.svgs.push(_react2.default.createElement('path', { stroke: this.stroke, strokeWidth: '1', fill: this.fill || 'transparent', d: this.d.join(' ') }));
       return _react2.default.createElement(
         'g',
-        { transform: 'translate(' + this.x / 2 + ',' + this.y / 2 + ')' },
+        { transform: 'translate(' + new Decimal(this.x).div(2).toNumber() + ',' + new Decimal(this.y).div(2).toNumber() + ')' },
         this.svgs
       );
     }
@@ -27026,7 +27030,7 @@ var MultiPolygon = function (_React$Component) {
 
 exports.default = MultiPolygon;
 
-},{"./Point.jsx":189,"react":172}],189:[function(require,module,exports){
+},{"./Point.jsx":189,"decimal.js":1,"react":172}],189:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
