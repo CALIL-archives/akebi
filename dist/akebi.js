@@ -26490,6 +26490,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var Decimal = require('decimal.js');
+
 var Shelf = function (_AkebiSVGComponent) {
   _inherits(Shelf, _AkebiSVGComponent);
 
@@ -26518,10 +26520,14 @@ var Shelf = function (_AkebiSVGComponent) {
     _this.fill = _this.props.fill || 'transparent';
 
     _this.drawPointFlag = _this.props.drawPointFlag === 'true';
-    _this.width = _this.count * _this.eachWidth;
-    _this.height = _this.side * _this.eachHeight;
-    _this.startX = _this.x + _this.eachWidth / 2 - _this.width / 2;
-    _this.startY = _this.y + _this.eachHeight / 2 - _this.height / 2;
+    // this.width = this.count * this.eachWidth;
+    _this.width = new Decimal(_this.count).mul(_this.eachWidth).toNumber();
+    // this.height = this.side * this.eachHeight;
+    _this.height = new Decimal(_this.side).mul(_this.eachHeight).toNumber();
+    // this.startX = this.x + (this.eachWidth - this.width) / 2;
+    _this.startX = new Decimal(_this.x).plus(new Decimal(_this.eachWidth).minus(_this.width).div(2)).toNumber();
+    // this.startY = this.y + this.eachHeight / 2 - this.height / 2;
+    _this.startY = new Decimal(_this.y).plus(new Decimal(_this.eachHeight).minus(_this.height).div(2)).toNumber();
     return _this;
   }
 
@@ -26530,19 +26536,24 @@ var Shelf = function (_AkebiSVGComponent) {
     value: function renderSVG() {
       // this.svgs.push(<Rect x={this.x} y={this.y} width={this.width} height={this.height} stroke="#CCCCCC"></Rect>)
       for (var i = 0, l = this.count; i < l; i++) {
-        var key = this.props.geojson.id + '_1_' + i;
-        this.svgs.push(_react2.default.createElement(_Rect2.default, { key: key, id: key, x: this.startX + this.eachWidth * i, y: this.startY, width: this.eachWidth, height: this.eachHeight, stroke: this.stroke, fill: this.fill }));
+        var key = this.props.geojson.id + '_' + i + '_1';
+        var x = new Decimal(this.startX).plus(new Decimal(this.eachWidth).mul(i)).toNumber();
+        this.svgs.push(_react2.default.createElement(_Rect2.default, { key: key, id: key, x: x, y: this.startY, width: this.eachWidth, height: this.eachHeight, stroke: this.stroke, fill: this.fill }));
         if (this.side === 2) {
-          var _key = this.props.geojson.id + '_2_' + i;
-          this.svgs.push(_react2.default.createElement(_Rect2.default, { key: _key, id: _key, x: this.startX + this.eachWidth * i, y: this.startY + this.eachHeight, width: this.eachWidth, height: this.eachHeight, stroke: this.stroke, fill: this.fill }));
+          var key2 = this.props.geojson.id + '_' + i + '_2';
+          this.svgs.push(_react2.default.createElement(_Rect2.default, { key: key2, id: key2, x: x, y: new Decimal(this.startY).plus(this.eachHeight), width: this.eachWidth, height: this.eachHeight, stroke: this.stroke, fill: this.fill }));
         }
       }
       if (this.drawPointFlag) {
         this.svgs.push(_react2.default.createElement(_Point2.default, { key: this.props.geojson.id + '_p_center', x: this.x, y: this.y, fill: 'red' }));
-        this.svgs.push(_react2.default.createElement(_Point2.default, { key: this.props.geojson.id + '_p_1', x: this.x - this.width / 2, y: this.y - this.height / 2 }));
-        this.svgs.push(_react2.default.createElement(_Point2.default, { key: this.props.geojson.id + '_p_2', x: this.x + this.width / 2, y: this.y - this.height / 2 }));
-        this.svgs.push(_react2.default.createElement(_Point2.default, { key: this.props.geojson.id + '_p_3', x: this.x + this.width / 2, y: this.y + this.height / 2 }));
-        this.svgs.push(_react2.default.createElement(_Point2.default, { key: this.props.geojson.id + '_p_4', x: this.x - this.width / 2, y: this.y + this.height / 2 }));
+        var x1 = new Decimal(this.x).minus(new Decimal(this.width).div(2)).toNumber();
+        var x2 = new Decimal(this.x).plus(new Decimal(this.width).div(2)).toNumber();
+        var y1 = new Decimal(this.y).minus(new Decimal(this.height).div(2)).toNumber();
+        var y2 = new Decimal(this.y).plus(new Decimal(this.height).div(2)).toNumber();
+        this.svgs.push(_react2.default.createElement(_Point2.default, { key: this.props.geojson.id + '_p_1', x: x1, y: y1 }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { key: this.props.geojson.id + '_p_2', x: x2, y: y1 }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { key: this.props.geojson.id + '_p_3', x: x2, y: y2 }));
+        this.svgs.push(_react2.default.createElement(_Point2.default, { key: this.props.geojson.id + '_p_4', x: x2, y: y2 }));
       }
     }
   }]);
@@ -26552,7 +26563,7 @@ var Shelf = function (_AkebiSVGComponent) {
 
 exports.default = Shelf;
 
-},{"./AkebiSVGComponent.jsx":180,"./basic/Point.jsx":189,"./basic/Rect.jsx":190,"react":172}],185:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":180,"./basic/Point.jsx":189,"./basic/Rect.jsx":190,"decimal.js":1,"react":172}],185:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
