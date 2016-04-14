@@ -25,9 +25,10 @@ export default class ArtBoard extends React.Component {
     this.state = {};
     this.x = 0;
     this.y = 0;
-    this.scale = 1;
     this.scaleStep = [6, 12, 16, 25, 50, 75, 100, 150, 200, 300, 400, 600, 800, 1600];
     this.scaleIndex = 1;
+    // this.scale = 1;
+    this.scale = new Decimal(this.scaleStep[this.scaleIndex]).div(100).toNumber();
 
     this.width = parseFloat(this.props.width) || 10000;
     this.height = parseFloat(this.props.height) || 10000;
@@ -41,9 +42,10 @@ export default class ArtBoard extends React.Component {
   }
   componentDidMount() {
     // debug(this.refs.ArtBoard.clientHeight)
-    this.refs.ArtBoard.scrollTop = (this.height - this.refs.ArtBoard.clientHeight) / 2  * this.scale;
-    this.refs.ArtBoard.scrollLeft = (this.width - this.refs.ArtBoard.clientWidth) / 2 * this.scale;
-    this.setScale(this.scaleIndex);
+    // this.refs.ArtBoard.scrollTop = (this.height - this.refs.ArtBoard.clientHeight) / 2;
+    this.refs.ArtBoard.scrollTop = new Decimal(this.height).minus(this.refs.ArtBoard.clientHeight).div(2).toNumber();
+    // this.refs.ArtBoard.scrollLeft = (this.width - this.refs.ArtBoard.clientWidth) / 2;
+    this.refs.ArtBoard.scrollLeft = new Decimal(this.width).minus(this.refs.ArtBoard.clientWidth).div(2).toNumber();
   }
   getViewBox() {
     return `0 0 ${this.width} ${this.height}`;

@@ -26871,9 +26871,10 @@ var ArtBoard = function (_React$Component) {
     _this.state = {};
     _this.x = 0;
     _this.y = 0;
-    _this.scale = 1;
     _this.scaleStep = [6, 12, 16, 25, 50, 75, 100, 150, 200, 300, 400, 600, 800, 1600];
     _this.scaleIndex = 1;
+    // this.scale = 1;
+    _this.scale = new Decimal(_this.scaleStep[_this.scaleIndex]).div(100).toNumber();
 
     _this.width = parseFloat(_this.props.width) || 10000;
     _this.height = parseFloat(_this.props.height) || 10000;
@@ -26891,9 +26892,10 @@ var ArtBoard = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       // debug(this.refs.ArtBoard.clientHeight)
-      this.refs.ArtBoard.scrollTop = (this.height - this.refs.ArtBoard.clientHeight) / 2 * this.scale;
-      this.refs.ArtBoard.scrollLeft = (this.width - this.refs.ArtBoard.clientWidth) / 2 * this.scale;
-      this.setScale(this.scaleIndex);
+      // this.refs.ArtBoard.scrollTop = (this.height - this.refs.ArtBoard.clientHeight) / 2;
+      this.refs.ArtBoard.scrollTop = new Decimal(this.height).minus(this.refs.ArtBoard.clientHeight).div(2).toNumber();
+      // this.refs.ArtBoard.scrollLeft = (this.width - this.refs.ArtBoard.clientWidth) / 2;
+      this.refs.ArtBoard.scrollLeft = new Decimal(this.width).minus(this.refs.ArtBoard.clientWidth).div(2).toNumber();
     }
   }, {
     key: 'getViewBox',
