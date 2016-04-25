@@ -18,6 +18,8 @@ import Floor from './../Floor.jsx';
 
 import ScaleUI from './ScaleUI.jsx';
 
+import Counter from '../Counter.jsx';
+
 
 export default class ArtBoard extends React.Component {
   constructor(props) {
@@ -36,9 +38,14 @@ export default class ArtBoard extends React.Component {
     // Todo: refactor
     // debug(this.props.geojson)
     this.svgs = [];
-    this.props.geojson.forEach((feature)=> {
-      this.createCompoenent(feature);
-    });
+    this.test = this.props.test || false;
+    if(this.test) {
+      this.doPerfomanceTest();
+    } else {
+      this.props.geojson.forEach((feature)=> {
+        // this.createCompoenent(feature);
+      });
+    }
   }
   componentDidMount() {
     // debug(this.refs.ArtBoard.clientHeight)
@@ -68,7 +75,21 @@ export default class ArtBoard extends React.Component {
     this.scale = new Decimal(this.scaleStep[scaleIndex]).div(100).toNumber();
     this.setState({});
   }
-  createCompoenent(feature) {
+  doPerfomanceTest() {
+    let y = 0;
+
+    let max = 100;
+    let width = 90;
+    let height = 26;
+    for(let i = 0; i < 10000; i++) {
+      let x = i % max * 95;
+      if(i % max === 0) {
+        y = y + 80;
+      }
+      this.svgs.push(<rect x={x} y={y} width={width} height={height} fill="transparent" stroke="black"></rect>);
+    }
+  }
+  createComponent(feature) {
     // Todo: data structure design
     let geojson = feature.properties;
     // debug(geojson)
@@ -85,30 +106,35 @@ export default class ArtBoard extends React.Component {
     if (geojson.type === 'shelf') {
       // debug(geojson.x)
       // debug(geojson.y)
-      this.svgs.push(<Shelf key={geojson.id} geojson={geojson} fill="pink" color="red" drawPointFlag="false"></Shelf>);
+      return <Shelf key={geojson.id} geojson={geojson} fill="pink" color="red" drawPointFlag="false"></Shelf>;
     }
     if (geojson.type === 'beacon') {
-      this.svgs.push(<Beacon key={geojson.id} geojson={geojson} fill="black" stroke="white"></Beacon>);
+      return <Beacon key={geojson.id} geojson={geojson} fill="black" stroke="white"></Beacon>;
     }
     if (geojson.type === 'wall') {
       geojson.width = new Decimal(geojson.width_scale).times(100);
       geojson.height = new Decimal(geojson.height_scale).times(100);
-      this.svgs.push(<Wall key={geojson.id} geojson={geojson} fill="black" stroke="black"></Wall>);
+      return <Wall key={geojson.id} geojson={geojson} fill="black" stroke="black"></Wall>;
     }
     if (geojson.type === 'floor') {
       geojson.width = geojson.width_cm;
       geojson.height = geojson.height_cm;
-      this.svgs.push(<Floor key={geojson.id} geojson={geojson}></Floor>);
+      return <Floor key={geojson.id} geojson={geojson}></Floor>;
     }
   }
   render() {
     return (
       <div id="ArtBoard" ref="ArtBoard">
-        <ScaleUI upScale={this.upScale.bind(this)} downScale={this.downScale.bind(this)} scalePercent={this.scaleStep[this.scaleIndex]}></ScaleUI>
+        <ScaleUI upScale={this.upScale.bind(this)} downScale={this.downScale.bind(this)} scalePercent={this.scaleStep[this.scaleIndex]} />
         <svg xmlns="http://www.w3.org/2000/svg" ref="svg" viewBox={this.getViewBox()} width={this.width} height={this.height} style={{backgroundColor: this.backgroundColor, transform: this.getScale()}}>
           <Grid width={this.width} height={this.height}></Grid>
-          {this.svgs}
+          {this.props.geojson.map((feature)=> {
+            return this.createComponent(feature);
+          })}
           {/*
+          <div style={{color: 'black', position:'fixed', zIndex: 10000}}>
+            <Counter to="9999" from="0"></Counter>rects
+          </div>
           <Rect x={this.width/2} y={this.height/2} width="720" height="26" strokeTop="5" drawPointFlag="true"></Rect>
           <Shelf geojson={{
             "id": 4,
