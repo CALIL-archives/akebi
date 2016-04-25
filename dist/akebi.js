@@ -27080,6 +27080,13 @@ var ArtBoard = function (_React$Component) {
       this.refs.ArtBoard.scrollTop = new Decimal(this.height).minus(this.refs.ArtBoard.clientHeight).div(2).toNumber();
       // this.refs.ArtBoard.scrollLeft = (this.width - this.refs.ArtBoard.clientWidth) / 2;
       this.refs.ArtBoard.scrollLeft = new Decimal(this.width).minus(this.refs.ArtBoard.clientWidth).div(2).toNumber();
+      var rects = document.getElementsByTagName('rect');
+      debug(rects.length + ' rects');
+      var lines = document.getElementsByTagName('line');
+      debug(lines.length + ' lines');
+      var groups = document.getElementsByTagName('g');
+      debug(groups.length + ' groups');
+      debug('total: ' + (rects.length + lines.length + groups.length) + ' nodes');
     }
   }, {
     key: 'getViewBox',

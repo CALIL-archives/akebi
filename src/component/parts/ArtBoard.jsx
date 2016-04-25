@@ -45,6 +45,13 @@ export default class ArtBoard extends React.Component {
     this.refs.ArtBoard.scrollTop = new Decimal(this.height).minus(this.refs.ArtBoard.clientHeight).div(2).toNumber();
     // this.refs.ArtBoard.scrollLeft = (this.width - this.refs.ArtBoard.clientWidth) / 2;
     this.refs.ArtBoard.scrollLeft = new Decimal(this.width).minus(this.refs.ArtBoard.clientWidth).div(2).toNumber();
+    let rects = document.getElementsByTagName('rect');
+    debug(rects.length + ' rects');
+    let lines = document.getElementsByTagName('line');
+    debug(lines.length + ' lines');
+    let groups = document.getElementsByTagName('g');
+    debug(groups.length + ' groups');
+    debug('total: ' + (rects.length + lines.length + groups.length) + ' elements');
   }
   getViewBox() {
     return `0 0 ${this.width} ${this.height}`;
