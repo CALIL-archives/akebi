@@ -26039,6 +26039,8 @@ getGlobal().akebi = function () {
 
     // load json
     _superagent2.default.get('example/sample.json').send({})
+    // .get('https://app.haika.io/api/floor/load')
+    // .send({id: 15})
     // .set('Accept', 'application/json')
     .end(function (error, res) {
       if (!error) {
@@ -26132,7 +26134,7 @@ akebi.save = function () {
   }
 };
 
-},{"./component/parts/app.jsx":187,"get-global":28,"react":167,"react-dom":31,"superagent":169}],175:[function(require,module,exports){
+},{"./component/parts/app.jsx":188,"get-global":28,"react":167,"react-dom":31,"superagent":169}],175:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -26255,7 +26257,188 @@ var Beacon = function (_AkebiSVGComponent) {
 
 exports.default = Beacon;
 
-},{"./AkebiSVGComponent.jsx":175,"./basic/Rect.jsx":183,"react":167}],177:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":175,"./basic/Rect.jsx":184,"react":167}],177:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Counter = function (_React$Component) {
+  _inherits(Counter, _React$Component);
+
+  function Counter(props) {
+    _classCallCheck(this, Counter);
+
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Counter).call(this, props));
+
+    _this.from = _this.props.from || '0000';
+    _this.fromList = _this.from.toString().split('');
+    _this.to = _this.props.to || '9999';
+    _this.toList = _this.to.toString().split('');
+    _this.digit = _this.to.toString().length;
+    _this.style = {
+      display: 'inline-block',
+      fontSize: '100px',
+      height: '100px',
+      overflow: 'hidden'
+    };
+    return _this;
+  }
+
+  _createClass(Counter, [{
+    key: 'render',
+    value: function render() {
+      var numbersNodes = [];
+      for (var i = 0; i < this.digit; i++) {
+        var key = this.digit - i;
+        var from = this.fromList[i] ? this.fromList[i] : 0;
+        numbersNodes.push(_react2.default.createElement(Numbers, { key: key, digit: key, from: from, to: this.toList[i] }));
+      }
+      return _react2.default.createElement(
+        'div',
+        { className: 'counter', style: this.style },
+        numbersNodes
+      );
+    }
+  }]);
+
+  return Counter;
+}(_react2.default.Component);
+
+exports.default = Counter;
+
+var Numbers = function (_React$Component2) {
+  _inherits(Numbers, _React$Component2);
+
+  function Numbers(props) {
+    _classCallCheck(this, Numbers);
+
+    var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Numbers).call(this, props));
+
+    _this2.direction = _this2.props.direction || 'up';
+    _this2.from = parseInt(_this2.props.from);
+    _this2.to = parseInt(_this2.props.to);
+    _this2.countTime = 100;
+    _this2.delay = (_this2.props.digit - 1) * _this2.countTime / 1.5 * (_this2.to - 1);
+
+    _this2.style = {
+      display: 'inline-block',
+      position: 'relative',
+      top: 0,
+      transition: 'top 0.1s ease-in'
+    };
+    _this2.countStyle = {
+      width: '75px',
+      height: '100%',
+      lineHeight: '100%'
+    };
+    return _this2;
+  }
+
+  _createClass(Numbers, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      setTimeout(function () {
+        // if(this.to === 0) {
+        //   this.setTop(10);
+        //   return;
+        // }
+        var count = this.from;
+        var timer = setInterval(function () {
+          if (count >= this.to - 1) clearInterval(timer);
+          this.setTop(count += 1);
+        }.bind(this), this.countTime);
+      }.bind(this), this.delay);
+    }
+  }, {
+    key: 'setTop',
+    value: function setTop(top) {
+      this.refs.numbers.style.top = '-' + top * 100 + 'px';
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'numbers', ref: 'numbers', style: this.style },
+        _react2.default.createElement(
+          'div',
+          { style: this.countStyle },
+          '0'
+        ),
+        _react2.default.createElement(
+          'div',
+          { style: this.countStyle },
+          '1'
+        ),
+        _react2.default.createElement(
+          'div',
+          { style: this.countStyle },
+          '2'
+        ),
+        _react2.default.createElement(
+          'div',
+          { style: this.countStyle },
+          '3'
+        ),
+        _react2.default.createElement(
+          'div',
+          { style: this.countStyle },
+          '4'
+        ),
+        _react2.default.createElement(
+          'div',
+          { style: this.countStyle },
+          '5'
+        ),
+        _react2.default.createElement(
+          'div',
+          { style: this.countStyle },
+          '7'
+        ),
+        _react2.default.createElement(
+          'div',
+          { style: this.countStyle },
+          '6'
+        ),
+        _react2.default.createElement(
+          'div',
+          { style: this.countStyle },
+          '8'
+        ),
+        _react2.default.createElement(
+          'div',
+          { style: this.countStyle },
+          '9'
+        ),
+        _react2.default.createElement(
+          'div',
+          { style: this.countStyle },
+          '0'
+        )
+      );
+    }
+  }]);
+
+  return Numbers;
+}(_react2.default.Component);
+
+},{"react":167}],178:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -26301,7 +26484,7 @@ var CurvedShelf = function (_AkebiSVGComponent) {
 
 exports.default = CurvedShelf;
 
-},{"./AkebiSVGComponent.jsx":175,"react":167}],178:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":175,"react":167}],179:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -26359,7 +26542,7 @@ var Floor = function (_AkebiSVGComponent) {
 
 exports.default = Floor;
 
-},{"./AkebiSVGComponent.jsx":175,"./basic/Rect.jsx":183,"react":167}],179:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":175,"./basic/Rect.jsx":184,"react":167}],180:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -26465,7 +26648,7 @@ var Shelf = function (_AkebiSVGComponent) {
 
 exports.default = Shelf;
 
-},{"./AkebiSVGComponent.jsx":175,"./basic/Point.jsx":182,"./basic/Rect.jsx":183,"decimal.js":1,"react":167}],180:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":175,"./basic/Point.jsx":183,"./basic/Rect.jsx":184,"decimal.js":1,"react":167}],181:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -26523,7 +26706,7 @@ var Beacon = function (_AkebiSVGComponent) {
 
 exports.default = Beacon;
 
-},{"./AkebiSVGComponent.jsx":175,"./basic/Rect.jsx":183,"react":167}],181:[function(require,module,exports){
+},{"./AkebiSVGComponent.jsx":175,"./basic/Rect.jsx":184,"react":167}],182:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -26649,7 +26832,7 @@ var MultiPolygon = function (_React$Component) {
 
 exports.default = MultiPolygon;
 
-},{"./Point.jsx":182,"decimal.js":1,"react":167}],182:[function(require,module,exports){
+},{"./Point.jsx":183,"decimal.js":1,"react":167}],183:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -26698,7 +26881,7 @@ var Point = function (_React$Component) {
 
 exports.default = Point;
 
-},{"react":167}],183:[function(require,module,exports){
+},{"react":167}],184:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -26796,7 +26979,7 @@ var Rect = function (_React$Component) {
 
 exports.default = Rect;
 
-},{"./Point.jsx":182,"decimal.js":1,"react":167}],184:[function(require,module,exports){
+},{"./Point.jsx":183,"decimal.js":1,"react":167}],185:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -26849,6 +27032,10 @@ var _ScaleUI = require('./ScaleUI.jsx');
 
 var _ScaleUI2 = _interopRequireDefault(_ScaleUI);
 
+var _Counter = require('../Counter.jsx');
+
+var _Counter2 = _interopRequireDefault(_Counter);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26881,10 +27068,7 @@ var ArtBoard = function (_React$Component) {
     _this.backgroundColor = _this.props.backgroundColor || '#FFFFFF';
     // Todo: refactor
     // debug(this.props.geojson)
-    _this.svgs = [];
-    _this.props.geojson.forEach(function (feature) {
-      _this.createCompoenent(feature);
-    });
+    _this.test = _this.props.test === 'true' || false;
     return _this;
   }
 
@@ -26929,8 +27113,27 @@ var ArtBoard = function (_React$Component) {
       this.setState({});
     }
   }, {
-    key: 'createCompoenent',
-    value: function createCompoenent(feature) {
+    key: 'doPerfomanceTest',
+    value: function doPerfomanceTest() {
+      var svgs = [];
+
+      var y = 0;
+
+      var max = 100;
+      var width = 90;
+      var height = 26;
+      for (var i = 0; i < 10000; i++) {
+        var x = i % max * 95;
+        if (i % max === 0) {
+          y = y + 80;
+        }
+        svgs.push(_react2.default.createElement('rect', { x: x, y: y, width: width, height: height, fill: 'transparent', stroke: 'black' }));
+      }
+      return svgs;
+    }
+  }, {
+    key: 'createComponent',
+    value: function createComponent(feature) {
       // Todo: data structure design
       var geojson = feature.properties;
       // debug(geojson)
@@ -26947,25 +27150,35 @@ var ArtBoard = function (_React$Component) {
       if (geojson.type === 'shelf') {
         // debug(geojson.x)
         // debug(geojson.y)
-        this.svgs.push(_react2.default.createElement(_Shelf2.default, { key: geojson.id, geojson: geojson, fill: 'pink', color: 'red', drawPointFlag: 'false' }));
+        return _react2.default.createElement(_Shelf2.default, { key: geojson.id, geojson: geojson, fill: 'pink', color: 'red', drawPointFlag: 'false' });
       }
       if (geojson.type === 'beacon') {
-        this.svgs.push(_react2.default.createElement(_Beacon2.default, { key: geojson.id, geojson: geojson, fill: 'black', stroke: 'white' }));
+        return _react2.default.createElement(_Beacon2.default, { key: geojson.id, geojson: geojson, fill: 'black', stroke: 'white' });
       }
       if (geojson.type === 'wall') {
         geojson.width = new Decimal(geojson.width_scale).times(100);
         geojson.height = new Decimal(geojson.height_scale).times(100);
-        this.svgs.push(_react2.default.createElement(_Wall2.default, { key: geojson.id, geojson: geojson, fill: 'black', stroke: 'black' }));
+        return _react2.default.createElement(_Wall2.default, { key: geojson.id, geojson: geojson, fill: 'black', stroke: 'black' });
       }
       if (geojson.type === 'floor') {
         geojson.width = geojson.width_cm;
         geojson.height = geojson.height_cm;
-        this.svgs.push(_react2.default.createElement(_Floor2.default, { key: geojson.id, geojson: geojson }));
+        return _react2.default.createElement(_Floor2.default, { key: geojson.id, geojson: geojson });
       }
     }
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
+      var components = null;
+      if (this.test) {
+        components = this.doPerfomanceTest();
+      } else {
+        components = this.props.geojson.map(function (feature) {
+          return _this2.createComponent(feature);
+        });
+      }
       return _react2.default.createElement(
         'div',
         { id: 'ArtBoard', ref: 'ArtBoard' },
@@ -26974,7 +27187,7 @@ var ArtBoard = function (_React$Component) {
           'svg',
           { xmlns: 'http://www.w3.org/2000/svg', ref: 'svg', viewBox: this.getViewBox(), width: this.width, height: this.height, style: { backgroundColor: this.backgroundColor, transform: this.getScale() } },
           _react2.default.createElement(_Grid2.default, { width: this.width, height: this.height }),
-          this.svgs
+          components
         )
       );
     }
@@ -27021,7 +27234,7 @@ var ArtBoard = function (_React$Component) {
 
 exports.default = ArtBoard;
 
-},{"./../Beacon.jsx":176,"./../CurvedShelf.jsx":177,"./../Floor.jsx":178,"./../Shelf.jsx":179,"./../Wall.jsx":180,"./../basic/MultiPolygon.jsx":181,"./../basic/Point.jsx":182,"./../basic/Rect.jsx":183,"./Grid.jsx":185,"./ScaleUI.jsx":186,"decimal.js":1,"react":167}],185:[function(require,module,exports){
+},{"../Counter.jsx":177,"./../Beacon.jsx":176,"./../CurvedShelf.jsx":178,"./../Floor.jsx":179,"./../Shelf.jsx":180,"./../Wall.jsx":181,"./../basic/MultiPolygon.jsx":182,"./../basic/Point.jsx":183,"./../basic/Rect.jsx":184,"./Grid.jsx":186,"./ScaleUI.jsx":187,"decimal.js":1,"react":167}],186:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27075,7 +27288,7 @@ var Grid = function (_React$Component) {
 
 exports.default = Grid;
 
-},{"decimal.js":1,"react":167}],186:[function(require,module,exports){
+},{"decimal.js":1,"react":167}],187:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27147,7 +27360,7 @@ var ScaleUI = function (_React$Component) {
 
 exports.default = ScaleUI;
 
-},{"react":167}],187:[function(require,module,exports){
+},{"react":167}],188:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27228,4 +27441,4 @@ var App = function (_React$Component) {
 
 exports.default = App;
 
-},{"./ArtBoard.jsx":184,"react":167}]},{},[174]);
+},{"./ArtBoard.jsx":185,"react":167}]},{},[174]);

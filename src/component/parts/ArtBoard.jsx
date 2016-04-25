@@ -37,15 +37,7 @@ export default class ArtBoard extends React.Component {
     this.backgroundColor = this.props.backgroundColor || '#FFFFFF';
     // Todo: refactor
     // debug(this.props.geojson)
-    this.svgs = [];
-    this.test = this.props.test || false;
-    if(this.test) {
-      this.doPerfomanceTest();
-    } else {
-      this.props.geojson.forEach((feature)=> {
-        // this.createCompoenent(feature);
-      });
-    }
+    this.test = this.props.test === 'true' || false;
   }
   componentDidMount() {
     // debug(this.refs.ArtBoard.clientHeight)
@@ -76,6 +68,8 @@ export default class ArtBoard extends React.Component {
     this.setState({});
   }
   doPerfomanceTest() {
+    let svgs = [];
+
     let y = 0;
 
     let max = 100;
@@ -86,8 +80,9 @@ export default class ArtBoard extends React.Component {
       if(i % max === 0) {
         y = y + 80;
       }
-      this.svgs.push(<rect x={x} y={y} width={width} height={height} fill="transparent" stroke="black"></rect>);
+      svgs.push(<rect x={x} y={y} width={width} height={height} fill="transparent" stroke="black"></rect>);
     }
+    return svgs;
   }
   createComponent(feature) {
     // Todo: data structure design
@@ -123,14 +118,20 @@ export default class ArtBoard extends React.Component {
     }
   }
   render() {
+    let components = null;
+    if(this.test) {
+      components = this.doPerfomanceTest();
+    } else {
+      components = this.props.geojson.map((feature)=> {
+        return this.createComponent(feature);
+      });
+    }
     return (
       <div id="ArtBoard" ref="ArtBoard">
         <ScaleUI upScale={this.upScale.bind(this)} downScale={this.downScale.bind(this)} scalePercent={this.scaleStep[this.scaleIndex]} />
         <svg xmlns="http://www.w3.org/2000/svg" ref="svg" viewBox={this.getViewBox()} width={this.width} height={this.height} style={{backgroundColor: this.backgroundColor, transform: this.getScale()}}>
           <Grid width={this.width} height={this.height}></Grid>
-          {this.props.geojson.map((feature)=> {
-            return this.createComponent(feature);
-          })}
+          {components}
           {/*
           <div style={{color: 'black', position:'fixed', zIndex: 10000}}>
             <Counter to="9999" from="0"></Counter>rects

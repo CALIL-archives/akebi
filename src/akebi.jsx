@@ -109,6 +109,8 @@ getGlobal().akebi = class {
     request
       .get('example/sample.json')
       .send({})
+      // .get('https://app.haika.io/api/floor/load')
+      // .send({id: 15})
       // .set('Accept', 'application/json')
       .end(function(error, res) {
         if(!error) {
