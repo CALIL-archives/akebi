@@ -44,7 +44,7 @@
     "gulp-postcss": "^6.1.0",
     "gulp-sass": "^2.2.0",
     "gulp-sourcemaps": "^1.6.0",
-    "superagent": "^1.7.2",
+    "superagent": "^5.0.2",
     "susy": "^2.2.12",
     "vinyl-source-stream": "^1.1.0"
   },
@@ -53,6 +53,6 @@
     "get-global": "0.0.1",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
-    "superagent": "^1.8.3"
+    "superagent": "^5.0.2"
   }
 }
