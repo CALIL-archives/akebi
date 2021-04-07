@@ -1,0 +1,99 @@
+* {
+  box-sizing: border-box; }
+
+html, body {
+  height: 100%; }
+
+body {
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #941DCD;
+  padding: 0;
+  margin: 0; }
+  body label.open {
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-right: 1rem;
+    padding: 1rem;
+    border: 1px solid #ffffff; }
+    body label.open input {
+      display: none; }
+  body button.save {
+    cursor: pointer;
+    display: inline-block;
+    color: #ffffff;
+    font-size: 1rem;
+    background-color: transparent;
+    text-align: center;
+    margin: 2rem 0;
+    padding: 1rem;
+    border: 1px solid #ffffff; }
+    body button.save input {
+      display: none; }
+  body .dropzone {
+    border: 3px dashed #ffffff;
+    padding: 2rem;
+    margin: 2rem 0; }
+  body #akebi {
+    height: 100%; }
+  body #ArtBoard {
+    background: #3F3F3C;
+    height: 100%;
+    overflow: scroll; }
+    body #ArtBoard::-webkit-scrollbar {
+      width: 7px;
+      height: 5px;
+      background: #444; }
+    body #ArtBoard::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background: #444; }
+    body #ArtBoard::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background: #666; }
+    body #ArtBoard::-webkit-scrollbar-corner {
+      background: #444; }
+    body #ArtBoard > svg {
+      -webkit-transform-origin: center center;
+              transform-origin: center center;
+      -webkit-transition: -webkit-transform 0.2s ease-in-out;
+      transition: -webkit-transform 0.2s ease-in-out;
+      transition: transform 0.2s ease-in-out;
+      transition: transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out; }
+    body #ArtBoard #scaleUI {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      position: absolute;
+      bottom: 50px;
+      right: 50px;
+      z-index: 1; }
+      body #ArtBoard #scaleUI button {
+        cursor: pointer;
+        font-size: 1.5rem;
+        padding: 10px 20px;
+        background: #ffffff;
+        border: 1px solid #CCCCCC; }
+        body #ArtBoard #scaleUI button:hover {
+          background: #fffec1; }
+      body #ArtBoard #scaleUI #scalePercent {
+        display: inline-block;
+        color: #000000;
+        background: #ffffff;
+        width: 6rem;
+        text-align: center;
+        padding: 15px 20px;
+        border-top: 1px solid #CCCCCC;
+        border-bottom: 1px solid #CCCCCC; }
+
+#debug {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  background: black;
+  padding: 2rem; }
